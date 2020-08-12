@@ -1,0 +1,146 @@
+.basicSearchArea{
+    display: flex;
+}
+
+.advanceSearchAreaBackground {
+    width:100%;
+    height:0%;
+    background-image:linear-gradient(#000000,#ffffff80);
+    margin:10px 0px 0px 0px;
+    position:fixed;
+    z-index:5;
+    left:0px;
+    transition-duration:2s;
+    transition-property: height;
+}
+
+.advanceSearchAreaSubmitButton{
+    user-select: none;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    font-family: 'Microsoft JhengHei';
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0px 4px 4px 0px;
+    background-color: #c4c4c4;
+    color: #000000;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.advanceSearchAreaSubmitButton:hover{
+    background-color: #dddddd;
+    color: #000000;
+}
+
+.ToggleAdvanceAreaButton{
+    user-select: none;
+    margin-left: 10px;
+    width: 140px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    font-family: 'Microsoft JhengHei';
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #c4c4c4;
+    color: #000000;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.ToggleAdvanceAreaButton:hover{
+    background-color: #dddddd;
+    color: #000000;
+}
+
+.advanceSearchAreaCellTitle{
+    height: 20px;
+    margin: 5px;
+    text-align: right;
+    line-height: 20px;
+}
+
+.advanceSearchAreaCellSelect{
+    margin: 5px 10px 5px 0px;
+    width: 100px;
+}
+
+.advanceSearchAreaRemoveButton{
+    background-color: #ffa2a2;
+    width: 100px;
+    height: 20px;
+    line-height: 15px;
+    margin: 5px 0px 5px 25px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.advanceSearchAreaRemoveButton:hover{
+    background-color: lightcoral;
+    border-color: white;
+    color: white;
+}
+
+.advanceSearchAreaAddButton{
+    background-color: #63cac5;
+    width: 100px;
+    height: 20px;
+    line-height: 15px;
+    margin: 10px 0px 5px 25px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: black;
+    text-align: center;
+    font-size: 25px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.advanceSearchAreaAddButton:hover{
+    background-color: #8acfcc;
+    border-color: white;
+    color: white;
+}
+
+.advanceSearchAreaConditionRow{
+    display:flex;
+    width:50%;
+    min-width: 450px;
+    margin:auto;
+    /*border:1px solid;*/
+    background-color: #afc9ca;
+    border-radius: 5px;
+    padding: 0px 0px 0px 10px;
+}
+
+.executeAdvanceSearchButton{
+    user-select: none;
+    margin: 10px 0px 5px 25px;
+    width: 120px;
+    height: 24px;
+    font-size: 15px;
+    line-height: 24px;
+    font-family: 'Microsoft JhengHei';
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #c4c4c4;
+    color: #000000;
+    cursor: pointer;
+}
+
+.executeAdvanceSearchButton:hover{
+    background-color: #dddddd;
+    border-color: white;
+    color: white;
+}
+

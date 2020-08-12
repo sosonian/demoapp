@@ -1,0 +1,8 @@
+.aHyperLink {
+    color:#32f1ff;
+}
+
+.aHyperLink:hover {
+    color:#c6f2ff;
+    cursor: pointer;
+}

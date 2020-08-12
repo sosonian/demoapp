@@ -1,0 +1,18 @@
+.FlashCountBadge {
+    width: 20px;
+    height: 20px;
+    transition: all 0.5s ease-in;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+}
+
+.FlashCountBadge.Red {
+    background-color: red;
+    color: white;
+}
+
+.FlashCountBadge.Blue {
+    background-color: blue;
+    color: white;
+}

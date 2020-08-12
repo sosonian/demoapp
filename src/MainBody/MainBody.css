@@ -1,0 +1,42 @@
+
+.MainBody{
+  position: relative;
+}
+
+.BackgroundImage {
+    position: fixed;
+    left:0;
+    right:0;
+    background-color: #282c34;
+    background-image: url(../Utilites/Taiwan_Film_Institute_title_20170123.jpg);
+    background-position: center;
+    background-size: cover;
+    filter: sepia(50%) blur(2px);
+    min-height: 100vh;
+    display: flex;
+    color: white;
+  }
+
+.MainContainer{
+  position: absolute;
+  display: flex;
+  flex-direction:column;
+  width: 100%;
+  
+  left:0;
+  right:0;
+  z-index:50;
+}
+
+.BufferArea {
+  width: 100%;
+  height: 120px;
+}
+
+.UpHeader{
+  position: fixed;
+  width: 100%;
+  height: auto;
+  z-index: 100;
+
+}

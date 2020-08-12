@@ -1,0 +1,101 @@
+.chatChannel{
+    width:250px;
+    height: 350px;
+    background: seashell;
+    position: fixed;
+    z-index: 60;
+    right: 250px;
+    bottom: 70px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.chatChannelHeader{
+    display: flex;
+    border-bottom: 1px solid #d0d0d0;
+    box-shadow: 0px 1px 5px grey;
+}
+
+.chatChannelLabel{
+    font-family: Microsoft JhengHei;
+    margin: 5px;
+}
+
+.chatChannelInput{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+
+.leftChatRow{
+    width: 85%;
+    display: inline-grid;
+}
+
+.rightChatRow{
+    float: right;
+    width: 85%;
+    display: inline-grid;
+}
+
+.chatRowHeader{
+    display: block;
+}
+
+.chatRowName{
+    font-family: Microsoft JhengHei;
+    margin: 5px 5px 0px 5px;
+    font-size: 10px;
+    float: left;
+}
+
+.chatRowTime{
+    font-family: Microsoft JhengHei;
+    float: right;
+    font-size: 10px;
+    color: burlywood;
+    margin: 5px 5px 0px 5px;
+}
+
+.leftChatMessage{
+    border: 1px solid black;
+    background-color: antiquewhite;
+    font-family: Microsoft JhengHei;
+    font-size: 14px;
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    border-radius: 0px 10px 10px 10px;
+}
+
+.rightChatMessage{
+    border: 1px solid black;
+    background-color: #ffd59d;
+    font-family: Microsoft JhengHei;
+    font-size: 14px;
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    border-radius: 10px 0px 10px 10px;
+}
+
+.chatRowContainer{
+    overflow-y: scroll;
+    height: 75%;
+}
+
+.chatRowBottom{
+    width: 75%;
+    height: 50px;
+}
+
+.chatChannelButton{
+    position: absolute;
+    margin: 5px;
+    right: 35px;
+    color: chocolate;
+    line-height: 30px;
+}
+
+.chatChannelButton:hover{
+    color:burlywood;
+    cursor: pointer;
+}

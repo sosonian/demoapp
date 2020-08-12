@@ -1,0 +1,68 @@
+class IntroListState {
+    constructor () {
+        this.state = [
+            {
+                optionID:0,
+                optionName:'beginstory',
+                optionTitle:'TFI藏品收藏緣起',
+                category:0,
+            },
+            {
+                optionID:1,
+                optionName:'archiveintro',
+                optionTitle:'TFI片庫簡介',
+                category:0,
+            },
+            {
+                optionID:2,
+                optionName:'archivestrategy',
+                optionTitle:'TFI藏品收集原則',
+                category:0,
+            },
+            {
+                optionID:3,
+                optionName:'archivestatic',
+                optionTitle:'TFI藏品統計',
+                category:0,
+            },
+            {
+                optionID:4,
+                optionName:'archiveandmovie',
+                optionTitle:'電影作品與藏品之關聯',
+                category:1,
+            },
+            {
+                optionID:5,
+                optionName:'aboutarchiveicon',
+                optionTitle:'藏品圖示說明',
+                category:1,
+            },
+            {
+                optionID:6,
+                optionName:'aboutarchivefield',
+                optionTitle:'藏品欄位資訊說明',
+                category:1,
+            },
+            {
+                optionID:7,
+                optionName:'aboutarchivecopyright',
+                optionTitle:'藏品相關著作權說明',
+                category:2,
+            },
+            {
+                optionID:8,
+                optionName:'archiveusageandfee',
+                optionTitle:'藏品利用及收費辦法',
+                category:2,
+            },
+            {
+                optionID:9,
+                optionName:'applytoborrowarchive',
+                optionTitle:'藏品利用申請程序',
+                category:2,
+            }, 
+        ]
+    }
+}
+
+export default IntroListState

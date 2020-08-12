@@ -1,0 +1,15 @@
+.IntroListOption {
+    width:300px;
+    height:40px;
+    font-size:18px;
+    line-height:40px;
+    font-family:'Microsoft JhengHei';
+    color: black;
+    transition: background-color 0.1s linear;
+}
+
+.IntroListOption:hover {
+    background-color: #3a485a ;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,37 @@
+.ResultListMainBody{
+    display: flex;
+    font-family: "Microsoft JhengHei";
+}
+
+.ResultListInfoArea{
+    background-color: aliceblue;
+    display: flex;
+}
+
+.ResultListInfoAreaRow{
+    display: flex;
+    width:25%
+}
+
+.ResultListInfoAreaRowTitle{
+    width:50%;
+    margin: 10px;
+}
+
+.ResultListInfoAreaRowContent{
+    width: 50%;
+    margin: 10px;
+    font-weight: bolder
+}
+
+.ResultListLeftArea{
+    width: 20%
+}
+
+.ResultListRightArea{
+    width: 80%
+}
+
+.ResultListInfoAreaRowParent{
+    display: flex;
+}
