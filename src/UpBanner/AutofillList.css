@@ -20,6 +20,16 @@
     font-family: "Microsoft JhengHei";
 }
 
+.basicSearchAreaAutofillListOptionSelected{
+    cursor: pointer;
+    text-align: left;
+    height: 30px;
+    font-size: 15px;
+    line-height: 30px;
+    font-family: "Microsoft JhengHei";
+    background-color:#d6fcff
+}
+
 .basicSearchAreaAutofillListOption:hover {
     background-color:#d6fcff;
     

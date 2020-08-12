@@ -125,6 +125,8 @@ class ResultListMainBody extends Component {
                     })
                 }             
             })
+
+            this.getMetaByAdvanceQuery()
         }
     }
 
@@ -188,6 +190,7 @@ class ResultListMainBody extends Component {
         console.log("getMetaByBasicQuery...")
        
         let queryWords = encodeURI(JSON.stringify(this.state.searchWord))
+        console.log("querywords : ", queryWords)
 
         let tempState = {}
         
@@ -255,12 +258,79 @@ class ResultListMainBody extends Component {
                 metaInfo:tempState
             })
         }
-        
+    }
 
-        //if(msgCategory.status !== 200) throw Error(msgCategory.message)
+    getMetaByAdvanceQuery = async()=>{
+        console.log("getMetaByAdvanceQuery...")
+       
+        let queryWords = encodeURI(JSON.stringify(this.state.searchWord))
+
+        let tempState = {}
         
-        //console.log(output)
+        let msgCategory = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Category/query/'+queryWords)
+        let msgProducer = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Producer/query/'+queryWords)
+        let msgProductionCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionCompany/query/'+queryWords)
+        let msgProductionDate = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionDate/query/'+queryWords)
+        let msgProductionLocation = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionLocation/query/'+queryWords)
+        let msgActorName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ActorName/query/'+queryWords)
+        let msgStaffName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffName/query/'+queryWords)
+        let msgStaffCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffCompany/query/'+queryWords)
+
+        let outputCategory = await msgCategory.json()
+        let outputProducer = await msgProducer.json()
+        let outputProductionCompany = await msgProductionCompany.json()
+        let outputProductionDate = await msgProductionDate.json()
+        let outputProductionLocation = await msgProductionLocation.json()
+        let outputActorName = await msgActorName.json()
+        let outputStaffName = await msgStaffName.json()
+        let outputStaffCompany = await msgStaffCompany.json()
+
+        if(outputCategory)
+        {
+            tempState.Category = outputCategory
+        }
+
+        if(outputProducer)
+        {
+            tempState.Producer = outputProducer
+        }
+
+        if(outputProductionCompany)
+        {
+            tempState.ProductionCompany = outputProductionCompany
+        }
         
+        if(outputProductionDate)
+        {
+            tempState.ProductionDate = outputProductionDate
+        }
+
+        if(outputProductionLocation)
+        {
+            tempState.ProductionLocation = outputProductionLocation
+        }
+        
+        if(outputActorName)
+        {
+            tempState.ActorName = outputActorName
+        }
+
+        if(outputStaffName)
+        {
+            tempState.StaffName = outputStaffName
+        }
+
+        if(outputStaffCompany)
+        {
+            tempState.StaffCompany = outputStaffCompany
+        }
+        
+        if(tempState !== this.state.metaInfo)
+        {
+            this.setState({
+                metaInfo:tempState
+            })
+        }
     }
 
     getRecordByAdvanceSearch = async()=>{
@@ -435,18 +505,135 @@ class ResultListMainBody extends Component {
         {
             let tempCount = 0
             let tempArray = Object.keys(this.state.metaInfo)
-            tempArray.forEach(field=>{
-                let metaArray = this.state.metaInfo[field]
-                
-
+            tempArray.sort((a, b)=>{
+                if(this.state.metaInfo[a][0] && this.state.metaInfo[b][0])
+                {
+                    if(this.state.metaInfo[a][0].sumCount > this.state.metaInfo[b][0].sumCount)
+                    {
+                        return -1
+                    }
+                }
+                else if(this.state.metaInfo[b][0] && !this.state.metaInfo[a][0])
+                {
+                    return -1
+                }
+                else if(this.state.metaInfo[a][0] && !this.state.metaInfo[b][0])
+                {
+                    return -1
+                }
+                else
+                {
+                    return 0 
+                }
             })
 
+            console.log(tempArray)
+            
+
+            let output = tempArray.map(field=>{
+                if(this.state.metaInfo[field].length>0)
+                {
+                    console.log(this.state.metaInfo[field])
+                    return (
+                        <div className={"MetaInfoArea"}>
+                            <div className={"MetaInfoTitle"}>
+                                {this.transTitle(field)}
+                            </div>
+                            <div>
+                                {this.state.metaInfo[field].map(row=>{
+                                    return (this.createMetaRow(field, row))
+                                })}
+                            </div>
+                        </div>
+                    )
+                }
+                else
+                {
+                    return <div></div>
+                }
+            })
+
+            
+            return output
         }
         else
         {
             return null
         }
+    }
 
+    transTitle=(field)=>{
+        switch(field){
+            case "ActorName":
+                return "相關演出人員"
+            case "Category":
+                return "相關分類"
+            case "Producer":
+                return "相關出品人"
+            case "ProductionCompany":
+                return "相關出品公司"
+            case "ProductionDate":
+                return "相關出品日期"
+            case "ProductionLocation":
+                return "相關出品地點"
+            case "StaffCompany":
+                return "相關參與製作公司"
+            case "StaffName":
+                return "相關工作人員"
+        }
+    }
+
+    createMetaRow=(type, row)=>{
+        switch(type){
+            case "ActorName":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_ActorName+" ("+row.Count+")"}</div>
+                    </div>
+                )
+            case "Category":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_SubCategoryOne+" / "+row.Movie_SubCategoryTwo+" ("+row.Count+")"}</div>
+                    </div>
+                )
+            case "Producer":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_Producer+" ("+row.Count+")"}</div>
+                    </div>
+                )
+            case "ProductionCompany":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_ProductionCompany+" ("+row.Count+")"}</div>
+                    </div>
+                )
+            case "ProductionDate":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_ProductionDate+" ("+row.Count+")"}</div>
+                    </div>
+                )
+            case "ProductionLocation":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_ProductionLocation+" ("+row.Count+")"}</div>
+                    </div>
+                )
+            case "StaffCompany":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_Company+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
+                    </div>
+                )
+            case "StaffName":
+                return (
+                    <div className={"MetaInfoRow"}>
+                        <div className={"MetaInfoContent"}>{row.Movie_StaffName+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
+                    </div>
+                )
+        }
     }
 
     render(){

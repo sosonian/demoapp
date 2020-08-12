@@ -10,6 +10,7 @@ class RecordSearchArea extends Component {
            advanceSearchWord:null,
            showAdvancedSearchArea:false,
            showAutofillList:false,
+           selectedAutofillList:0
         }
     }
 
@@ -46,14 +47,16 @@ class RecordSearchArea extends Component {
             {
                 this.setState({
                     basicSearchWord:e.target.value,             
-                    showAutofillList:true
+                    showAutofillList:true,
+                    selectedAutofillList:0
                 })
             }    
             else
             {
                 this.setState({
                     basicSearchWord:e.target.value,             
-                    showAutofillList:false
+                    showAutofillList:false,
+                    selectedAutofillList:0
                 })
             }       
         }
@@ -65,7 +68,8 @@ class RecordSearchArea extends Component {
         {              
             this.setState({
                 basicSearchWord:msg,             
-                showAutofillList:false
+                showAutofillList:false,
+                selectedAutofillList:0
             },()=>{
                 this.handleSearchInfo("basic")
             })           
@@ -78,6 +82,7 @@ class RecordSearchArea extends Component {
     }
 
     handleSearchInfo = (type,e) => {
+        console.log("handleSearchInfo")
         if(e)
         {
             e.preventDefault()
@@ -105,7 +110,8 @@ class RecordSearchArea extends Component {
                     this.setState({
                         advanceSearchWord:tempArray,
                         showAdvancedSearchArea:false,
-                        showAutofillList:false
+                        showAutofillList:false,
+                        selectedAutofillList:0
                     },()=>{
                         this.props.getSearchInfo(msg)
                     })
@@ -121,7 +127,8 @@ class RecordSearchArea extends Component {
                     this.setState({
                         advanceSearchWord:tempArray,
                         showAdvancedSearchArea:false,
-                        showAutofillList:false
+                        showAutofillList:false,
+                        selectedAutofillList:0
                     },()=>{
                         this.props.getSearchInfo(msg)
                     })
@@ -138,7 +145,8 @@ class RecordSearchArea extends Component {
                 this.setState({
                     advanceSearchWord:tempArray,
                     showAdvancedSearchArea:false,
-                    showAutofillList:false
+                    showAutofillList:false,
+                    selectedAutofillList:0
                 },()=>{
                     this.props.getSearchInfo(msg)
                 })
@@ -342,7 +350,54 @@ class RecordSearchArea extends Component {
         if(this.state.showAutofillList)
         {
             this.setState({
-                showAutofillList:false
+                showAutofillList:false,
+                selectedAutofillList:0
+            })
+        }
+    }
+
+    onKeyDown=(e)=>{
+        console.log("KeyDown : ", e.key)
+        if(e.key === "Enter")
+        {
+            this.handleSearchInfo("basic",null)   
+        }
+        else if(e.key === "ArrowDown")
+        {
+            if(this.state.showAutofillList)
+            {
+                this.setState({
+                    selectedAutofillList : this.state.selectedAutofillList + 1
+                })
+            }
+        }
+        else if(e.key === "ArrowUp")
+        {
+            if(this.state.showAutofillList)
+            {
+                this.setState({
+                    selectedAutofillList : this.state.selectedAutofillList - 1
+                })
+            }
+        }
+        else if(e.key === "Escape")
+        {
+            if(this.state.showAutofillList)
+            {
+                this.setState({
+                    showAutofillList:false,
+                    selectedAutofillList:0
+                })
+            }
+        }
+
+    }
+
+    returnKeyword=(msg)=>{
+        if(msg !== this.state.basicSearchWord)
+        {
+            this.setState({
+                basicSearchWord:msg
             })
         }
     }
@@ -378,8 +433,8 @@ class RecordSearchArea extends Component {
                 <div className="basicSearchArea">
                     <div style={{display:"flex"}}>
                         <div>
-                            <input style={this.state.basicSearchWord === "查詢全欄位，可用 AND、OR 布林邏輯" ? inputTextDefaultStyle:inputTextStyle} type="text" value={this.state.basicSearchWord ? this.state.basicSearchWord : "" } onChange={this.onBasicSearchWordInput} /* onBlur={this.toggleAutofillList} */ />
-                            {this.state.showAutofillList ?<AutofillList basicSearchWord={this.state.basicSearchWord} ipAddress={this.props.ipAddress} getKeyword={this.getKeyword}/> : null }
+                            <input style={this.state.basicSearchWord === "查詢全欄位，可用 AND、OR 布林邏輯" ? inputTextDefaultStyle:inputTextStyle} type="text" value={this.state.basicSearchWord ? this.state.basicSearchWord : "" } onChange={this.onBasicSearchWordInput} onKeyDown={(e)=>this.onKeyDown(e)}/* onBlur={this.toggleAutofillList} */ />
+                            {this.state.showAutofillList ?<AutofillList basicSearchWord={this.state.basicSearchWord} selectedIndex={this.state.selectedAutofillList} ipAddress={this.props.ipAddress} getKeyword={this.getKeyword} returnKeyword={this.returnKeyword}/> : null }
                         </div>
                         <div className="advanceSearchAreaSubmitButton" onClick={(e)=>this.handleSearchInfo("basic",e)}>查詢</div>         
                     </div>

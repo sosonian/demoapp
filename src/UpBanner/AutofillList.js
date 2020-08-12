@@ -11,20 +11,30 @@ class AutofillList extends Component {
     }
 
     componentDidMount(){
+        this.loadAutofillWord()
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.basicSearchWord !== prevProps.basicSearchWord)
+        if(this.props.basicSearchWord !== prevProps.basicSearchWord && this.props.selectedIndex === 0)
         {           
             this.loadAutofillWord()        
+        }
+
+        if(this.props.selectedIndex !== prevProps.selectedIndex)
+        {
+            if(this.state.autofillWord && this.state.autofillWord[this.props.selectedIndex-1])
+            {
+                this.props.returnKeyword(this.state.autofillWord[this.props.selectedIndex-1].Keyword)
+
+            }
         }
     }
 
     createRecommandWord=()=>{
         if(this.state.autofillWord)
         {
-            let list = this.state.autofillWord.map(word=>{
-                return <div className={"basicSearchAreaAutofillListOption"} onClick={(e)=>{this.getKeyword(e,word.Keyword)}}>{word.Keyword}</div>
+            let list = this.state.autofillWord.map((word,index)=>{
+                return <div className={index === this.props.selectedIndex-1 ?"basicSearchAreaAutofillListOptionSelected" :"basicSearchAreaAutofillListOption"} onClick={(e)=>{this.getKeyword(e,word.Keyword)}}>{word.Keyword}</div>
             })
             return list
         }

@@ -3,7 +3,7 @@
     height: 350px;
     background: seashell;
     position: fixed;
-    z-index: 60;
+    z-index: 101;
     right: 250px;
     bottom: 70px;
     border: 1px solid;

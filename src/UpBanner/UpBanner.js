@@ -10,47 +10,46 @@ class UpBanner extends Component {
         super(props)
         this.state = {
             basicSearchWord:"查詢全欄位，可用 AND、OR 布林邏輯",
-            redirect:false,
-            searchInfo:null
+            searchInfo:null,
+            url:"/"
         }
     }
 
     getLogoClick=(msg)=>{
-        this.props.getLogoClick(msg)
+        this.setState({
+            searchInfo:null,
+            redirect:false
+        },()=>{
+            this.props.getLogoClick(msg)
+        })
+    }
+
+    goToFrontPage=()=>{
+        if(this.state.url !== "/")
+        {
+            this.setState({
+                searchInfo:null,
+                url:"/"
+            })
+        }
     }
 
     getSearchInfo=(msg)=>{
+        let uriQuery = encodeURIComponent(JSON.stringify(msg.searchWord))
+        let url = '/SearchResult/searchType/'+msg.type+'/query/'+uriQuery
         this.setState({
             searchInfo:msg,
-            redirect:true
+            url:url
         })
-        //this.props.getSearchInfo(msg)
     }
-
-    getUrl=()=>{
-        if(this.state.searchInfo)
-        {
-            console.log("searchword : ")
-            console.log(this.state.searchInfo.searchWord)      
-            let uriQuery = encodeURIComponent(JSON.stringify(this.state.searchInfo.searchWord))
-            let url = '/SearchResult/searchType/'+this.state.searchInfo.type+'/query/'+uriQuery
-            return url
-        }
-        else
-        {
-            return null
-        }
-    }
-
-
 
     render(){
         
         return(
            
             <div className="UpBannerBody">
-                {this.state.redirect? <Redirect to={this.getUrl()}/>:null}
-               <LogoAndTitleDiv getLogoClick={this.getLogoClick} IntroListShowOrHide={this.props.IntroListShowOrHide}/>
+                <Redirect to={this.state.url}/>
+               <LogoAndTitleDiv getLogoClick={this.getLogoClick} goToFrontPage={this.goToFrontPage} IntroListShowOrHide={this.props.IntroListShowOrHide}/>
                <RecordSearchArea getSearchInfo={this.getSearchInfo} ipAddress={this.props.ipAddress}/>
             </div>
         )

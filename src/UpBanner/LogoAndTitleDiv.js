@@ -59,14 +59,14 @@ class LogoAndTitleDiv extends Component {
                 <div onClick={this.logoOnClickHandler}>
                     <LogoButton IntroListShowOrHide={this.props.IntroListShowOrHide}/>
                 </div>
-                <Link  to={"/"} style={{ textDecoration: 'none' }}>
-                <div className={"titleGroup"}>
+              
+                <div className={"titleGroup"} onClick={()=>this.props.goToFrontPage()}>
                     <div style={mdStyle}>{"國家電影中心藏品資料庫"}</div>
                     <div style={sdStyle}>
                         <div style={captial}>{"T"}</div>{"aiwan"}<div style={captial}>{"F"}</div>{"ilm"}<div style={captial}>{"I"}</div>{"nstitution Archives Database"}
                     </div>
                 </div>
-                </Link>
+              
             </div>
         )
     }

@@ -35,3 +35,27 @@
 .ResultListInfoAreaRowParent{
     display: flex;
 }
+
+.MetaInfoArea {
+    margin: 0px 20px 20px 20px;
+    background-color: burlywood;
+    border-radius: 10px;
+}
+
+.MetaInfoTitle {
+    background-color: azure;
+}
+
+.MetaInfoRow {
+
+}
+
+.MetaInfoRow:Hover {
+    background-color:#99fcff;
+    color: #ff8000;
+    cursor: pointer;
+}
+
+.MetaInfoContent {
+
+}
