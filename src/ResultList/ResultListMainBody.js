@@ -12,7 +12,7 @@ class ResultListMainBody extends Component {
             listData:null,
             limitNumber:50,
             pageNumber:1,
-            totalNumber:0,
+            totalNumber:"",
             orderType:"ASC",
             orderColumn:"Movie_TitleMain",
             searchType:"basic",
@@ -47,7 +47,10 @@ class ResultListMainBody extends Component {
         let query = JSON.parse(decodeURIComponent(this.props.match.params.query))
         this.setState({
             searchType:this.props.match.params.searchType,
-            searchWord:query
+            searchWord:query,
+            listData:null,
+            metaInfo:null,
+            totalNumber:"",
         },()=>{
             this.getRecord()
         })
@@ -496,7 +499,14 @@ class ResultListMainBody extends Component {
         }
         else
         {
-            return null
+            if(this.state.totalNumber === "")
+            {
+                return <div>{"產生後設資料中..."}</div>
+            }
+            else
+            {
+                return null
+            }
         }
     }
 
@@ -557,8 +567,8 @@ class ResultListMainBody extends Component {
             return output
         }
         else
-        {
-            return null
+        {      
+            return <div>{"產生後設資料中..."}</div>       
         }
     }
 

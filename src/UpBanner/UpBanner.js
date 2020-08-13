@@ -25,6 +25,7 @@ class UpBanner extends Component {
     }
 
     goToFrontPage=()=>{
+        console.log("goToFrontPage...")
         if(this.state.url !== "/")
         {
             this.setState({
@@ -44,13 +45,15 @@ class UpBanner extends Component {
     }
 
     render(){
+        console.log("UpBanner render...")
+        console.log(this.state.url)
         
         return(
            
             <div className="UpBannerBody">
                 <Redirect to={this.state.url}/>
-               <LogoAndTitleDiv getLogoClick={this.getLogoClick} goToFrontPage={this.goToFrontPage} IntroListShowOrHide={this.props.IntroListShowOrHide}/>
-               <RecordSearchArea getSearchInfo={this.getSearchInfo} ipAddress={this.props.ipAddress}/>
+                <LogoAndTitleDiv getLogoClick={this.getLogoClick} goToFrontPage={this.goToFrontPage} IntroListShowOrHide={this.props.IntroListShowOrHide}/>
+                <RecordSearchArea getSearchInfo={this.getSearchInfo} ipAddress={this.props.ipAddress}/>
             </div>
         )
     }
