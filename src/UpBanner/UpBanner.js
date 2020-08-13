@@ -11,6 +11,7 @@ class UpBanner extends Component {
         this.state = {
             basicSearchWord:"查詢全欄位，可用 AND、OR 布林邏輯",
             searchInfo:null,
+            //count:0,
             url:"/"
         }
     }
@@ -26,7 +27,21 @@ class UpBanner extends Component {
 
     goToFrontPage=()=>{
         console.log("goToFrontPage...")
-        if(this.state.url !== "/")
+        if(this.state.url === "/")
+        {
+            this.setState({
+                searchInfo:null,
+                url:"/default"
+            })
+        }
+        else if(this.state.url === "/default")
+        {
+            this.setState({
+                searchInfo:null,
+                url:"/"
+            })
+        }
+        else
         {
             this.setState({
                 searchInfo:null,

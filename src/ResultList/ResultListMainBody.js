@@ -501,7 +501,7 @@ class ResultListMainBody extends Component {
         {
             if(this.state.totalNumber === "")
             {
-                return <div>{"產生後設資料中..."}</div>
+                return <div>{"資料搜尋中..."}</div>
             }
             else
             {
@@ -562,8 +562,7 @@ class ResultListMainBody extends Component {
                     return <div></div>
                 }
             })
-
-            
+          
             return output
         }
         else
@@ -597,53 +596,58 @@ class ResultListMainBody extends Component {
         switch(type){
             case "ActorName":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ActorName+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "Category":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_SubCategoryOne+" / "+row.Movie_SubCategoryTwo+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "Producer":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_Producer+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "ProductionCompany":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ProductionCompany+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "ProductionDate":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ProductionDate+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "ProductionLocation":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ProductionLocation+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "StaffCompany":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_Company+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "StaffName":
                 return (
-                    <div className={"MetaInfoRow"}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
                         <div className={"MetaInfoContent"}>{row.Movie_StaffName+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
                     </div>
                 )
         }
+    }
+
+    rowClicked=(type, row)=>{
+        console.log("type : ", type)
+        console.log(row)
     }
 
     render(){
