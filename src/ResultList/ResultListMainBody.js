@@ -83,7 +83,15 @@ class ResultListMainBody extends Component {
             {
                 console.log("A1-2")
                 console.log(this.state.searchWord)
-                this.getRecordByBasicQueryValidation()
+                
+                // 預設排序邏輯  關聯性
+                // this.getRecordByBasicQueryValidation()
+                //
+                
+                // 預設排序邏輯  選擇欄位
+                this.getRecordByBasicSearch()
+                //
+
                 .then(res=>{
                     if(res[0])
                     {
