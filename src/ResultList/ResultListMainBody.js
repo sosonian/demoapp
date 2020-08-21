@@ -78,6 +78,8 @@ class ResultListMainBody extends Component {
                         totalNumber:res[0].Movie_TotalCount,
                     })             
                 })
+
+                this.getMetaByBasicQuery()
             }
             else
             {
@@ -366,23 +368,30 @@ class ResultListMainBody extends Component {
 
     getSearchWords=()=>{
        
-        if(this.state.searchWord)
-        {
+        //if(this.state.searchWord)
+        //{
             
             if(this.state.searchType === "basic")
-            {               
+            { 
                 let output = ""
-                this.state.searchWord.forEach((word,index) => {
-                    if(index === 0)
-                    {
-                        output = word.keyword
-                    }
-                    else
-                    {
-                        output = output+" "+word.boolean+" "+word.keyword 
-                    }
-                });
-
+                if(this.state.searchWord)      
+                {
+                    this.state.searchWord.forEach((word,index) => {
+                        if(index === 0)
+                        {
+                            output = word.keyword
+                        }
+                        else
+                        {
+                            output = output+" "+word.boolean+" "+word.keyword 
+                        }
+                    });
+                }
+                else
+                {
+                    output = "無關鍵字，搜尋全部資料"
+                }  
+                
                 return  <div className="ResultListInfoArea">
                         <div className="ResultListInfoAreaRow">
                             <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
@@ -434,12 +443,12 @@ class ResultListMainBody extends Component {
             {             
                 return null
             }
-        }
-        else
-        {
-            console.log("A2")
-            return null
-        }
+        //}
+        //else
+        //{
+            //console.log("A2")
+            //return null
+        //}
     }
 
     getColumnName=(name)=>{
