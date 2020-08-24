@@ -18,6 +18,7 @@ class ResultListMainBody extends Component {
             searchType:"basic",
             searchColumn:"All",
             metaInfo:null,
+            metaSelectedInfo:null,
             ipAddress:null
         }
     }
@@ -179,6 +180,8 @@ class ResultListMainBody extends Component {
         return output
     }
 
+    
+
     getRecordByBasicQueryValidation = async()=>{
         console.log("getRecordByBasicQueryValidation...")
         let limitNumber = this.state.limitNumber
@@ -273,6 +276,31 @@ class ResultListMainBody extends Component {
         }
     }
 
+    getRecordByBasicAndMetaSearch = async(metaInfo)=>{
+        console.log("proceed getRecordByBasicAndMetaSearch...")
+        let limitNumber = this.state.limitNumber
+        let pageNumber = this.state.pageNumber
+        let orderType = this.state.orderType
+        let orderColumn = this.state.orderColumn
+        let queryWords = encodeURI(JSON.stringify(this.state.searchWord))
+        let encodeMetaInfo = encodeURI(JSON.stringify(metaInfo))
+        console.log("limitNumber : ",limitNumber)
+        console.log("pageNumber : ",pageNumber)
+        console.log("orderType : ",orderType)
+        console.log("orderColumn : ",orderColumn)
+        console.log("queryWords : ",queryWords)
+
+        
+
+
+        let msg = await fetch(serverIP+'/api/movie/basicQuery/frontend/metaAndSearch/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords+'/metaInfo/'+encodeMetaInfo)
+
+        let output = await msg.json()
+        if(msg.status !== 200) throw Error(msg.message)
+        //console.log(output)
+        return output
+    }
+
     getMetaByAdvanceQuery = async()=>{
         console.log("getMetaByAdvanceQuery...")
        
@@ -346,6 +374,137 @@ class ResultListMainBody extends Component {
         }
     }
 
+    getRecordByAdvanceAndMetaSearch = async(metaInfo)=>{
+        console.log("getRecordByAdvanceAndMetaSearch...")
+        let limitNumber = this.state.limitNumber
+        let pageNumber = this.state.pageNumber
+        let orderType = this.state.orderType
+        let orderColumn = this.state.orderColumn
+        let objA={}
+        let objB={}
+
+        let tempArray = [...this.state.searchWord]
+
+        switch(metaInfo.type){
+            case "ActorName":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_ActorName",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                tempArray.push(objA)
+                break;
+            case "Category":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_SubCategoryOne",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                objB = {
+                    boolean:"AND",
+                    columnName:"Movie_SubCategoryTwo",
+                    keyword:metaInfo.keywordB,
+                    operator:"Equal"
+                }
+                tempArray.push(objA, objB)
+                break;
+            case "Producer":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_Producer",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                tempArray.push(objA)
+                break;                
+            case "ProductionCompany":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_ProductionCompany",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                tempArray.push(objA)
+                break;
+            case "ProductionDate":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_ProductionDate",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                tempArray.push(objA)
+                break;
+            case "ProductionLocation":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_ProductionLocation",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                tempArray.push(objA)
+                break;
+            case "StaffCompany":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_Company",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                objB = {
+                    boolean:"AND",
+                    columnName:"Movie_Position",
+                    keyword:metaInfo.keywordB,
+                    operator:"Equal"
+                }
+                tempArray.push(objA, objB)
+                break;
+            case "StaffName":
+                objA = {
+                    boolean:"AND",
+                    columnName:"Movie_StaffName",
+                    keyword:metaInfo.keywordA,
+                    operator:"Equal"
+                }
+
+                objB = {
+                    boolean:"AND",
+                    columnName:"Movie_Position",
+                    keyword:metaInfo.keywordB,
+                    operator:"Equal"
+                }
+                tempArray.push(objA, objB)
+                break;
+        }
+        
+        let queryWords = encodeURI(JSON.stringify(tempArray))
+        
+        console.log("limitNumber : ",limitNumber)
+        console.log("pageNumber : ",pageNumber)
+        console.log("orderType : ",orderType)
+        console.log("orderColumn : ",orderColumn)
+        console.log("queryWords : ",queryWords)
+
+        
+
+
+        let msg = await fetch(serverIP+'/api/movie/advanceQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords)
+
+        let output = await msg.json()
+        if(msg.status !== 200) throw Error(msg.message)
+        //console.log(output)
+        return output
+    }
+
     getRecordByAdvanceSearch = async()=>{
         console.log("proceed getRecordByAdvanceSearch...")
         let limitNumber = this.state.limitNumber
@@ -367,10 +526,7 @@ class ResultListMainBody extends Component {
     }
 
     getSearchWords=()=>{
-       
-        //if(this.state.searchWord)
-        //{
-            
+             
             if(this.state.searchType === "basic")
             { 
                 let output = ""
@@ -439,16 +595,555 @@ class ResultListMainBody extends Component {
                 
 
             }
-            else
+            else if(this.state.searchType === "basicMeta")
             {             
-                return null
+                let output = ""
+                if(this.state.searchWord)      
+                {
+                    this.state.searchWord.forEach((word,index) => {
+                        if(index === 0)
+                        {
+                            output = word.keyword
+                        }
+                        else
+                        {
+                            output = output+" "+word.boolean+" "+word.keyword 
+                        }
+                    });
+                }
+                else
+                {
+                    output = "無關鍵字，搜尋全部資料"
+                }  
+                
+                return  <div style={{backgroundColor:"white"}}>
+                    <div className="ResultListInfoArea">
+                        <div className="ResultListInfoAreaRow">
+                            <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                            <div className="ResultListInfoAreaRowContent">{output}</div>
+                        </div>
+                                                
+                    </div>
+                    {this.getMetaSearchInfoView()}
+                    <div className="ResultListInfoAreaRow">
+                        <div className="ResultListInfoAreaRowTitle">{"搜尋結果筆數 : "}</div>
+                        <div className="ResultListInfoAreaRowContent">{this.state.totalNumber + " 筆"}</div>
+                    </div>
+                </div>
             }
-        //}
-        //else
-        //{
-            //console.log("A2")
-            //return null
-        //}
+            else if(this.state.searchType === "advanceMeta")
+            {     
+                let objA
+                let objB        
+                let output = this.state.searchWord.map((word,index)=>{
+                    return <div className="ResultListInfoAreaRowParent">
+                        <div className="ResultListInfoAreaRow">
+                            <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                            <div className="ResultListInfoAreaRowContent">{word.keyword}</div>
+                        </div>
+                        <div className="ResultListInfoAreaRow">
+                            <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                            <div className="ResultListInfoAreaRowContent">{this.getColumnName(word.columnName)}</div>
+                        </div>
+                        <div className="ResultListInfoAreaRow">
+                            <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                            <div className="ResultListInfoAreaRowContent">{this.getOperator(word.operator)}</div>
+                        </div>
+                        <div className="ResultListInfoAreaRow">
+                            <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                            <div className="ResultListInfoAreaRowContent">{word.boolean}</div>
+                        </div>
+                    </div>
+                })
+
+                if(this.state.metaSelectedInfo)
+                {
+                    switch(this.state.metaSelectedInfo.type){
+                        case "ActorName":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_ActorName")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA)
+                            break;
+                            
+                        case "Category":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_SubCategoryOne")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            objB = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_SubCategoryTwo")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA, objB)
+                            break;
+                        case "Producer":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_Producer")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA)
+                            break;
+                        case "ProductionCompany":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_ProductionCompany")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA)
+                            break;
+                        case "ProductionDate":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_ProductionDate")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA)
+                            break;
+                        case "ProductionLocation":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_ProductionLocation")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA)
+                            break;
+                        case "StaffCompany":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_Company")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            objB = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_Position")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA, objB)
+                            break;
+                        case "StaffName":
+                            objA = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_StaffName")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            objB = <div className="ResultListInfoAreaRowParent">
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.getColumnName("Movie_Position")}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                                </div>
+                                <div className="ResultListInfoAreaRow">
+                                    <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                    <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                                </div>
+                            </div>
+
+                            output.push(objA, objB)
+                            break;
+                    }           
+                }
+
+
+
+                return  <div className="ResultListInfoArea">
+                    <div style={{width:"60%"}}>
+                        {output}
+                    </div>
+                    <div className="ResultListInfoAreaRow">
+                        <div className="ResultListInfoAreaRowTitle">{"搜尋結果筆數 : "}</div>
+                        <div className="ResultListInfoAreaRowContent">{this.state.totalNumber + " 筆"}</div>
+                    </div>
+                </div>
+            }
+
+    }
+
+    getMetaSearchInfoView=()=>{
+        if(this.state.metaSelectedInfo)
+        {
+            switch(this.state.metaSelectedInfo.type){
+                case "ActorName":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"演員"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+                case "Category":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"長片短片"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"種類"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+                case "Producer":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"出品人"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+                case "ProductionCompany":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"出品公司"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+                case "ProductionDate":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"出品日期"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+                case "ProductionLocation":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"出品地點"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+                case "StaffCompany":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"公司"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"職稱"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+                case "StaffName":
+                    return <div> 
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"工作人員"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                        <div className="ResultListInfoAreaRowParent">
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"職稱"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋模式 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"等於"}</div>
+                            </div>
+                            <div className="ResultListInfoAreaRow">
+                                <div className="ResultListInfoAreaRowTitle">{"搜尋邏輯 : "}</div>
+                                <div className="ResultListInfoAreaRowContent">{"AND"}</div>
+                            </div>
+                        </div>
+                    </div>
+            }
+
+        }
+        else
+        {
+            return null
+        }
     }
 
     getColumnName=(name)=>{
@@ -613,60 +1308,106 @@ class ResultListMainBody extends Component {
         switch(type){
             case "ActorName":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ActorName)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ActorName+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "Category":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_SubCategoryOne, row.Movie_SubCategoryTwo)}>
                         <div className={"MetaInfoContent"}>{row.Movie_SubCategoryOne+" / "+row.Movie_SubCategoryTwo+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "Producer":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_Producer)}>
                         <div className={"MetaInfoContent"}>{row.Movie_Producer+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "ProductionCompany":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionCompany)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ProductionCompany+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "ProductionDate":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionDate)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ProductionDate+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "ProductionLocation":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionLocation)}>
                         <div className={"MetaInfoContent"}>{row.Movie_ProductionLocation+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "StaffCompany":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_Company, row.Movie_Position)}>
                         <div className={"MetaInfoContent"}>{row.Movie_Company+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
                     </div>
                 )
             case "StaffName":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.rowClicked(type, row)}>
+                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_StaffName, row.Movie_Position)}>
                         <div className={"MetaInfoContent"}>{row.Movie_StaffName+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
                     </div>
                 )
         }
     }
 
-    rowClicked=(type, row)=>{
+    metaRowClicked=(type, keywordA, keywordB)=>{
         console.log("type : ", type)
-        console.log(row)
+        console.log(keywordA, keywordB)
+
+        let outputKeywordB = 'null'
+
+        if(keywordB)
+        {
+            outputKeywordB = keywordB
+        }
+  
+
+        if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
+        {
+            let outputObj = {
+                type : type,
+                keywordA : keywordA ? keywordA.replace('/','@'):null,
+                keywordB : keywordB ? keywordB.replace('/','@'):null,
+            }
+            this.getRecordByBasicAndMetaSearch(outputObj)
+            .then(res=>{
+                this.setState({
+                    searchType:"basicMeta",
+                    showWarningDialog:false,
+                    listData:res,
+                    totalNumber:res[0].Movie_TotalCount,
+                    metaSelectedInfo:outputObj
+                })   
+            })
+        }
+        else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
+        {
+            let outputObj = {
+                type : type,
+                keywordA : keywordA ? keywordA.replace('/','@'):null,
+                keywordB : keywordB ? keywordB.replace('/','@'):null,
+            }
+            this.getRecordByAdvanceAndMetaSearch(outputObj)
+            .then(res=>{
+                this.setState({
+                    searchType:"advanceMeta",
+                    showWarningDialog:false,
+                    listData:res,
+                    totalNumber:res[0].Movie_TotalCount,
+                    metaSelectedInfo:outputObj
+                })   
+            })
+        }
     }
 
+    
     render(){
 
         return(

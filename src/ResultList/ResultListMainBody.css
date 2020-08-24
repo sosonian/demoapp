@@ -21,7 +21,8 @@
 .ResultListInfoAreaRowContent{
     width: 50%;
     margin: 10px;
-    font-weight: bolder
+    font-weight: bolder;
+    text-align: left;
 }
 
 .ResultListLeftArea{
