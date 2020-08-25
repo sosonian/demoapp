@@ -10,7 +10,7 @@ class ResultListMainBody extends Component {
         this.state = {
             searchWord:null,
             listData:null,
-            limitNumber:50,
+            limitNumber:20,
             pageNumber:1,
             totalNumber:"",
             orderType:"ASC",
@@ -19,6 +19,16 @@ class ResultListMainBody extends Component {
             searchColumn:"All",
             metaInfo:null,
             metaSelectedInfo:null,
+            metaCategoryToggle:{
+                ActorName:false,
+                Category:false,
+                Producer:false,
+                ProductionCompany:false,
+                ProductionDate:false,
+                ProductionLocation:false,
+                StaffCompany:false,
+                StaffName:false
+            },
             ipAddress:null
         }
     }
@@ -494,9 +504,6 @@ class ResultListMainBody extends Component {
         console.log("orderColumn : ",orderColumn)
         console.log("queryWords : ",queryWords)
 
-        
-
-
         let msg = await fetch(serverIP+'/api/movie/advanceQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords)
 
         let output = await msg.json()
@@ -663,7 +670,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -686,7 +693,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -705,7 +712,7 @@ class ResultListMainBody extends Component {
                             objB = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -727,7 +734,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -749,7 +756,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -771,7 +778,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -793,7 +800,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -815,7 +822,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -834,7 +841,7 @@ class ResultListMainBody extends Component {
                             objB = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -856,7 +863,7 @@ class ResultListMainBody extends Component {
                             objA = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -875,7 +882,7 @@ class ResultListMainBody extends Component {
                             objB = <div className="ResultListInfoAreaRowParent">
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                    <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('@','/'):null}</div>
                                 </div>
                                 <div className="ResultListInfoAreaRow">
                                     <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -920,7 +927,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -941,7 +948,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -959,7 +966,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -980,7 +987,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1001,7 +1008,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1022,7 +1029,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1043,7 +1050,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1064,7 +1071,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1082,7 +1089,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1103,7 +1110,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordA ? this.state.metaSelectedInfo.keywordA.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1121,7 +1128,7 @@ class ResultListMainBody extends Component {
                         <div className="ResultListInfoAreaRowParent">
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>
-                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('#','/'):null}</div>
+                                <div className="ResultListInfoAreaRowContent">{this.state.metaSelectedInfo.keywordB ? this.state.metaSelectedInfo.keywordB.replace('@','/'):null}</div>
                             </div>
                             <div className="ResultListInfoAreaRow">
                                 <div className="ResultListInfoAreaRowTitle">{"搜尋欄位 : "}</div>
@@ -1251,21 +1258,29 @@ class ResultListMainBody extends Component {
 
             console.log(tempArray)
             
-
             let output = tempArray.map(field=>{
                 if(this.state.metaInfo[field].length>0)
                 {
                     console.log(this.state.metaInfo[field])
                     return (
-                        <div className={"MetaInfoArea"}>
-                            <div className={"MetaInfoTitle"}>
+                        <div className={this.identifiedMetaAreaSelectedOrNot(field)}>
+                            <div className={"MetaInfoTitle"} onClick={()=>this.toggleMetaCatogory(field)}>
                                 {this.transTitle(field)}
                             </div>
-                            <div>
-                                {this.state.metaInfo[field].map(row=>{
-                                    return (this.createMetaRow(field, row))
-                                })}
-                            </div>
+                            {
+                                this.state.metaCategoryToggle[field] ?
+                                <div>
+                                    {this.state.metaInfo[field].map((row,index)=>{
+                                        return (this.createMetaRow(field, row, index, true))
+                                    })}
+                                </div>
+                                :
+                                <div>
+                                    {this.state.metaInfo[field].map((row,index)=>{
+                                        return (this.createMetaRow(field, row, index, false))
+                                    })}
+                                </div>                       
+                            }                     
                         </div>
                     )
                 }
@@ -1304,66 +1319,113 @@ class ResultListMainBody extends Component {
         }
     }
 
-    createMetaRow=(type, row)=>{
+    createMetaRow=(type, row, index, show)=>{
         switch(type){
             case "ActorName":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ActorName)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_ActorName+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_ActorName, "", index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_ActorName+" ("+row.Count+")"}</div> : null }
                     </div>
                 )
             case "Category":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_SubCategoryOne, row.Movie_SubCategoryTwo)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_SubCategoryOne+" / "+row.Movie_SubCategoryTwo+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_SubCategoryOne, row.Movie_SubCategoryTwo, index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_SubCategoryOne+" / "+row.Movie_SubCategoryTwo+" ("+row.Count+")"}</div> : null }
                     </div>
                 )
             case "Producer":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_Producer)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_Producer+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_Producer, "", index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_Producer+" ("+row.Count+")"}</div> : null }
                     </div>
                 )
             case "ProductionCompany":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionCompany)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_ProductionCompany+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionCompany, "", index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_ProductionCompany+" ("+row.Count+")"}</div> : null }
                     </div>
                 )
             case "ProductionDate":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionDate)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_ProductionDate+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionDate, "", index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_ProductionDate+" ("+row.Count+")"}</div> : null }
                     </div>
                 )
             case "ProductionLocation":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionLocation)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_ProductionLocation+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_ProductionLocation, "", index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_ProductionLocation+" ("+row.Count+")"}</div> : null}
                     </div>
                 )
             case "StaffCompany":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_Company, row.Movie_Position)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_Company+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_Company, row.Movie_Position, index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_Company+" / "+row.Movie_Position+" ("+row.Count+")"}</div> : null}
                     </div>
                 )
             case "StaffName":
                 return (
-                    <div className={"MetaInfoRow"} onClick={()=>this.metaRowClicked(type, row.Movie_StaffName, row.Movie_Position)}>
-                        <div className={"MetaInfoContent"}>{row.Movie_StaffName+" / "+row.Movie_Position+" ("+row.Count+")"}</div>
+                    <div className={this.identifiedMetaRow(type, index, show)} onClick={()=>this.metaRowClicked(type, row.Movie_StaffName, row.Movie_Position, index)}>
+                        {show ? <div className={"MetaInfoContent"}>{row.Movie_StaffName+" / "+row.Movie_Position+" ("+row.Count+")"}</div> : null}
                     </div>
                 )
         }
     }
 
-    metaRowClicked=(type, keywordA, keywordB)=>{
+    identifiedMetaRow=(type, index, show)=>{
+
+        if(show)
+        {
+            if(this.state.metaSelectedInfo)
+            {
+                if(this.state.metaSelectedInfo.type === type && this.state.metaSelectedInfo.index === index)
+                {
+                    return "MetaInfoRow Selected"
+                }
+                else
+                {
+                    return "MetaInfoRow Expand"
+                }
+            }
+            else
+            {
+                return "MetaInfoRow Expand"
+            }
+        }
+        else
+        {
+            return "MetaInfoRow"
+        }    
+    }
+
+    identifiedMetaAreaSelectedOrNot=(field)=>{
+        if(this.state.metaCategoryToggle[field])
+        {
+            return "MetaInfoArea Expand"
+        }
+        else
+        {
+            return "MetaInfoArea"
+        }
+    }
+
+    toggleMetaCatogory=(field)=>{      
+        let tempObj = this.state.metaCategoryToggle
+        tempObj[field] = !this.state.metaCategoryToggle[field]
+        this.setState({
+            metaCategoryToggle:tempObj
+        })
+    }
+
+    
+
+    metaRowClicked=(type, keywordA, keywordB, index)=>{
         console.log("type : ", type)
         console.log(keywordA, keywordB)
 
         let outputKeywordB = 'null'
 
-        if(keywordB)
+        if(keywordB || keywordB !== "")
         {
             outputKeywordB = keywordB
         }
@@ -1375,6 +1437,7 @@ class ResultListMainBody extends Component {
                 type : type,
                 keywordA : keywordA ? keywordA.replace('/','@'):null,
                 keywordB : keywordB ? keywordB.replace('/','@'):null,
+                index:index
             }
             this.getRecordByBasicAndMetaSearch(outputObj)
             .then(res=>{
@@ -1393,6 +1456,7 @@ class ResultListMainBody extends Component {
                 type : type,
                 keywordA : keywordA ? keywordA.replace('/','@'):null,
                 keywordB : keywordB ? keywordB.replace('/','@'):null,
+                index:index
             }
             this.getRecordByAdvanceAndMetaSearch(outputObj)
             .then(res=>{
@@ -1406,6 +1470,8 @@ class ResultListMainBody extends Component {
             })
         }
     }
+
+    
 
     
     render(){
