@@ -2,6 +2,12 @@
     width:"100%";
     background-color: bisque;
     margin: 10px;
+    transition: all 0.5s;
+}
+
+.ResultRow:hover {
+    background-color: cyan;
+    cursor: pointer;
 }
 
 .MovieMainTitle{

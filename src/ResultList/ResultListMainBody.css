@@ -49,7 +49,7 @@
 }
 
 .MetaInfoArea.Expand {
-    height: 100px;
+    height: auto;
 }
 
 
@@ -71,29 +71,29 @@
     transition:all 1s;
     background-color: wheat;
     color:#00000000;
-    margin:1px;
-    transition:height 1s
+    margin:2px;
+    transition:all 0.5s
 }
 
 .MetaInfoRow:Hover {
     background-color:#99fcff;
     color: #ff8000;
     cursor: pointer;
+    /*
     height:20px;
     margin:1px
+    */
 }
 
 .MetaInfoRow.Selected {
     background-color:#12fc90;
     color: #ff8000;
     height:20px;
-    margin:1px
 }
 
 .MetaInfoRow.Expand {
     height:20px;
     color:#000000ff;
-    margin:1px
 }
 
 .MetaInfoContent {

@@ -1211,7 +1211,7 @@ class ResultListMainBody extends Component {
         if(this.state.listData && this.state.listData[0])
         {
             let output = this.state.listData.map(row=>{
-                return <ResultRow rowData={row} searchWord={this.state.searchWord}/>
+                return <ResultRow rowData={row} searchWord={this.state.searchWord} getSelectedRow={this.getSelectedRow}/>
             })
 
             return output
@@ -1470,7 +1470,12 @@ class ResultListMainBody extends Component {
             })
         }
     }
-
+    
+    getSelectedRow=(sysID)=>{
+        console.log("getSelectedRow")
+        console.log(sysID)
+        this.props.history.push("/Movie/Workinfo/"+sysID)
+    }
     
 
     
