@@ -1,7 +1,87 @@
-.MovieWorkInfoMainBody{
+.MovieMainBody{
     margin-top: 50px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    align-items: center;
+}
+
+.MovieLeftArea{
+   
+    width:65%;
+    background-color: darkgoldenrod;
+    padding: 20px;
+}
+
+.MovieRightArea {
+    
+    width:25%;
+    background-color: wheat;
+    padding: 20px;
+    
+}
+
+.MovieTitle{
+    font-size: 40px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin:10px;
+}
+
+.MovieRowTitle{
+    font-size: 20px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin: 10px;
+    font-weight: bolder;
+
+}
+
+.MovieRowContent{
+    font-size: 20px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin:10px;
+}
+
+.MovieRowContainer{
+
+}
+
+.itemArea{
+    margin: 10px;
+    border:1px solid white;
+    border-radius: 10px;
+}
+
+.itemRowContainer{
+    display: flex;
+    
+}
+
+.itemRowTitle{
+    font-size: 16px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin: 10px;
+    font-weight: bolder;
+
+}
+
+.itemRowContent{
+    font-size: 16px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin:10px;
+
+}
+
+.MovieRowItemType{
+    font-size: 18px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: burlywood;
+    width: 80px;
+    padding: 10px;
+
 }
