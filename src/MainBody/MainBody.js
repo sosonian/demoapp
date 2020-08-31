@@ -260,6 +260,7 @@ class MainBody extends Component {
                 <div className="MainContainer">     
                     <div className="BufferArea"/>
                     <Route exact path='/' component={EventBody}/>
+                    <Route exact path='/default' component={EventBody}/>
                     <Route path='/Movie/Workinfo/:movie_id' component={MovieWorkInfoMainBody}/>
                     <Route path='/Event/:Event_SysID' component={EventPage}/>
                     <Route path='/Introduction/:FirstStageRoute/:SecondStageRoute/:StaticPage_SysID' component={EventPage}/>

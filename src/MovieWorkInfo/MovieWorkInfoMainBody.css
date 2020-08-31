@@ -85,3 +85,54 @@
     padding: 10px;
 
 }
+
+.MovieActorListArea{
+    border-top: 1px solid black;
+    margin: 20px 10px 0px 10px;
+    width: 40%;
+}
+.MovieActorRowContent{
+    display: flex;
+}
+
+.MovieActorName{
+    font-size: 20px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin:10px;
+
+}
+
+.MovieRoleName{
+    font-size: 20px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin:10px;
+
+}
+
+.MovieStaffListArea{
+    border-top: 1px solid black;
+    margin: 20px 10px 0px 10px;
+    width: 40%;
+}
+
+.MovieStaffRowContent{
+    display: flex;
+}
+
+.MovieStaffName{
+    font-size: 20px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin:10px;
+
+}
+
+.MoviePositionName{
+    font-size: 20px;
+    font-family: "Microsoft JhengHei";
+    text-align: left;
+    margin:10px;
+
+}

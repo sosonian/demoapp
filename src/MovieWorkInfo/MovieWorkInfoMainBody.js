@@ -3,6 +3,7 @@ import './MovieWorkInfoMainBody.css';
 import { FacebookProvider, Like } from 'react-facebook';
 import IPAddress from '../IPAddress'
 
+
 class MovieWorkInfoMainBody extends Component {
     constructor(props){
         super(props)
@@ -134,11 +135,63 @@ class MovieWorkInfoMainBody extends Component {
     }
 
     createActorList=()=>{
+        if(this.state.movieActorList && this.state.movieActorList.length > 0 )
+        {
+            return <div className="MovieActorListArea">
+                <div className="MovieRowTitle">{"演員列表"}</div>
+                {this.createActorRow()}
 
+            </div>
+        }
+        else
+        {
+            return null
+        }
     }
 
     createStaffList=()=>{
+        if(this.state.movieStaffList && this.state.movieStaffList.length > 0 )
+        {
+            return <div className="MovieStaffListArea">
+                <div className="MovieRowTitle">{"職員列表"}</div>
+                {this.createStaffRow()}
 
+            </div>
+        }
+        else
+        {
+            return null
+        }
+    }
+
+    createActorRow=()=>{
+        let output = this.state.movieActorList.map((actor,index)=>{
+            return <div className="MovieActorRowContent">
+                <div className="MovieActorName">{actor.Movie_ActorName}</div>
+                <div className="MovieRoleName">{actor.Movie_RoleName !== "" ? "飾演 " +actor.Movie_RoleName : null}</div>
+            </div>
+
+        })
+
+        return output
+    }
+
+    createStaffRow=()=>{
+        let output = this.state.movieStaffList.map((actor,index)=>{
+            if(actor.Movie_StaffName || actor.Movie_Company)
+            {
+                return <div className="MovieStaffRowContent">
+                    <div className="MovieStaffName">{actor.Movie_StaffName ? actor.Movie_StaffName : actor.Movie_Company }</div>
+                    <div className="MoviePositionName">{actor.Movie_Position !== "" ? " " +actor.Movie_Position : null}</div>
+                </div>
+            }
+            else
+            {
+                return null
+            }
+        })
+
+        return output
     }
 
     render(){
@@ -155,8 +208,10 @@ class MovieWorkInfoMainBody extends Component {
                         { this.removeSpaceFromString(this.state.movieMainInfo.Movie_Producer ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"製作人"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_Producer}</div></div>:null}
                         { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionCompany ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"製作公司"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionCompany}</div></div>:null}
                         { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionLocation ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"出品國家"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionLocation}</div></div>:null}
-                        {this.createActorList()}
-                        {this.createStaffList()}
+                        <div style={{display:"flex"}}>
+                            {this.createActorList()}
+                            {this.createStaffList()}
+                        </div>
                         <FacebookProvider appId="1608677022605093">
                             <Like href={""} colorScheme="dark" showFaces share />
                         </FacebookProvider>
