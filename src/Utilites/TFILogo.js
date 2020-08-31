@@ -12,7 +12,7 @@ class TFILogo extends Component {
     render(){
         
         return(
-            <svg width="43px" height="35px" viewBox="0 0 43 35" version="1.1">
+            <svg className={"LogoSVG"} width="43px" height="35px" viewBox="0 0 43 35" version="1.1">
                 <title>logo</title>
                 <desc>Created with Sketch.</desc>
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

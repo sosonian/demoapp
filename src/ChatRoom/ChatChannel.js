@@ -136,7 +136,13 @@ class ChatChannel extends Component {
     render(){
         return(
             <div className={"chatChannel"} style={{right:this.props.index*280+250}}>   
-                <div className={"chatChannelHeader"}><div className={"chatChannelLabel"}>{"反映問題"}</div><div className={"toggleArea"} style={{position:"absolute",right:"5px"}} onClick={this.closeChannel}>{"x"}</div><div className={"chatChannelButton"} onClick={this.takeScreenShot}><CameraIcon/></div></div> 
+                <div className={"chatChannelHeader"}>
+                    <div className={"chatChannelLabel"}>{"反映問題"}</div>
+                    <div className={"rightUpConrnerArea"}>
+                        <div className={"chatChannelButton"} onClick={this.takeScreenShot}><CameraIcon/></div>
+                        <div className={"chatChannelCloseButton"} onClick={this.closeChannel}>{"x"}</div>
+                    </div>
+                </div> 
                 <div className={"chatRowContainer"}>
                     {this.createMessageRows()}
                     <div className={"chatRowBottom"} ref={(re)=>{this.dummyChatRowRef= re}}></div>

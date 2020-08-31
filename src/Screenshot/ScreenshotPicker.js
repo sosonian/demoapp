@@ -232,7 +232,7 @@ class ScreenshotPicker extends Component {
         return(
             <div className={"ScreenshotPickerContainer"} style={defaultImageLayout} onMouseDown={this.headerMouseDown} onMouseUp={this.headerMouseUp}>
                 <div className={"ScreenshotPickerContainerButton"} style={{lineHeight:"30px"}} onClick={this.closeScreenshotPicker}>X</div>
-                <div className={"ScreenshotPickerContainerButton"} style={{lineHeight:"45px"}} onClick={this.getSreenshotArea}><CameraIcon/></div>
+                <div className={"ScreenshotPickerContainerButton"} style={{lineHeight:"41px"}} onClick={this.getSreenshotArea}><CameraIcon/></div>
                 <div style={extendFunctionAreaStyle} onMouseDown={this.extendAreaMouseDown}  onMouseUp={this.extendAreaMouseUp}>
                     &#9499;
                 </div> 

@@ -81,7 +81,7 @@
     margin: 10px;
     border-radius: 10px;
     background-color: burlywood;
-    width: 80px;
+    width: fit-content;
     padding: 10px;
 
 }

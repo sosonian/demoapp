@@ -1,19 +1,19 @@
 
-       svg {
-           position:absolute;
-           left:0;
-           right:0;
-           z-index:50;
-       }       
-       g,path {
-           transition-property: all;
-           transition-duration: 0.5s;
-       }
-       svg:hover #Page-1{
+        .LogoSVG {
+            position:absolute;
+            left:0;
+            right:0;
+            z-index:50;
+        }       
+        g,path {
+            transition-property: all;
+            transition-duration: 0.5s;
+        }
+        .LogoSVG:hover #Page-1{
             transform: scale(0.70,0.70);
             transform-origin: 50% 50%;
-       }
-       svg:hover #Fill-88{
+        }
+        .LogoSVG:hover #Fill-88{
             transform: rotate(-45deg);
             transform-origin: 40% 24%;
-       }
+        }
