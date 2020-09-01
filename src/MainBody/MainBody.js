@@ -106,7 +106,7 @@ class MainBody extends Component {
             sessionID:output[0].sessionID,
             clientIP:output[0].clientIP,
             clientName:"來自"+output[0].clientIP,
-            wsMiddleWare:webSocket('http://192.168.43.243:5000')
+            wsMiddleWare:webSocket('http://192.168.3.220:5000')
         },()=>{
             this.createPersonalRoom()
             this.dealWebSocket()

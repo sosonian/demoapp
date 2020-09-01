@@ -75,7 +75,7 @@ class ChatChannel extends Component {
                 // }
                 return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
                 <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
-                <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.43.243:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.43.243:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
+                <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
                 </div>
             })
             return output
