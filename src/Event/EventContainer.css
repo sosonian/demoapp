@@ -18,7 +18,7 @@
 .EventTitle {
     color: white;
     height:60px;
-    font-size: 40px;
+    font-size: 60px;
     line-height: 50px;
     text-align: left;
     font-family:'Microsoft JhengHei';
@@ -50,8 +50,7 @@
     font-family:'Microsoft JhengHei';
     color: white;
     font-size: 20px;
-    margin-right: -1em;
-    padding-right: 1em;
+    margin: 20px;
   }
   .block-with-text:before {
     content: '...';
@@ -81,6 +80,7 @@
     font-family:'Microsoft JhengHei';
     text-align: center;
     transition: background-color 0.1s linear;
+    margin:20px
   }
 
   .JumpToDetailButton:hover{
