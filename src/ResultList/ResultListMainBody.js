@@ -1210,8 +1210,8 @@ class ResultListMainBody extends Component {
     createRow=()=>{
         if(this.state.listData && this.state.listData[0])
         {
-            let output = this.state.listData.map(row=>{
-                return <ResultRow rowData={row} searchWord={this.state.searchWord} getSelectedRow={this.getSelectedRow}/>
+            let output = this.state.listData.map((row,index)=>{
+                return <ResultRow rowIndex={1+index+(this.state.limitNumber*(this.state.pageNumber-1))} rowData={row} searchWord={this.state.searchWord} getSelectedRow={this.getSelectedRow}/>
             })
 
             return output

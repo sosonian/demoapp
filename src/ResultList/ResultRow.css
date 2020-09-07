@@ -11,9 +11,21 @@
 }
 
 .MovieMainTitle{
+    text-align: left;
+    font-size: 30px;
 
 }
 
 .MovieDramaContain{
-    
+    text-align: left;
+    width: 80%;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.MovieResultRowCell{
+    padding: 20px;
 }
