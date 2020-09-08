@@ -1,0 +1,87 @@
+.pageFunctionArea{
+    flex-direction: row;
+    height: 30px;
+    background-color: rgb(140, 172, 173);
+    border-radius: 4px;
+    position: fixed;
+    bottom: 50px;
+    margin: 20px;
+    box-shadow: 0px 0px 11px 4px grey;
+}
+
+.leftFieldGroup {
+    float: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.fieldTitle {
+    margin: 1px 10px 1px 10px;
+    height: 30px;
+    font-size: 15px;
+    font-family: 'Microsoft JhengHei';
+    text-align: center;
+    line-height: 30px;
+    color: #ffffff;
+}
+
+.pageLimitSelect {
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+    font-size: 15px;
+    font-family: 'Microsoft JhengHei';
+    margin-top: 1px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 28px;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+}
+
+.centerFieldGroup {
+    margin-right: 10px;
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
+
+.pageNumberInput {
+    display: inline-block;
+    width: 60px;
+    height: 25px;
+    font-size: 15px;
+    font-family: 'Microsoft JhengHei';
+    /* margin-top: 1px; */
+    border-radius: 4px;
+    border: 1px solid gray;
+    text-align: center;
+    line-height: 28px;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: text;
+}
+
+.arrowIconArea {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+.arrowIcon {
+    padding: 0px 10px 0px 10px;
+    height: 25px;
+    border-radius: 4px;
+    border: 1px solid white;
+    color: white;
+    margin: 1px 0px 0px 0px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+.arrowIcon:hover {
+    background-color: cyan ;
+}

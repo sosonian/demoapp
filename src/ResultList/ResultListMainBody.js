@@ -3,6 +3,7 @@ import {serverIP} from '../IPAdressModule'
 import './ResultListMainBody.css';
 import IPAddress from '../IPAddress'
 import ResultRow from './ResultRow'
+import PageSelectFunctionArea from './PageSelectFunctionArea'
 
 class ResultListMainBody extends Component {
     constructor(props){
@@ -42,9 +43,19 @@ class ResultListMainBody extends Component {
 
     componentDidUpdate(prevProps,prevState){
         console.log("ResultListMainBody Update...")
-        if(prevProps.match.params.searchType !== this.props.match.params.searchType || prevProps.match.params.query !== this.props.match.params.query)
+        if(prevProps.match.params.searchType !== this.props.match.params.searchType || prevProps.match.params.query !== this.props.match.params.query || prevProps.match.params.limit !== this.props.match.params.limit || prevProps.match.params.page !== this.props.match.params.page)
         {
-            this.initialState()
+            if(this.state.metaSelectedInfo)
+            {
+                if(prevProps.match.params.searchType !== this.props.match.params.searchType || prevProps.match.params.query !== this.props.match.params.query)
+                {
+                    this.initialState()
+                }
+            }
+            else
+            {
+                this.initialState()
+            }
         }
     }
 
@@ -57,7 +68,9 @@ class ResultListMainBody extends Component {
     initialState=()=>{
         let limitNumber = this.props.match.params.limit
         let pageNumber = this.props.match.params.page
+        console.log(this.props.match.params.query)
         let query = JSON.parse(decodeURIComponent(this.props.match.params.query))
+        console.log(query)
         this.setState({
             searchType:this.props.match.params.searchType,
             limitNumber:limitNumber,
@@ -1480,13 +1493,84 @@ class ResultListMainBody extends Component {
         console.log(sysID)
         this.props.history.push("/Movie/Workinfo/"+sysID)
     }
-    
+
+
+    getPageLimitInfo=(number)=>{
+        
+        if(this.state.metaSelectedInfo)
+        {
+            this.setState({
+                limitNumber:number
+            },()=>{
+                if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
+                {
+                    
+                    this.getRecordByBasicAndMetaSearch(this.state.metaSelectedInfo)
+                    .then(res=>{
+                        this.setState({
+                            listData:res
+                        })   
+                    })
+                }
+                else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
+                {
+                    this.getRecordByAdvanceAndMetaSearch(this.state.metaSelectedInfo)
+                    .then(res=>{
+                        this.setState({                        
+                            listData:res                                   
+                        })   
+                    })
+                }
+            })
+        }
+        else
+        {
+            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+number+'/page/'+this.state.pageNumber+'/query/'+this.state.searchWord)
+        }
+    }
+
+    getPageNumberInfo=(number)=>{
+
+        if(this.state.metaSelectedInfo)
+        {
+            this.setState({
+                pageNumber:number
+            },()=>{
+                if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
+                {
+                    
+                    this.getRecordByBasicAndMetaSearch(this.state.metaSelectedInfo)
+                    .then(res=>{
+                        this.setState({
+                            listData:res
+                        })   
+                    })
+                }
+                else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
+                {
+                    this.getRecordByAdvanceAndMetaSearch(this.state.metaSelectedInfo)
+                    .then(res=>{
+                        this.setState({                        
+                            listData:res                                   
+                        })   
+                    })
+                }
+            })
+        }
+        else
+        {
+            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+this.state.limitNumber+'/page/'+number+'/query/'+this.state.searchWord)
+        }
+        
+        
+    }
 
     
     render(){
 
         return(
             <div className="ResultListMainBody">  
+                <PageSelectFunctionArea getPageLimitInfo={this.getPageLimitInfo} getPageNumberInfo={this.getPageNumberInfo} storedLimitNumber={this.state.limitNumber} storedPageNumber={this.state.pageNumber} storedTotalNumber={this.state.totalNumber}/>
                 <div className="ResultListLeftArea">
                     {this.createMetaInfo()}
                 </div>
