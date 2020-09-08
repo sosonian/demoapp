@@ -36,7 +36,7 @@ export default function ResultRow(props) {
         <div className={"ResultRow"} onClick={(e)=>movieResultRowClick(e,props.rowData.Movie_SysID)}>
             <div className={"MovieResultRowCheckBoxCell"}>
                 <input className={"MovieResultRowCheckBox"} name="selectedToExportTable" type="checkbox" checked={false}/>
-                <div className={"MovieResultRowCheckBoxNumber"} >{props.rowIndex ? props.rowIndex : null}</div>
+                <div className={"MovieResultRowCheckBoxNumber"} >{props.rowIndex ? props.rowIndex+"." : null}</div>
             </div>
             <div className={"MovieResultRowCell"}>
                 <div className={"MovieMainTitle"}>{props.rowData ? <HightlightKeywordCell text={props.rowData.Movie_TitleMain ? props.rowData.Movie_TitleMain !== " " ? props.rowData.Movie_TitleMain : props.rowData.Movie_TitleTranslation+" (翻譯片名)"  : props.rowData.Movie_TitleTranslation+" (翻譯片名)"} keywords={props.searchWord}/> :null}</div>

@@ -10,8 +10,8 @@ class ResultListMainBody extends Component {
         this.state = {
             searchWord:null,
             listData:null,
-            limitNumber:20,
-            pageNumber:1,
+            limitNumber:null,
+            pageNumber:null,
             totalNumber:"",
             orderType:"ASC",
             orderColumn:"Movie_TitleMain",
@@ -55,9 +55,13 @@ class ResultListMainBody extends Component {
     
   
     initialState=()=>{
+        let limitNumber = this.props.match.params.limit
+        let pageNumber = this.props.match.params.page
         let query = JSON.parse(decodeURIComponent(this.props.match.params.query))
         this.setState({
             searchType:this.props.match.params.searchType,
+            limitNumber:limitNumber,
+            pageNumber:pageNumber,
             searchWord:query,
             listData:null,
             metaInfo:null,

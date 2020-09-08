@@ -264,7 +264,7 @@ class MainBody extends Component {
                     <Route path='/Movie/Workinfo/:movie_id' component={MovieWorkInfoMainBody}/>
                     <Route path='/Event/:Event_SysID' component={EventPage}/>
                     <Route path='/Introduction/:FirstStageRoute/:SecondStageRoute/:StaticPage_SysID' component={EventPage}/>
-                    <Route path='/SearchResult/searchType/:searchType/query/:query' component={ResultListMainBody}/>
+                    <Route path='/SearchResult/searchType/:searchType/limit/:limit/page/:page/query/:query' component={ResultListMainBody}/>
                 </div>
                 <div className="BackgroundImage">  
                 </div>             

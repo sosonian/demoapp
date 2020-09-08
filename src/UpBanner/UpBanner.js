@@ -52,7 +52,7 @@ class UpBanner extends Component {
 
     getSearchInfo=(msg)=>{
         let uriQuery = encodeURIComponent(JSON.stringify(msg.searchWord))
-        let url = '/SearchResult/searchType/'+msg.type+'/query/'+uriQuery
+        let url = '/SearchResult/searchType/'+msg.type+'/limit/20/page/1/query/'+uriQuery
         this.setState({
             searchInfo:msg,
             url:url
