@@ -623,7 +623,7 @@ class ResultListMainBody extends Component {
                     output = "無關鍵字，搜尋全部資料"
                 }  
                 
-                return  <div style={{backgroundColor:"white"}}>
+                return  <div className="ResultListInfoContainerArea">
                     <div className="ResultListInfoArea">
                         <div className="ResultListInfoAreaRow">
                             <div className="ResultListInfoAreaRowTitle">{"搜尋關鍵字 : "}</div>

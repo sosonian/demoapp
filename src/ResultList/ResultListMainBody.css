@@ -1,11 +1,14 @@
 .ResultListMainBody{
     display: flex;
     font-family: "Microsoft JhengHei";
+    margin: 10px;
+    background: #ffffff8c;
 }
 
 .ResultListInfoArea{
     background-color: aliceblue;
     display: flex;
+    margin: 20px 10px 10px 10px;
 }
 
 .ResultListInfoAreaRow{
@@ -39,7 +42,7 @@
 
 .MetaInfoArea {
     height: 0px;
-    margin: 0px 20px 40px 20px;
+    margin: 20px 20px 50px 20px;
     /*
     background-color: burlywood;
     border-radius: 10px;
@@ -54,11 +57,13 @@
 
 
 .MetaInfoTitle {
-    height: 25px;
+    height: 30px;
     background-color: azure;
     border-radius: 10px;
-    border:1px solid white;
+    border: 1px solid white;
     box-shadow: 0px 1px 5px grey;
+    font-size: 18px;
+    line-height: 30px;
 }
 
 .MetaInfoTitle:hover {
@@ -79,6 +84,7 @@
     background-color:#99fcff;
     color: #ff8000;
     cursor: pointer;
+    
     /*
     height:20px;
     margin:1px
@@ -88,14 +94,19 @@
 .MetaInfoRow.Selected {
     background-color:#12fc90;
     color: #ff8000;
-    height:20px;
+    height:30px;
 }
 
 .MetaInfoRow.Expand {
-    height:20px;
+    height:30px;
     color:#000000ff;
 }
 
 .MetaInfoContent {
+    line-height: 30px;
+}
 
+.ResultListInfoContainerArea{
+    background-color: aliceblue;
+    margin:10px
 }
