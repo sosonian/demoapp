@@ -45,15 +45,19 @@ class ResultListMainBody extends Component {
         console.log("ResultListMainBody Update...")
         if(prevProps.match.params.searchType !== this.props.match.params.searchType || prevProps.match.params.query !== this.props.match.params.query || prevProps.match.params.limit !== this.props.match.params.limit || prevProps.match.params.page !== this.props.match.params.page)
         {
+            console.log("A1")
             if(this.state.metaSelectedInfo)
             {
+                console.log("A1-1")
                 if(prevProps.match.params.searchType !== this.props.match.params.searchType || prevProps.match.params.query !== this.props.match.params.query)
                 {
+                    console.log("A1-1-1")
                     this.initialState()
                 }
             }
             else
             {
+                console.log("A1-2")
                 this.initialState()
             }
         }
@@ -70,6 +74,9 @@ class ResultListMainBody extends Component {
         let pageNumber = this.props.match.params.page
         console.log(this.props.match.params.query)
         let query = JSON.parse(decodeURIComponent(this.props.match.params.query))
+
+
+
         console.log(query)
         this.setState({
             searchType:this.props.match.params.searchType,
@@ -305,6 +312,7 @@ class ResultListMainBody extends Component {
 
     getRecordByBasicAndMetaSearch = async(metaInfo)=>{
         console.log("proceed getRecordByBasicAndMetaSearch...")
+        
         let limitNumber = this.state.limitNumber
         let pageNumber = this.state.pageNumber
         let orderType = this.state.orderType
@@ -1446,9 +1454,12 @@ class ResultListMainBody extends Component {
         {
             outputKeywordB = keywordB
         }
-  
 
-        if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
+        this.setState({
+            pageNumber:1,
+            limitNumber:20
+        },()=>{
+            if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
         {
             let outputObj = {
                 type : type,
@@ -1486,6 +1497,11 @@ class ResultListMainBody extends Component {
                 })   
             })
         }
+
+        })
+  
+
+        
     }
     
     getSelectedRow=(sysID)=>{
