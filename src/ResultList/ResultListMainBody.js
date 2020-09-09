@@ -57,8 +57,17 @@ class ResultListMainBody extends Component {
             }
             else
             {
-                console.log("A1-2")
-                this.initialState()
+                //if(prevProps.match.params.limit !== this.props.match.params.limit || prevProps.match.params.page !== this.props.match.params.page)
+                //{
+                    //console.log("A1-2-1")
+                    //this.initialStateTemp()
+                    
+                //}
+                //else
+                //{
+                    //console.log("A1-2-2")
+                    this.initialState()
+                //}
             }
         }
     }
@@ -67,15 +76,27 @@ class ResultListMainBody extends Component {
        
     }
 
-    
-  
+    initialStateTemp=()=>{
+        let limitNumber = this.props.match.params.limit
+        let pageNumber = this.props.match.params.page
+        
+        this.setState({
+            searchType:this.props.match.params.searchType,
+            limitNumber:limitNumber,
+            pageNumber:pageNumber,
+            listData:null,
+            metaInfo:null,
+            totalNumber:"",
+        },()=>{
+            this.getRecord()
+        })
+    }
+
     initialState=()=>{
         let limitNumber = this.props.match.params.limit
         let pageNumber = this.props.match.params.page
         console.log(this.props.match.params.query)
-        let query = JSON.parse(decodeURIComponent(this.props.match.params.query))
-
-
+        let query = JSON.parse(decodeURI(this.props.match.params.query))
 
         console.log(query)
         this.setState({
@@ -1460,43 +1481,43 @@ class ResultListMainBody extends Component {
             limitNumber:20
         },()=>{
             if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
-        {
-            let outputObj = {
-                type : type,
-                keywordA : keywordA ? keywordA.replace('/','@'):null,
-                keywordB : keywordB ? keywordB.replace('/','@'):null,
-                index:index
+            {
+                let outputObj = {
+                    type : type,
+                    keywordA : keywordA ? keywordA.replace('/','@'):null,
+                    keywordB : keywordB ? keywordB.replace('/','@'):null,
+                    index:index
+                }
+                this.getRecordByBasicAndMetaSearch(outputObj)
+                .then(res=>{
+                    this.setState({
+                        searchType:"basicMeta",
+                        showWarningDialog:false,
+                        listData:res,
+                        totalNumber:res[0].Movie_TotalCount,
+                        metaSelectedInfo:outputObj
+                    })   
+                })
             }
-            this.getRecordByBasicAndMetaSearch(outputObj)
-            .then(res=>{
-                this.setState({
-                    searchType:"basicMeta",
-                    showWarningDialog:false,
-                    listData:res,
-                    totalNumber:res[0].Movie_TotalCount,
-                    metaSelectedInfo:outputObj
-                })   
-            })
-        }
-        else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
-        {
-            let outputObj = {
-                type : type,
-                keywordA : keywordA ? keywordA.replace('/','@'):null,
-                keywordB : keywordB ? keywordB.replace('/','@'):null,
-                index:index
+            else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
+            {
+                let outputObj = {
+                    type : type,
+                    keywordA : keywordA ? keywordA.replace('/','@'):null,
+                    keywordB : keywordB ? keywordB.replace('/','@'):null,
+                    index:index
+                }
+                this.getRecordByAdvanceAndMetaSearch(outputObj)
+                .then(res=>{
+                    this.setState({
+                        searchType:"advanceMeta",
+                        showWarningDialog:false,
+                        listData:res,
+                        totalNumber:res[0].Movie_TotalCount,
+                        metaSelectedInfo:outputObj
+                    })   
+                })
             }
-            this.getRecordByAdvanceAndMetaSearch(outputObj)
-            .then(res=>{
-                this.setState({
-                    searchType:"advanceMeta",
-                    showWarningDialog:false,
-                    listData:res,
-                    totalNumber:res[0].Movie_TotalCount,
-                    metaSelectedInfo:outputObj
-                })   
-            })
-        }
 
         })
   
@@ -1541,7 +1562,8 @@ class ResultListMainBody extends Component {
         }
         else
         {
-            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+number+'/page/'+this.state.pageNumber+'/query/'+this.state.searchWord)
+            let query = encodeURI(JSON.stringify(this.state.searchWord))
+            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+number+'/page/'+this.state.pageNumber+'/query/'+query)
         }
     }
 
@@ -1575,7 +1597,8 @@ class ResultListMainBody extends Component {
         }
         else
         {
-            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+this.state.limitNumber+'/page/'+number+'/query/'+this.state.searchWord)
+            let query = encodeURI(JSON.stringify(this.state.searchWord))
+            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+this.state.limitNumber+'/page/'+number+'/query/'+query)
         }
         
         

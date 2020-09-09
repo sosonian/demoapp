@@ -7,7 +7,27 @@ class PageSelectFunctionArea extends Component {
     constructor(props){
         super(props)
         this.state = {
-           
+            totalNumber:null,
+        }
+    }
+
+    componentDidMount(){
+        console.log("PageSelectFunctionArea componentDidMount")
+        console.log(this.props.storedTotalNumber)
+        this.setState({
+            totalNumber:Number(this.props.storedTotalNumber)
+        })
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.storedTotalNumber !== this.props.storedTotalNumber)
+        {
+            if(prevProps.storedLimitNumber === this.props.storedLimitNumber && prevProps.storedPageNumber === this.props.storedPageNumber)
+            {
+                this.setState({
+                    totalNumber:Number(this.props.storedTotalNumber)
+                })
+            }
         }
     }
 
@@ -59,8 +79,9 @@ class PageSelectFunctionArea extends Component {
                 this.props.getPageNumberInfo(pageToken)
                 break;
             case "addOne":
+                console.log("addOne")
                 pageToken = this.getTotalPageNumber()
-                if(this.props.storedPageNumber+1 < this.getTotalPageNumber())
+                if(Number(this.props.storedPageNumber)+1 < Number(this.getTotalPageNumber()))
                 {
                     pageToken = Number(this.props.storedPageNumber)+1
                 }
@@ -70,8 +91,14 @@ class PageSelectFunctionArea extends Component {
     }
 
     getTotalPageNumber=()=>{
-        let output = Math.floor(this.props.storedTotalNumber/this.props.storedLimitNumber)
-        let leftNumber = this.props.storedTotalNumber % this.props.storedLimitNumber
+        let output = 0
+        let leftNumber =0 
+        if(this.state.totalNumber)
+        {
+            output = Math.floor(this.state.totalNumber/this.props.storedLimitNumber)
+            leftNumber = this.state.totalNumber % this.props.storedLimitNumber
+        }
+        
 
         if(output === 0)
         {
@@ -107,7 +134,7 @@ class PageSelectFunctionArea extends Component {
                         </form>
                     </div>
                     <div className="centerFieldGroup">
-                        <div className="fieldTitle">總筆數<a style={{color:"#ffe736"}}>{this.props.storedTotalNumber}</a>筆</div>
+                        <div className="fieldTitle">總筆數<a style={{color:"#ffe736"}}>{this.state.totalNumber}</a>筆</div>
                         <div className="fieldTitle">共<a style={{color:"#ffe736"}}>{this.getTotalPageNumber()}</a>頁</div>  
                         <div className="fieldTitle">目前頁面</div>
                         <form>
