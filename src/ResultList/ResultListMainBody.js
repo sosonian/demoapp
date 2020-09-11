@@ -57,17 +57,7 @@ class ResultListMainBody extends Component {
             }
             else
             {
-                //if(prevProps.match.params.limit !== this.props.match.params.limit || prevProps.match.params.page !== this.props.match.params.page)
-                //{
-                    //console.log("A1-2-1")
-                    //this.initialStateTemp()
-                    
-                //}
-                //else
-                //{
-                    //console.log("A1-2-2")
-                    this.initialState()
-                //}
+                this.initialState()             
             }
         }
     }
