@@ -363,90 +363,63 @@ class ResultListMainBody extends Component {
         let queryWords = encodeURI(JSON.stringify(this.state.searchWord))
 
         let tempState = {}
-        
-        
-        let outputCategory = new Promise((resolve,reject)=>{
-            let msgCategory = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Category/query/'+queryWords)
-            resolve(msgCategory.json())
-        }) 
 
-        let outputProducer = new Promise((resolve,reject)=>{
-            let msgProducer = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Producer/query/'+queryWords)
-            resolve(msgProducer.json())
-        })
+        let msgCategory = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Category/query/'+queryWords)
+        let msgProducer = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Producer/query/'+queryWords)
+        let msgProductionCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionCompany/query/'+queryWords)
+        let msgProductionDate = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionDate/query/'+queryWords)
+        let msgProductionLocation = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionLocation/query/'+queryWords)
+        let msgActorName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ActorName/query/'+queryWords)
+        let msgStaffName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffName/query/'+queryWords)
+        let msgStaffCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffCompany/query/'+queryWords)
 
-        let outputProductionCompany = new Promise((resolve,reject)=>{
-            let msgProductionCompany = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionCompany/query/'+queryWords)
-            resolve(msgProductionCompany.json())
-        })
+        let outputCategory = await msgCategory.json()
+        let outputProducer = await msgProducer.json()
+        let outputProductionCompany = await msgProductionCompany.json()
+        let outputProductionDate = await msgProductionDate.json()
+        let outputProductionLocation = await msgProductionLocation.json()
+        let outputActorName = await msgActorName.json()
+        let outputStaffName = await msgStaffName.json()
+        let outputStaffCompany = await msgStaffCompany.json()
 
-        let outputProductionDate = new Promise((resolve,reject)=>{
-            let msgProductionDate = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionDate/query/'+queryWords)
-            resolve(msgProductionDate.json())
-        })
-
-        let outputProductionLocation = new Promise((resolve,reject)=>{
-            let msgProductionLocation = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionLocation/query/'+queryWords)
-            resolve(msgProductionLocation.json())
-        })
-
-        let outputActorName = new Promise((resolve,reject)=>{
-            let msgActorName = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ActorName/query/'+queryWords)
-            resolve(msgActorName.json())
-        })
-
-
-        let outputStaffName = new Promise((resolve,reject)=>{
-            let msgStaffName = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffName/query/'+queryWords)
-            resolve(msgStaffName.json())
-        })
-
-        let outputStaffCompany = new Promise((resolve,reject)=>{
-            let msgStaffCompany = fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffCompany/query/'+queryWords)
-            resolve(msgStaffCompany.json())
-        })
-       
-        
-        Promise.all([outputCategory,outputProducer,outputProductionCompany,outputProductionDate,outputProductionLocation,outputActorName,outputStaffName,outputStaffCompany])
-        .then((values)=>{
-            if(values[0])
+        if(outputCategory)
         {
-            tempState.Category = values[0]
+            tempState.Category = outputCategory
         }
 
-        if(values[1])
+        if(outputProducer)
         {
-            tempState.Producer =values[1]
+            tempState.Producer = outputProducer
         }
 
-        if(values[2])
+        if(outputProductionCompany)
         {
-            tempState.ProductionCompany = values[2]
+            tempState.ProductionCompany = outputProductionCompany
         }
         
-        if(values[3])
+        if(outputProductionDate)
         {
-            tempState.ProductionDate = values[3]
+            tempState.ProductionDate = outputProductionDate
         }
 
-        if(values[4])
+        if(outputProductionLocation)
         {
-            tempState.ProductionLocation = values[4]
+            tempState.ProductionLocation = outputProductionLocation
         }
         
-        if(values[5])
+        if(outputActorName)
         {
-            tempState.ActorName = values[5]
+            tempState.ActorName = outputActorName
         }
 
-        if(values[6])
+        if(outputStaffName)
         {
-            tempState.StaffName = values[6]
+            tempState.StaffName = outputStaffName
         }
 
-        if(values[7])
+        if(outputStaffCompany)
         {
-            tempState.StaffCompany = values[7]
+            tempState.StaffCompany = outputStaffCompany
         }
         
         if(tempState !== this.state.metaInfo)
@@ -454,11 +427,7 @@ class ResultListMainBody extends Component {
             this.setState({
                 metaInfo:tempState
             })
-        }
-
-        })
-
-        
+        } 
     }
 
     getRecordByAdvanceAndMetaSearch = async(metaInfo)=>{
