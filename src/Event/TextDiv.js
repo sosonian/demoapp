@@ -126,45 +126,14 @@ class TextDiv extends Component {
         //console.log("buildContent...")
         if(this.props.textAttributes.hyperLinks)
         {
-            if(this.props.textAttributes.hyperLinks.length>0)
+            if(this.props.textAttributes.story)
             {
-                let story = this.props.textAttributes.story
-                let count = 0
-                let sliceSIndex = 0
-                return(
-                    this.props.textAttributes.hyperLinks.map(link=>{
-                        //console.log("count : ",count)
-                        //console.log("hyperLinks.length : ",this.props.textAttributes.hyperLinks.length)
-                        //let story = this.props.textAttributes.story
-
-                        let s = link.start
-                        let e = link.end
-
-                        if(count === 0)
-                        {
-                            sliceSIndex = 0                      
-                        }
-   
-                        let suffix = null
-                        let prefix = story.slice(sliceSIndex,s)
-                       
-                        if(count === this.props.textAttributes.hyperLinks.length-1)
-                        {
-                            suffix = story.slice(e,-1)
-                        }
-                        
-                        count = count + 1
-                        sliceSIndex = e
-                        //console.log("prefix : ",story.slice(0,s))
-                        //console.log("link : ",story.slice(s,e))
-                        //console.log("suffix : ",suffix)
-                        return <span>{prefix}<a className={"aHyperLink"} href={"http://www.google.com"}>{story.slice(s,e)}</a>{suffix}</span>
-                    })
-                )
+                let result = this.props.textAttributes.story.replace(/!es#/g, "'")     
+                return <div dangerouslySetInnerHTML={{__html:result}} />
             }
             else
             {
-                return this.props.textAttributes.story
+                return null
             }
         }
         else
