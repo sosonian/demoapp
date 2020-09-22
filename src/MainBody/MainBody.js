@@ -250,17 +250,31 @@ class MainBody extends Component {
     getSearchInfo=(msg)=>{
         console.log("getSearchInfo")
         console.log(msg)
-        if(this.state.newUrl !== msg)
+        let url = msg
+        if(msg === "/default")
         {
-            this.setState({newUrl:msg})
+            if(this.state.newUrl === "/default")
+            {
+                url = "/"
+            }
+            else if(this.state.newUrl === "/")
+            {
+                url = "/default"
+            }
+            else
+            {
+                url = "/default"
+            }
         }
+    
+        this.setState({newUrl:url})
     }
   
     render(){
-       
+        console.log("MainBody render")
         return(
             <BrowserRouter>
-            {this.state.newUrl? <Redirect to={this.state.newUrl} /> :null} 
+            <Redirect to={this.state.newUrl}/>
             <div className="MainBody" onClick={this.onClickHandler}>  
                 {this.createChatChannel()}
                 <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel}/>

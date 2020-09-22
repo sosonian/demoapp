@@ -54,7 +54,7 @@ class UpBanner extends Component {
                 url:"/"
             })
         } */
-        this.props.getSearchInfo("/")
+        this.props.getSearchInfo("/default")
     }
 
     getSearchInfo=(msg)=>{
