@@ -16,6 +16,11 @@ class UpBanner extends Component {
         }
     }
 
+    componentDidMount(){
+        console.log("UpBanner did mount")
+        
+    }
+
     getLogoClick=(msg)=>{
         this.setState({
             searchInfo:null,
@@ -26,9 +31,10 @@ class UpBanner extends Component {
     }
 
     goToFrontPage=()=>{
-        console.log("goToFrontPage...")
+        /* console.log("goToFrontPage...")
         if(this.state.url === "/")
         {
+
             this.setState({
                 searchInfo:null,
                 url:"/default"
@@ -47,12 +53,16 @@ class UpBanner extends Component {
                 searchInfo:null,
                 url:"/"
             })
-        }
+        } */
+        this.props.getSearchInfo("/")
     }
 
     getSearchInfo=(msg)=>{
         let uriQuery = encodeURI(JSON.stringify(msg.searchWord))
         let url = '/SearchResult/searchType/'+msg.type+'/limit/20/page/1/query/'+uriQuery
+
+        this.props.getSearchInfo(url)
+
         this.setState({
             searchInfo:msg,
             url:url
@@ -66,7 +76,7 @@ class UpBanner extends Component {
         return(
            
             <div className="UpBannerBody">
-                <Redirect to={this.state.url}/>
+                
                 <LogoAndTitleDiv getLogoClick={this.getLogoClick} goToFrontPage={this.goToFrontPage} IntroListShowOrHide={this.props.IntroListShowOrHide}/>
                 <RecordSearchArea getSearchInfo={this.getSearchInfo} ipAddress={this.props.ipAddress}/>
             </div>

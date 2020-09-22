@@ -30,7 +30,8 @@ class MainBody extends Component {
             screenshotEmitInfo:null,
             wsMiddleWare:null,
             query:null,
-            toggleChatChannel:false
+            toggleChatChannel:false,
+            newUrl:null
         }
     }
 
@@ -245,11 +246,21 @@ class MainBody extends Component {
         tempObj[this.state.clientIP] = true
         this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:msg.emitMessage, read:tempObj})
     }
+
+    getSearchInfo=(msg)=>{
+        console.log("getSearchInfo")
+        console.log(msg)
+        if(this.state.newUrl !== msg)
+        {
+            this.setState({newUrl:msg})
+        }
+    }
   
     render(){
        
         return(
             <BrowserRouter>
+            {this.state.newUrl? <Redirect to={this.state.newUrl} /> :null} 
             <div className="MainBody" onClick={this.onClickHandler}>  
                 {this.createChatChannel()}
                 <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel}/>
