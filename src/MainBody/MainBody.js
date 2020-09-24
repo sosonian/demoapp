@@ -274,7 +274,7 @@ class MainBody extends Component {
         console.log("MainBody render")
         return(
             <BrowserRouter>
-            <Redirect to={this.state.newUrl}/>
+            {this.state.newUrl ?<Redirect to={this.state.newUrl}/> : null}
             <div className="MainBody" onClick={this.onClickHandler}>  
                 {this.createChatChannel()}
                 <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel}/>

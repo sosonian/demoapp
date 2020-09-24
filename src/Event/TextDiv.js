@@ -124,22 +124,16 @@ class TextDiv extends Component {
 
     buildContent=()=>{
         //console.log("buildContent...")
-        if(this.props.textAttributes.hyperLinks)
+        
+        if(this.props.textAttributes.story)
         {
-            if(this.props.textAttributes.story)
-            {
-                let result = this.props.textAttributes.story.replace(/!es#/g, "'")     
-                return <div dangerouslySetInnerHTML={{__html:result}} />
-            }
-            else
-            {
-                return null
-            }
+            let result = this.props.textAttributes.story.replace(/!es#/g, '"')     
+            return <div dangerouslySetInnerHTML={{__html:result}} />
         }
         else
         {
-            return this.props.textAttributes.story
-        }
+            return null
+        }     
     }
 
     onDoubleClick=()=>{
