@@ -31,6 +31,7 @@ class MainBody extends Component {
             wsMiddleWare:null,
             query:null,
             toggleChatChannel:false,
+            queryStage:"1A",
             newUrl:null
         }
     }
@@ -194,7 +195,7 @@ class MainBody extends Component {
     createChatChannel=()=>{      
         if(this.state.toggleChatChannel)
         {
-            return <ChatChannel hostUserID={this.state.clientIP} textInfo={this.state.query} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead}/>
+            return <ChatChannel hostUserID={this.state.clientIP} textInfo={this.state.query} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead} queryStage={this.state.queryStage}/>
         }
     }
 
@@ -277,7 +278,7 @@ class MainBody extends Component {
             {this.state.newUrl ?<Redirect to={this.state.newUrl}/> : null}
             <div className="MainBody" onClick={this.onClickHandler}>  
                 {this.createChatChannel()}
-                <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel}/>
+                <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel} queryStage={this.state.queryStage}/>
                 <div className="UpHeader"> 
                     <UpBanner getLogoClick={this.getLogoClick} IntroListShowOrHide={this.state.showIntroList} getSearchInfo={this.getSearchInfo} ipAddress={this.state.ipAddress}/> 
                     <IntroList showOrHide={this.state.showIntroList}/>

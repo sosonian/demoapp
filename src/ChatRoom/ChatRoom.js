@@ -35,7 +35,7 @@ class ChatRoom extends Component {
     
     createShrinkContainer=()=>{
         return <div>
-                    <div className={"userCountRow"} onClick={this.invokeChatChannel}><div className={"userCountTitle"}><TextsmsIcon fontSize={"large"}/></div><div className={"messageNumberBadge"}><FlashCountBadge countNumber={this.props.unreadMessage.length} badgeType={"red-blue"}/></div></div>
+                    <div className={"userCountRow"} onClick={this.invokeChatChannel}><div className={"userCountTitle"}><TextsmsIcon fontSize={"large"}/></div><div className={"messageNumberBadge"}><FlashCountBadge countNumber={this.props.queryStage === "1A"?2:this.props.unreadMessage.length} badgeType={"red-blue"}/></div></div>
                 </div>
     }
 

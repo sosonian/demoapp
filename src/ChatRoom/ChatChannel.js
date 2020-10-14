@@ -64,27 +64,127 @@ class ChatChannel extends Component {
         this.dummyChatRowRef.scrollIntoView({ behavior: "smooth" })
     }
 
+    createFirstRow=()=>{
+        let cTime = new Date()
+        return <div className={"rightChatRow"}>
+        <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}>{cTime.toLocaleString("zh-TW",{timeStyle:"medium",hour12:false})}</div></div>
+        <div className={"rightChatMessage"}>{"您好，歡迎使用藏品資料查詢系統~"}</div>
+        </div>
+    }
+
+    createSecondRow=()=>{
+        let cTime = new Date()
+        return <div className={"rightChatRow"}>
+        <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}>{cTime.toLocaleString("zh-TW",{timeStyle:"medium",hour12:false})}</div></div>
+        <div className={"rightChatMessage leftAlign"}>{"請問您是要："}
+            <div className={"queryTypeOption"} onClick={()=>this.chooseType(1)}>{"1. 我有使用上的問題想請教。"}</div>
+            <div className={"queryTypeOption"} onClick={()=>this.chooseType(2)}>{"2. 我發現資料文字有錯誤!"}</div>
+            <div className={"queryTypeOption"} onClick={()=>this.chooseType(3)}>{"3. 我發現系統有些功能不正常!"}</div>
+            <div className={"queryTypeOption"} onClick={()=>this.chooseType(4)}>{"4. 我對於此系統有些建議跟想法。"}</div>
+            <div className={"queryTypeOption"} onClick={()=>this.chooseType(5)}>{"5. 都不是，我有其他問題..."}</div>
+        </div>
+        </div>
+    }
+
+    chooseType=(number)=>{
+        let msg = {
+            userID: this.props.hostUserID,
+            emitMessage:"請輸入訊息"
+        }
+        switch(number){
+            case 1:
+                msg = {
+                    userID: this.props.hostUserID,
+                    emitMessage:"我有使用上的問題想請教。"
+                }
+                this.props.getChatMessage(msg)
+                this.setState({
+                    message:"請輸入訊息"
+                })
+                break;
+            case 2:
+                msg = {
+                    userID: this.props.hostUserID,
+                    emitMessage:"我發現資料文字有錯誤!。"
+                }
+                this.props.getChatMessage(msg)
+                this.setState({
+                    message:"請輸入訊息"
+                })
+                break;
+            case 3:
+                msg = {
+                    userID: this.props.hostUserID,
+                    emitMessage:"我發現系統有些功能不正常!。"
+                }
+                this.props.getChatMessage(msg)
+                this.setState({
+                    message:"請輸入訊息"
+                })
+                break;
+            case 4:
+                msg = {
+                    userID: this.props.hostUserID,
+                    emitMessage:"我對於此系統有些建議跟想法!。"
+                }
+                this.props.getChatMessage(msg)
+                this.setState({
+                    message:"請輸入訊息"
+                })
+                break;
+            case 5:
+                msg = {
+                    userID: this.props.hostUserID,
+                    emitMessage:"都不是，我有其他問題!。"
+                }
+                this.props.getChatMessage(msg)
+                this.setState({
+                    message:"請輸入訊息"
+                })
+                break;
+            default:
+                break;
+        }
+    }
+
     createMessageRows=()=>{
+        let output = []
         if(this.props.textInfo)
         {
-            let output = this.props.textInfo.map(text=>{
-                // let imageUrl
-                // if(chat.emitImage)
-                // {
-                //     imageUrl = URL.createObjectURL(chat.emitImage)
-                // }
-                return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
-                <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
-                <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
-                </div>
-            })
-            return output
+            
+            if(this.props.queryStage === "1A")
+            {
+                output.push(this.createFirstRow(),this.createSecondRow())
+            }
+            else
+            {
+                output = this.props.textInfo.map(text=>{
+                    // let imageUrl
+                    // if(chat.emitImage)
+                    // {
+                    //     imageUrl = URL.createObjectURL(chat.emitImage)
+                    // }
+                    return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
+                    </div>
+                })
+            }
             //return null
         }
         else
         {
-            return null
+            if(this.props.queryStage === "1A")
+            {
+                output.push(this.createFirstRow(),this.createSecondRow())
+            }
+            else
+            {
+                output = null
+            }
         }
+
+        return output
     }
 
     closeChannel=()=>{
