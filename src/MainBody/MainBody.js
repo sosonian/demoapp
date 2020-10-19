@@ -29,9 +29,10 @@ class MainBody extends Component {
             screenshotArea:null,
             screenshotEmitInfo:null,
             wsMiddleWare:null,
+            preQuery:null,
             query:null,
             toggleChatChannel:false,
-            queryStage:"1A",
+            queryStage:"1",
             newUrl:null
         }
     }
@@ -195,7 +196,7 @@ class MainBody extends Component {
     createChatChannel=()=>{      
         if(this.state.toggleChatChannel)
         {
-            return <ChatChannel hostUserID={this.state.clientIP} textInfo={this.state.query} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead} queryStage={this.state.queryStage}/>
+            return <ChatChannel hostUserID={this.state.clientIP} textInfo={this.state.queryStage === "10" ? this.state.query : this.state.preQuery} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead} queryStage={this.state.queryStage}/>
         }
     }
 
@@ -242,10 +243,55 @@ class MainBody extends Component {
         this.state.wsMiddleWare.emit('mark_read',{channelID:msg.channelID, emitID:this.state.clientIP, type:msg.type})
     }
 
-    getChatMessage=(msg)=>{
+    getChatMessage=(msg, stage)=>{
+        let cTime = new Date()
         let tempObj = {}
         tempObj[this.state.clientIP] = true
-        this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:msg.emitMessage, read:tempObj})
+        
+        let emitObj = {
+            channelID:this.state.clientIP,
+            emitDate:cTime.toLocaleString("zh-TW",{dateStyle:"short"}).replace(/-/g,"-"),
+            emitID:this.state.clientIP,
+            emitIP:this.state.clientIP,
+            emitImage:"",
+            emitMessage:msg.emitMessage,
+            emitName:this.state.clientName,
+            emitTime:cTime.toLocaleString("zh-TW",{timeStyle:"medium",hour12:false}),
+            read:tempObj
+        }
+
+        if(this.state.queryStage !== stage)
+        {
+            let output = []
+            if(this.state.preQuery)
+            {
+                output = this.state.preQuery
+            } 
+
+           if(stage === "3")
+            {
+                emitObj.emitMessage = msg.emitMessage
+                output.push(emitObj)
+                this.setState({
+                    clientName:msg.emitMessage,
+                    preQuery:output,
+                    queryStage:"3"
+
+                })
+            }
+            else
+            {
+                output.push(emitObj)
+                this.setState({
+                    preQuery:output,
+                    queryStage:stage
+                })
+            }
+        }
+        else
+        {
+            this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, read:tempObj})
+        }
     }
 
     getSearchInfo=(msg)=>{
@@ -273,6 +319,7 @@ class MainBody extends Component {
   
     render(){
         console.log("MainBody render")
+        console.log(this.state.preQuery)
         return(
             <BrowserRouter>
             {this.state.newUrl ?<Redirect to={this.state.newUrl}/> : null}
