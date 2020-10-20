@@ -22,8 +22,10 @@ class MainBody extends Component {
             event:true,
             showIntroList:false,
             sessionID:null,
+            queryType:null,
             clientIP:null,
             clientName:null,
+            clientEmail:null,
             ipAddress:null,
             toggleScreenshotPicker:false,
             screenshotArea:null,
@@ -90,7 +92,8 @@ class MainBody extends Component {
             //a.click()
             let tempObj = {}
             tempObj[this.state.clientIP] = true
-            this.state.wsMiddleWare.emit('query_image',{channelID:emitInfo.channelID, emitID:emitInfo.visitorID, emitName:emitInfo.visitorName, emitIP:this.state.clientIP, emitImage:screenshotImg, read:tempObj})
+       
+            this.state.wsMiddleWare.emit('query_image',{channelID:emitInfo.channelID, emitID:emitInfo.visitorID, emitName:emitInfo.visitorName, emitIP:this.state.clientIP, emitImage:screenshotImg, read:tempObj})      
         })
     }
   
@@ -108,11 +111,11 @@ class MainBody extends Component {
         this.setState({
             sessionID:output[0].sessionID,
             clientIP:output[0].clientIP,
-            clientName:"來自"+output[0].clientIP,
             wsMiddleWare:webSocket('http://192.168.3.220:5000')
         },()=>{
             this.createPersonalRoom()
             this.dealWebSocket()
+            this.initialChat()
         })
     }
 
@@ -196,7 +199,7 @@ class MainBody extends Component {
     createChatChannel=()=>{      
         if(this.state.toggleChatChannel)
         {
-            return <ChatChannel hostUserID={this.state.clientIP} textInfo={this.state.queryStage === "10" ? this.state.query : this.state.preQuery} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead} queryStage={this.state.queryStage}/>
+            return <ChatChannel hostUserID={this.state.clientIP} textInfo={this.state.preQuery} queryInfo={this.state.query} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead} queryStage={this.state.queryStage}/>
         }
     }
 
@@ -243,54 +246,111 @@ class MainBody extends Component {
         this.state.wsMiddleWare.emit('mark_read',{channelID:msg.channelID, emitID:this.state.clientIP, type:msg.type})
     }
 
-    getChatMessage=(msg, stage)=>{
-        let cTime = new Date()
+    initialChat=()=>{
         let tempObj = {}
         tempObj[this.state.clientIP] = true
-        
-        let emitObj = {
-            channelID:this.state.clientIP,
-            emitDate:cTime.toLocaleString("zh-TW",{dateStyle:"short"}).replace(/-/g,"-"),
-            emitID:this.state.clientIP,
-            emitIP:this.state.clientIP,
-            emitImage:"",
-            emitMessage:msg.emitMessage,
-            emitName:this.state.clientName,
-            emitTime:cTime.toLocaleString("zh-TW",{timeStyle:"medium",hour12:false}),
-            read:tempObj
-        }
+        this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage1A",read:tempObj})
+        this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage1B",read:tempObj})
+    }
 
-        if(this.state.queryStage !== stage)
+    getChatMessage=(msg, stage)=>{
+        let tempObj = {}
+        tempObj[this.state.clientIP] = true
+
+        if(stage === "1")
         {
-            let output = []
-            if(this.state.preQuery)
-            {
-                output = this.state.preQuery
-            } 
+            this.setState({
+                queryStage:stage
+            },()=>{
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})  
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage1A",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage1B",read:tempObj})
+            })
 
-           if(stage === "3")
+        }
+        else if(stage === "2")
+        {
+            
+            if(this.state.clientName)
             {
-                emitObj.emitMessage = msg.emitMessage
-                output.push(emitObj)
                 this.setState({
-                    clientName:msg.emitMessage,
-                    preQuery:output,
-                    queryStage:"3"
-
+                    queryType:msg.emitMessage,
+                    queryStage:"4"
+                },()=>{
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage4A",read:tempObj})
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage4B",read:tempObj})
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage4C",read:tempObj})
                 })
             }
             else
             {
-                output.push(emitObj)
                 this.setState({
-                    preQuery:output,
                     queryStage:stage
+                },()=>{
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})  
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage2",read:tempObj})
                 })
             }
+            
+        }
+        else if(stage === "3")
+        {
+            this.setState({
+                clientName:msg.emitMessage,
+                queryStage:stage
+            },()=>{
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})  
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage3",read:tempObj})
+            })
+        }
+        else if(stage === "4")
+        {
+            this.setState({
+                clientEmail:msg.emitMessage,
+                queryStage:stage
+            },()=>{
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage4A",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage4B",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage4C",read:tempObj})
+            })      
+        }
+        else if(stage === "5")
+        {
+            let output = []
+            if(this.state.preQuery)
+            {
+                output = [...this.state.preQuery]
+            }
+            output.push(msg.emitMessage)
+
+
+            this.setState({
+                preQuery:output,
+                queryStage:stage
+            },()=>{
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})
+                
+            })      
+        }
+        else if(stage === "6")
+        {
+            this.setState({
+                queryStage:stage
+            },()=>{
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage5A",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage5B",read:tempObj})
+            })      
         }
         else
         {
-            this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, read:tempObj})
+            this.setState({
+                queryStage:stage
+            },()=>{
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})  
+            })
         }
     }
 
@@ -318,8 +378,7 @@ class MainBody extends Component {
     }
   
     render(){
-        console.log("MainBody render")
-        console.log(this.state.preQuery)
+
         return(
             <BrowserRouter>
             {this.state.newUrl ?<Redirect to={this.state.newUrl}/> : null}

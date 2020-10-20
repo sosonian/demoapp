@@ -134,3 +134,11 @@
 .queryTypeOption:hover {
     background-color: rgb(106, 219, 253);
 }
+
+.queryTypeOptionChoosed {
+    background-color: white;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+} 

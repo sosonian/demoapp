@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import TextsmsIcon from '@material-ui/icons/Textsms';
-
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import './ChatRoom.css'
 import FlashCountBadge from '../Function/FlashCountBadge'
 
@@ -34,8 +34,8 @@ class ChatRoom extends Component {
 
     
     createShrinkContainer=()=>{
-        return <div>
-                    <div className={"userCountRow"} onClick={this.invokeChatChannel}><div className={"userCountTitle"}><TextsmsIcon fontSize={"large"}/></div><div className={"messageNumberBadge"}><FlashCountBadge countNumber={this.props.queryStage === "1A"?2:this.props.unreadMessage.length} badgeType={"red-blue"}/></div></div>
+        return  <div>
+                    <div className={"userCountRow"} onClick={this.invokeChatChannel}><div className={"userCountTitle"}><LiveHelpIcon fontSize={"large"}/></div><div className={"messageNumberBadge"}><FlashCountBadge countNumber={this.props.queryStage === "1A"?2:this.props.unreadMessage.length} badgeType={"red-blue"}/></div></div>
                 </div>
     }
 
@@ -45,7 +45,6 @@ class ChatRoom extends Component {
             expandContain:null
         })
     }
-
 
 
     invokeChatChannel=()=>{

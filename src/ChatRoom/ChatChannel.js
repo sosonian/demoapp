@@ -8,7 +8,7 @@ class ChatChannel extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            message:"請輸入訊息"
+            message:"請輸入訊息",
         }
         //this.dummyChatRowRef = React.createRef()
     }
@@ -69,15 +69,17 @@ class ChatChannel extends Component {
         this.dummyChatRowRef.scrollIntoView({ behavior: "smooth" })
     }
 
-    createStageRow=(stage, userName)=>{
-        switch(stage){
-            case "1A":
+    createStageRow=(text)=>{
+        switch(text.emitMessage){
+            case "cmsStage1A":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
                     <div className={"rightChatMessage"}>{"您好，歡迎使用藏品資料查詢系統~"}</div>
                     </div>
-            case "1B":
-                return <div className={"rightChatRow"}>
+            case "cmsStage1B":
+                if(this.props.queryStage === "1")
+                {
+                    return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
                     <div className={"rightChatMessage leftAlign"}>{"請問您是要："}
                         <div className={"queryTypeOption"} onClick={()=>this.chooseType(1)}>{"1. 我有使用上的問題想請教。"}</div>
@@ -87,54 +89,98 @@ class ChatChannel extends Component {
                         <div className={"queryTypeOption"} onClick={()=>this.chooseType(5)}>{"5. 都不是，我有其他問題..."}</div>
                     </div>
                     </div>
-            case "1C":
-                return <div className={"rightChatRow"}>
+                }
+                else
+                {
+                    return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
                     <div className={"rightChatMessage leftAlign"}>{"請問您是要："}
-                        <div className={"queryTypeOption"} >{"1. 我有使用上的問題想請教。"}</div>
-                        <div className={"queryTypeOption"} >{"2. 我發現資料文字有錯誤!"}</div>
-                        <div className={"queryTypeOption"} >{"3. 我發現系統有些功能不正常!"}</div>
-                        <div className={"queryTypeOption"} >{"4. 我對於此系統有些建議跟想法。"}</div>
-                        <div className={"queryTypeOption"} >{"5. 都不是，我有其他問題..."}</div>
+                        <div className={"queryTypeOptionChoosed"} >{"1. 我有使用上的問題想請教。"}</div>
+                        <div className={"queryTypeOptionChoosed"} >{"2. 我發現資料文字有錯誤!"}</div>
+                        <div className={"queryTypeOptionChoosed"} >{"3. 我發現系統有些功能不正常!"}</div>
+                        <div className={"queryTypeOptionChoosed"} >{"4. 我對於此系統有些建議跟想法。"}</div>
+                        <div className={"queryTypeOptionChoosed"} >{"5. 都不是，我有其他問題..."}</div>
                     </div>
                     </div>
-            case "2":
+
+                }
+            case "cmsStage2":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
                     <div className={"rightChatMessage"}>{"好的，接下來請讓我們知道如何稱呼您，請於下方輸入您的名稱~"}</div>
                     </div>
-            case "3":
+            case "cmsStage3":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
-                    <div className={"rightChatMessage"}>{"謝謝您"}<div style={{color:"blue"}}>{userName}</div>{"! 為方便聯繫您，再請您輸入您的email帳號"}</div>
+                    <div className={"rightChatMessage"}>{"謝謝您"}<div style={{color:"blue"}}>{text.emitName}</div>{"! 為方便聯繫您，再請您輸入您的email帳號"}</div>
                     </div>
-            case "4A":
+            case "cmsStage4A":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
                     <div className={"rightChatMessage"}>{"謝謝您，接下來請描述您的問題或意見-"}</div>
                     </div>
-            case "4B":
+            case "cmsStage4B":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
         <div className={"rightChatMessage"}>{"1. 截圖功能：您可以點擊"}<CameraIcon/>{"按鈕，頁面左上會出現可拖曳放大之截圖框。將其拖曳至您有問題之區域，再點擊截圖框左上同樣圖示，即可截圖並傳送給系統客服，使客服更直覺地了解您的問題。"}</div>
                     </div>  
-            case "4C":
+            case "cmsStage4C":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
-        <div className={"rightChatMessage"}>{'2. 文字數量：如您的意見文字較多，可分段輸入，請勿一對話框超過100字。如已陳述完畢，請於獨立對話框輸入"完畢"或"done"，系統始進入下一階段。'}</div>
+        <div className={"rightChatMessage"}>{'2. 文字數量：如您的意見文字較多，可分段輸入，請勿一對話框超過100字。如已陳述完畢，請於獨立對話框輸入"完畢"或"Done"，系統始進入下一階段。'}</div>
                     </div> 
- 
-
-
+            case "cmsStage5A":
+                return <div className={"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
+        <div className={"rightChatMessage"}>{"謝謝您提供的意見，如系統客服人員在線的話，將直接線上回覆您，若不在線，將於2日內回覆至您的信箱。"}</div>
+                    </div>
+            case "cmsStage5B":
+                return <div className={"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
+        <div className={"rightChatMessage"}>{'如您有新的問題，請於下方輸入: "我有問題"。'}</div>
+                    </div>
+            case "cmsQueryType1":
+                return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{"我有使用上的問題想請教。"}</div>
+                    </div>
+            case "cmsQueryType2":
+                return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{"我發現資料文字有錯誤!"}</div>
+                    </div>
+            case "cmsQueryType3":
+                return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{"我發現系統有些功能不正常!"}</div>
+                    </div>
+            case "cmsQueryType4":
+                return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{"我對於此系統有些建議跟想法。"}</div>
+                    </div>
+            case "cmsQueryType5":
+                return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{"都不是，我有其他問題..."}</div>
+                    </div>
+            default:
+                return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
+                    <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
+                    </div>
         }
     }
 
 
-    createChatRow=(text)=>{
-        return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
-        <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
-        <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
-        </div>
+    
+
+
+    openImageTab=(dataImage)=>{
+        let html = "<img src='"+dataImage+"'/>";
+        let newTab = window.open()
+        newTab.document.write(html)
+        newTab.focus()
     }
 
     chooseType=(number)=>{
@@ -149,7 +195,7 @@ class ChatChannel extends Component {
             case 1:
                 msg = {
                     userID: this.props.hostUserID,
-                    emitMessage:"我有使用上的問題想請教。"
+                    emitMessage:"cmsQueryType1"
                 }
                 this.props.getChatMessage(msg, stage)
                 this.setState({
@@ -159,7 +205,7 @@ class ChatChannel extends Component {
             case 2:
                 msg = {
                     userID: this.props.hostUserID,
-                    emitMessage:"我發現資料文字有錯誤!"
+                    emitMessage:"cmsQueryType2"
                 }
                 this.props.getChatMessage(msg, stage)
                 this.setState({
@@ -169,7 +215,7 @@ class ChatChannel extends Component {
             case 3:
                 msg = {
                     userID: this.props.hostUserID,
-                    emitMessage:"我發現系統有些功能不正常!"
+                    emitMessage:"cmsQueryType3"
                 }
                 this.props.getChatMessage(msg, stage)
                 this.setState({
@@ -179,7 +225,7 @@ class ChatChannel extends Component {
             case 4:
                 msg = {
                     userID: this.props.hostUserID,
-                    emitMessage:"我對於此系統有些建議跟想法。"
+                    emitMessage:"cmsQueryType4"
                 }
                 this.props.getChatMessage(msg, stage)
                 this.setState({
@@ -189,7 +235,7 @@ class ChatChannel extends Component {
             case 5:
                 msg = {
                     userID: this.props.hostUserID,
-                    emitMessage:"都不是，我有其他問題!"
+                    emitMessage:"cmsQueryType5"
                 }
                 this.props.getChatMessage(msg, stage)
                 this.setState({
@@ -202,55 +248,19 @@ class ChatChannel extends Component {
     }
 
     createMessageRows=()=>{
-       
         let output =[]
-        
-
-        switch(this.props.queryStage){
-            case "1":
-                output.push(this.createStageRow("1A"),this.createStageRow("1B"))
-                break;
-            case "2":
-                if(this.props.textInfo){                  
-                    output.push(this.createStageRow("1A"),this.createStageRow("1C"),this.createChatRow(this.props.textInfo[0]),this.createStageRow("2"))
-                }
-                else
-                {
-                    return null
-                }
-                break;
-            case "3":
-                if(this.props.textInfo && this.props.textInfo[1]){
-                    output.push(this.createStageRow("1A"),this.createStageRow("1C"),this.createChatRow(this.props.textInfo[0]),this.createStageRow("2"),this.createChatRow(this.props.textInfo[1]),this.createStageRow("3",this.props.textInfo[1].emitMessage))
-                }
-                else
-                {
-                    return null
-                }
-                break; 
-            case "4":
-                if(this.props.textInfo && this.props.textInfo[2]){
-                    output.push(this.createStageRow("1A"),this.createStageRow("1C"),this.createChatRow(this.props.textInfo[0]),this.createStageRow("2"),this.createChatRow(this.props.textInfo[1]),this.createStageRow("3",this.props.textInfo[1].emitMessage),this.createChatRow(this.props.textInfo[2]),this.createStageRow("4A"),this.createStageRow("4B"),this.createStageRow("4C"))
-                }
-                else
-                {
-                    return null
-                }
-                break;   
-               
-            default:
-                break;
-
+        if(this.props.queryInfo)
+        {
+            output = this.props.queryInfo.map(text=>{
+                return this.createStageRow(text)
+            })
         }
-        
-        return output
+        else
+        {
+            output = null
+        }
 
-        //output = this.props.textInfo.map(text=>{
-        //    return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
-        //        <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
-        //        <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
-        //        </div>
-        //})
+        return output
     }
 
     closeChannel=()=>{
@@ -309,7 +319,7 @@ class ChatChannel extends Component {
             }
             else if(this.props.queryStage === "4")
             {
-                let stage = "4"
+                let stage = "5"
                 let msg = {
                     userID: this.props.hostUserID,
                     emitMessage:this.state.message
@@ -319,7 +329,87 @@ class ChatChannel extends Component {
                     message:"請描述您的意見或問題"
                 })
             }
-            
+            else if(this.props.queryStage === "5")
+            {
+                if(this.state.message === "完畢" || this.state.message === "Done")
+                {
+                    let stage = "6"
+                    let msg = {
+                        userID: this.props.hostUserID,
+                        emitMessage:this.state.message
+                    }
+                    this.props.getChatMessage(msg,stage)
+                    this.setState({
+                        message:"請描述您的意見或問題"
+                    })
+                }
+                else
+                {
+                    let stage = "5"
+                    let msg = {
+                        userID: this.props.hostUserID,
+                        emitMessage:this.state.message
+                    }
+                    this.props.getChatMessage(msg,stage)
+                    this.setState({
+                        message:"請描述您的意見或問題"
+                    })
+                } 
+            }
+            else if(this.props.queryStage === "6")
+            {
+                if(this.state.message === "我有問題" )
+                {
+                    let stage = "1"
+                    let msg = {
+                        userID: this.props.hostUserID,
+                        emitMessage:this.state.message
+                    }
+                    this.props.getChatMessage(msg,stage)
+                    this.setState({
+                        message:"請描述您的意見或問題"
+                    })
+                }
+                else
+                {
+                    let stage = "10"
+                    let msg = {
+                        userID: this.props.hostUserID,
+                        emitMessage:this.state.message
+                    }
+                    this.props.getChatMessage(msg,stage)
+                    this.setState({
+                        message:"請描述您的意見或問題"
+                    })
+                } 
+            }
+            else if(this.props.queryStage === "10")
+            {
+                if(this.state.message === "我有問題" )
+                {
+                    let stage = "1"
+                    let msg = {
+                        userID: this.props.hostUserID,
+                        emitMessage:this.state.message
+                    }
+                    this.props.getChatMessage(msg,stage)
+                    this.setState({
+                        message:"請描述您的意見或問題"
+                    })
+                }
+                else
+                {
+                    let stage = "10"
+                    let msg = {
+                        userID: this.props.hostUserID,
+                        emitMessage:this.state.message
+                    }
+                    this.props.getChatMessage(msg,stage)
+                    this.setState({
+                        message:"請描述您的意見或問題"
+                    })
+                } 
+            }
         }
     }
 
@@ -334,7 +424,7 @@ class ChatChannel extends Component {
                 <div className={"chatChannelHeader"}>
                     <div className={"chatChannelLabel"}>{"反映問題"}</div>
                     <div className={"rightUpConrnerArea"}>
-                        <div className={"chatChannelButton"} onClick={this.takeScreenShot}><CameraIcon/></div>
+                        {this.props.queryStage === "4" || this.props.queryStage === "5" || this.props.queryStage === "10" ?  <div className={"chatChannelButton"} onClick={this.takeScreenShot}><CameraIcon/></div> :null}
                         <div className={"chatChannelCloseButton"} onClick={this.closeChannel}>{"x"}</div>
                     </div>
                 </div> 
