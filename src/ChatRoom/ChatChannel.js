@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './ChatChannel.css'
 import CameraIcon from '@material-ui/icons/LocalSee'
+import {serverIP} from '../IPAdressModule'
 
 
 
@@ -153,7 +154,7 @@ class ChatChannel extends Component {
             default:
                 return <div className={text.emitID === this.props.hostUserID ? "leftChatRow":"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{text.emitName}</div><div className={"chatRowTime"}>{text.emitTime}</div></div>
-                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={'http://192.168.3.220:5000/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
+                    <div className={text.emitID === this.props.hostUserID ? "leftChatMessage":"rightChatMessage"}>{text.emitMessage? text.emitMessage:<a href={serverIP+'/api/screenshotImage/download/'+text.emitImage} style={{display:"table-cell"}} target="_blank"><img src={serverIP+'/api/screenshotImage/download/'+text.emitImage} style={{maxWidth:"150px",height:"auto",cursor:"pointer"}}/></a>}</div>
                     </div>
         }
     }
@@ -332,33 +333,6 @@ class ChatChannel extends Component {
                 else
                 {
                     let stage = "5"
-                    let msg = {
-                        userID: this.props.hostUserID,
-                        emitMessage:this.state.message
-                    }
-                    this.props.getChatMessage(msg,stage)
-                    this.setState({
-                        message:"請描述您的意見或問題"
-                    })
-                } 
-            }
-            else if(this.props.queryStage === "6")
-            {
-                if(this.state.message === "我有問題" )
-                {
-                    let stage = "1"
-                    let msg = {
-                        userID: this.props.hostUserID,
-                        emitMessage:this.state.message
-                    }
-                    this.props.getChatMessage(msg,stage)
-                    this.setState({
-                        message:"請描述您的意見或問題"
-                    })
-                }
-                else
-                {
-                    let stage = "10"
                     let msg = {
                         userID: this.props.hostUserID,
                         emitMessage:this.state.message
