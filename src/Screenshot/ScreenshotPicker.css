@@ -18,3 +18,8 @@
 .ScreenshotPickerContainerButton:hover {
     background-color: burlywood;
 }
+
+.ScreenshotPickerContainerText {
+    color:#ffd7ba;
+    text-align: left;
+}

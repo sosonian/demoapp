@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import MaskArea from './MaskArea'
 import './ScreenshotPicker.css'
 import CameraIcon from '@material-ui/icons/LocalSee'
 
@@ -15,8 +16,8 @@ class ScreenshotPicker extends Component {
                 y:0
             },
             divSize:{
-                width:200,
-                height:200
+                width:250,
+                height:250
             },
             refDivSize:{
                 width:0,
@@ -230,13 +231,20 @@ class ScreenshotPicker extends Component {
         }
 
         return(
-            <div className={"ScreenshotPickerContainer"} style={defaultImageLayout} onMouseDown={this.headerMouseDown} onMouseUp={this.headerMouseUp}>
-                <div className={"ScreenshotPickerContainerButton"} style={{lineHeight:"30px"}} onClick={this.closeScreenshotPicker}>X</div>
-                <div className={"ScreenshotPickerContainerButton"} style={{lineHeight:"41px"}} onClick={this.getSreenshotArea}><CameraIcon/></div>
-                <div style={extendFunctionAreaStyle} onMouseDown={this.extendAreaMouseDown}  onMouseUp={this.extendAreaMouseUp}>
-                    &#9499;
-                </div> 
-            </div>    
+            <div style={{width:this.props.bodySize.width,height:this.props.bodySize.height}}>
+                <div className={"ScreenshotPickerContainer"} style={defaultImageLayout} onMouseDown={this.headerMouseDown} onMouseUp={this.headerMouseUp}>
+                    <div className={"ScreenshotPickerContainerButton"} style={{lineHeight:"30px"}} onClick={this.closeScreenshotPicker}>X</div>
+                    <div className={"ScreenshotPickerContainerButton"} style={{lineHeight:"41px"}} onClick={this.getSreenshotArea}><CameraIcon/></div>
+                    <div className={"ScreenshotPickerContainerText"}>{"1. 拖曳截圖框至您想截圖的地方。"}</div>
+                    <div className={"ScreenshotPickerContainerText"}>{"2. 指標移置右下角按住右鍵後，拖曳可放大縮小截圖區域。"}</div>
+                    <div className={"ScreenshotPickerContainerText"}>{"3. 確定後，按左側"}<CameraIcon/>{"按鈕完成截圖。"}</div>
+                    <div className={"ScreenshotPickerContainerText"}>{'4. 若要放棄截圖，按左側 "X" 按鈕取消。'}</div>
+                    <div style={extendFunctionAreaStyle} onMouseDown={this.extendAreaMouseDown}  onMouseUp={this.extendAreaMouseUp}>
+                        &#9499;
+                    </div> 
+                </div>
+                <MaskArea dynamicImageSize={this.props.bodySize} floatWinPos={this.state.position} floatWinSize={this.state.divSize}/>
+            </div>
         )
     }
 }

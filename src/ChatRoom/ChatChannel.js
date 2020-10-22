@@ -50,20 +50,6 @@ class ChatChannel extends Component {
         }
     }
 
-    // shouldComponentUpdate(nextProps, nextState){
-    //     console.log("shouldComponentDidUpdate")
-    //     console.log(this.props.textInfo)
-    //     console.log(nextProps.textInfo)
-    //     if(nextProps.textInfo === this.props.textInfo && nextState.message === this.state.message)
-    //     {
-    //         return false
-    //     }
-    //     else
-    //     {
-    //         return true
-    //     }
-    // }
-
     scrollToBottom=()=>{
         //console.log(this.dummyChatRowRef)
         this.dummyChatRowRef.scrollIntoView({ behavior: "smooth" })

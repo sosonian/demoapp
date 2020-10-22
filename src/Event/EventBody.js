@@ -11,6 +11,7 @@ class EventBody extends Component {
         this.state={
             Event:null,
         }
+        
     }
 
     componentDidMount(){
@@ -63,9 +64,10 @@ class EventBody extends Component {
         }
     }
 
+   
     render(){
         return(
-            <div className={this.getClassName()}>
+            <div className={this.getClassName()} >
                 {this.createEventContainer()}     
                 <div>
                     <Footer/>

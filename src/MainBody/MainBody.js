@@ -35,13 +35,15 @@ class MainBody extends Component {
             query:null,
             toggleChatChannel:false,
             queryStage:"1",
-            newUrl:null
-        }
+            newUrl:null,
+            scrollTop:0
+        } 
     }
 
     componentDidMount(){
         this.initialIPAddress()
         this.userSessionStart()
+       
         window.addEventListener("beforeunload",(e)=>this.userSessionEnd(e))
     }
 
@@ -54,12 +56,19 @@ class MainBody extends Component {
         if(this.state.screenshotArea)
         {
             let msg = this.state.screenshotArea
-            this.captureScreenShot(msg.x, msg.y, msg.width, msg.height, this.state.screenshotEmitInfo)
+            this.captureScreenShot(msg.x, msg.y+this.state.scrollTop, msg.width, msg.height, this.state.screenshotEmitInfo)
             this.setState({
                 screenshotArea:null,
                 screenshotEmitInfo:null
             })
         }
+
+        // console.log(prveState.queryStage+":"+this.state.queryStage)
+
+        // if(prveState.queryStage === "0" && this.state.queryStage === "1")
+        // {
+        //     this.emitStageOne()
+        // }
     }
 
     componentWillUnmount(){
@@ -92,8 +101,17 @@ class MainBody extends Component {
             //a.click()
             let tempObj = {}
             tempObj[this.state.clientIP] = true
-       
-            this.state.wsMiddleWare.emit('query_image',{channelID:emitInfo.channelID, emitID:emitInfo.visitorID, emitName:emitInfo.visitorName, emitIP:this.state.clientIP, emitImage:screenshotImg, read:tempObj})      
+
+            if(this.state.queryStage === "4")
+            {
+                this.setState({queryStage : "5"},()=>{
+                    this.state.wsMiddleWare.emit('query_image',{channelID:emitInfo.channelID, emitID:emitInfo.visitorID, emitName:this.state.clientName? this.state.clientName:emitInfo.visitorName, emitIP:this.state.clientIP, emitImage:screenshotImg, read:tempObj})
+                })
+            }
+            else
+            {
+                this.state.wsMiddleWare.emit('query_image',{channelID:emitInfo.channelID, emitID:emitInfo.visitorID, emitName:this.state.clientName? this.state.clientName:emitInfo.visitorName, emitIP:this.state.clientIP, emitImage:screenshotImg, read:tempObj})
+            }
         })
     }
   
@@ -113,9 +131,9 @@ class MainBody extends Component {
             clientIP:output[0].clientIP,
             wsMiddleWare:webSocket('http://192.168.3.220:5000')
         },()=>{
-            this.createPersonalRoom()
             this.dealWebSocket()
-            this.initialChat()
+            this.createPersonalRoom()
+            this.emitStageOne()
         })
     }
 
@@ -135,17 +153,18 @@ class MainBody extends Component {
     createPersonalRoom=()=>{
         if(this.state.clientIP)
         {
-            this.state.wsMiddleWare.emit('visitor_visit',{visitorID:this.state.clientIP, visitorIP:this.state.clientIP, visitorName:this.state.clientName})
+            this.state.wsMiddleWare.emit('visitor_visit',{visitorID:this.state.clientIP, visitorIP:this.state.clientIP, visitorName:this.state.clientName?this.state.clientName:this.state.clientIP})
         }
     }
 
     dealWebSocket=()=>{
+        console.log("dealWebSocket...")
         this.state.wsMiddleWare.on('query', data=>{
             console.log("socket on query")
-            //console.log(data)
+            console.log(data)       
             this.setState({
-                query:data
-            })
+                query:data,
+            })      
         })
   
         this.state.wsMiddleWare.on('query_image', data=>{
@@ -238,7 +257,8 @@ class MainBody extends Component {
     getSreenshotArea=(msg)=>{
         this.setState({
             toggleScreenshotPicker:false,
-            screenshotArea:msg
+            screenshotArea:msg,
+            scrollTop:document.documentElement.scrollTop
         })
     }
 
@@ -246,19 +266,31 @@ class MainBody extends Component {
         this.state.wsMiddleWare.emit('mark_read',{channelID:msg.channelID, emitID:this.state.clientIP, type:msg.type})
     }
 
-    initialChat=()=>{
+    // initialChat=()=>{
+    //     console.log("initialChat...")
+    //     let tempObj = {}
+    //     tempObj[this.state.clientIP] = true
+    //     this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStageInitial",read:tempObj})
+    // }
+
+    emitStageOne=()=>{
+
+        console.log("emit firstStage")
         let tempObj = {}
         tempObj[this.state.clientIP] = true
         this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage1A",read:tempObj})
         this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitIP:this.state.clientIP, emitMessage:"cmsStage1B",read:tempObj})
+ 
     }
 
     getChatMessage=(msg, stage)=>{
+        console.log("getChatMessage...")
         let tempObj = {}
         tempObj[this.state.clientIP] = true
 
         if(stage === "1")
         {
+            console.log("stage 1")
             this.setState({
                 queryStage:stage
             },()=>{
@@ -376,20 +408,22 @@ class MainBody extends Component {
     
         this.setState({newUrl:url})
     }
-  
+
+   
+
     render(){
 
         return(
             <BrowserRouter>
             {this.state.newUrl ?<Redirect to={this.state.newUrl}/> : null}
-            <div className="MainBody" onClick={this.onClickHandler}>  
+            <div className="MainBody" onClick={this.onClickHandler}  >  
                 {this.createChatChannel()}
                 <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel} queryStage={this.state.queryStage}/>
                 <div className="UpHeader"> 
                     <UpBanner getLogoClick={this.getLogoClick} IntroListShowOrHide={this.state.showIntroList} getSearchInfo={this.getSearchInfo} ipAddress={this.state.ipAddress}/> 
                     <IntroList showOrHide={this.state.showIntroList}/>
                 </div>
-                <div className="MainContainer">     
+                <div className="MainContainer" >     
                     <div className="BufferArea"/>
                     <Route exact path='/' component={EventBody}/>
                     <Route exact path='/default' component={EventBody}/>
@@ -398,7 +432,7 @@ class MainBody extends Component {
                     <Route path='/Introduction/:FirstStageRoute/:SecondStageRoute/:StaticPage_SysID' component={EventPage}/>
                     <Route path='/SearchResult/searchType/:searchType/limit/:limit/page/:page/query/:query' component={ResultListMainBody}/>
                 </div>
-                <div className="BackgroundImage">  
+                <div className="BackgroundImage" >  
                 </div>             
             </div>
             {this.state.toggleScreenshotPicker? <ScreenshotContainer closeScreenshotPicker={this.closeScreenshotPicker} getSreenshotArea={this.getSreenshotArea}/>:null}

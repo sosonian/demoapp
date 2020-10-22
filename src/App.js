@@ -4,7 +4,7 @@ import MainBody from './MainBody/MainBody'
 
 function App() { 
   return (
-    <div className="App">
+    <div className="App" >
       <MainBody/>
     </div>
   );
