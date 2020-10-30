@@ -24,10 +24,18 @@ class DynamicImage extends Component {
     }
 
     componentDidUpdate(prevProps){
+
+        if(this.props.windowSize === "small")
+        {
+            clearInterval(this.interval)
+        }
+
         if(this.props.eventImages !== prevProps.eventImages)
         {
             this.loadProps()
         }
+
+        
     }
 
     componentWillUnmount(){

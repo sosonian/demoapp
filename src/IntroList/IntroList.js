@@ -75,7 +75,7 @@ class IntroList extends Component {
             }
             return tempArray.map(option=>{
                 countI= countI+1
-                return(<Category key={countI} categoryID={option.id} categoryName={option.route} categoryTitle={option.title} categoryList={option.list}/>)
+                return(<Category key={countI} categoryID={option.id} categoryName={option.route} categoryTitle={option.title} categoryList={option.list} windowSize={this.props.windowSize}/>)
             })
 
         }
@@ -89,7 +89,13 @@ class IntroList extends Component {
         let className = "IntroListMainBody"
         if(this.props.showOrHide)
         {
-            className = "IntroListMainBody Show"
+            if(this.props.windowSize === "small"){
+                className = "IntroListMainBody ShowSmall"
+            }
+            else
+            {
+                className = "IntroListMainBody ShowNotSmall"
+            }
         }
         console.log("className : ",className)
         return className
@@ -99,7 +105,6 @@ class IntroList extends Component {
         
         return(
             <div className={this.getClassName()}> 
-                <div className="CloseIcon">{"x"}</div>
                 {this.appendCategory()}
             </div>
         )

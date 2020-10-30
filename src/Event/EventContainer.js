@@ -71,7 +71,7 @@ class EventContainer extends Component {
                     <div className="EventTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_Title : null}</div>
                 </div>
                 <div className="Image">   
-                    <DynamicImage eventImages={this.state.eventAbstract ? this.state.eventAbstract.Event_Images : null}/>
+                    <DynamicImage eventImages={this.state.eventAbstract ? this.state.eventAbstract.Event_Images : null} windowSize={this.props.windowSize}/>
                 </div>  
                 <div className="EventSubTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_SubTitle : null}</div>
                 <div className="EventTextBlock">     

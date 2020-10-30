@@ -34,11 +34,14 @@ class MainBody extends Component {
             toggleChatChannel:false,
             queryStage:"1",
             newUrl:null,
-            scrollTop:0
+            scrollTop:0,
+            windowSize:"large"
         } 
+        this.containerLayout = React.createRef()
     }
 
     componentDidMount(){
+        window.addEventListener("resize", this.getResizeWidth)
         this.userSessionStart()       
         window.addEventListener("beforeunload",(e)=>this.userSessionEnd(e))
     }
@@ -61,7 +64,43 @@ class MainBody extends Component {
         window.removeEventListener("beforeunload", this.userSessionEnd)
     }
 
+    getResizeWidth=()=>{
+        //console.log(this.scrollContainerLayout)
+        let tempWidth = 1900
+        if(this.containerLayout.current)
+        {
+            tempWidth = this.containerLayout.current.scrollWidth
+        }
     
+        //console.log(tempWidth)
+        if(tempWidth >= 1900)
+        {
+            if(this.state.windowSize !== "large")
+            {
+                this.setState({
+                    windowSize :"large"
+                })
+            }
+        }
+        else if(tempWidth<1900 && tempWidth >= 900)
+        {
+            if(this.state.windowSize !== "medium")
+            {
+                this.setState({
+                    windowSize :"medium"
+                })
+            }
+        }
+        else if(tempWidth<900)
+        {
+            if(this.state.windowSize !== "small")
+            {
+                this.setState({
+                    windowSize :"small"
+                })
+            }
+        }
+    }
 
     captureScreenShot=(posX,posY,width,height, emitInfo)=>{
         html2canvas(document.body,{
@@ -115,6 +154,7 @@ class MainBody extends Component {
             this.dealWebSocket()
             this.createPersonalRoom()
             this.emitStageOne()
+            this.getResizeWidth()
         })
     }
 
@@ -215,12 +255,12 @@ class MainBody extends Component {
     }
   
     getLogoClick=(msg)=>{
-        if(!this.state.showIntroList)
-        {
+        //if(!this.state.showIntroList)
+        //{
             this.setState({
-                showIntroList:true
+                showIntroList:msg
             })
-        }
+        //}
     }
 
     onClickHandler=()=>{
@@ -442,17 +482,17 @@ class MainBody extends Component {
         return(
             <BrowserRouter>
             {this.state.newUrl ?<Redirect to={this.state.newUrl}/> : null}
-            <div className="MainBody" onClick={this.onClickHandler}  >  
+            <div className="MainBody" onClick={this.onClickHandler} ref={this.containerLayout} >  
                 {this.createChatChannel()}
                 <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel} queryStage={this.state.queryStage}/>
                 <div className="UpHeader"> 
                     <UpBanner getLogoClick={this.getLogoClick} IntroListShowOrHide={this.state.showIntroList} getSearchInfo={this.getSearchInfo} ipAddress={serverIP}/> 
-                    <IntroList showOrHide={this.state.showIntroList}/>
+                    <IntroList showOrHide={this.state.windowSize === "small" ? this.state.showIntroList:true} windowSize={this.state.windowSize}/>
                 </div>
                 <div className="MainContainer" >     
                     <div className="BufferArea"/>
-                    <Route exact path='/' component={EventBody}/>
-                    <Route exact path='/default' component={EventBody}/>
+                    <Route exact path='/' render={props=>(<EventBody {...props} windowSize={this.state.windowSize}/>)}/>
+                    <Route exact path='/default' render={props=>(<EventBody {...props} windowSize={this.state.windowSize}/>)}/>
                     <Route path='/Movie/Workinfo/:movie_id' component={MovieWorkInfoMainBody}/>
                     <Route path='/Event/:Event_SysID' component={EventPage}/>
                     <Route path='/Introduction/:FirstStageRoute/:SecondStageRoute/:StaticPage_SysID' component={EventPage}/>

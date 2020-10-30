@@ -54,7 +54,7 @@ class EventBody extends Component {
         {
             return(
                 this.state.Event.map(event=>
-                    <EventContainer eventDetail={event} openEventPage={(msg)=>{this.props.history.push("/Event/"+msg)}}/>
+                    <EventContainer eventDetail={event} openEventPage={(msg)=>{this.props.history.push("/Event/"+msg)}} windowSize={this.props.windowSize}/>
                 )
             )
         }

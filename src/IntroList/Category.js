@@ -5,7 +5,10 @@ import LinkedList from '../Function/LinkedList'
 
 class Category extends Component {
     constructor(props){
-        super(props)
+        super(props) 
+        this.state = {
+            showCategory:false
+        }
     }
 
 
@@ -59,9 +62,15 @@ class Category extends Component {
     render(){
         
         return(
-            <div className="CategoryBody"> 
+            this.props.windowResize === "small" ?
+            <div className={"CategoryBody Padding"} > 
                 <div className="CategoryTitle">{this.props.categoryTitle}</div>
                 {this.createSecondStageOption()}
+            </div>
+            :
+            <div className={this.state.showCategory? "CategoryBodyShow":"CategoryBody"} onMouseOver={()=>{this.setState({showCategory:true})}} onMouseLeave={()=>{this.setState({showCategory:false})}}> 
+                <div className="CategoryTitle">{this.props.categoryTitle}</div>
+                {this.state.showCategory ? this.createSecondStageOption():null}
             </div>
         )
     }
