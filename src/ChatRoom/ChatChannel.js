@@ -99,7 +99,8 @@ class ChatChannel extends Component {
             case "cmsStage3":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
-                    <div className={"rightChatMessage"}>{"謝謝您"}<div style={{color:"blue"}}>{text.emitName}</div>{"! 為方便聯繫您，再請您輸入您的email帳號"}</div>
+                    <div className={"rightChatMessage"}>{"謝謝您"}<div style={{color:"blue"}}>{this.props.hostUserName
+                    }</div>{"! 為方便聯繫您，再請您輸入您的email帳號"}</div>
                     </div>
             case "cmsStage4A":
                 return <div className={"rightChatRow"}>

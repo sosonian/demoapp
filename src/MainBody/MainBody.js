@@ -258,7 +258,7 @@ class MainBody extends Component {
     createChatChannel=()=>{      
         if(this.state.toggleChatChannel)
         {
-            return <ChatChannel hostUserID={this.state.clientIP} textInfo={this.state.preQuery} queryInfo={this.state.query} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead} queryStage={this.state.queryStage}/>
+            return <ChatChannel hostUserID={this.state.clientIP} hostUserName={this.state.clientName} textInfo={this.state.preQuery} queryInfo={this.state.query} closeChannel={this.closeChannel} getChatMessage={this.getChatMessage} takeScreenShot={this.takeScreenShot} markRead={this.markRead} queryStage={this.state.queryStage}/>
         }
     }
 
@@ -311,8 +311,8 @@ class MainBody extends Component {
         console.log("emit firstStage")
         let tempObj = {}
         tempObj[this.state.clientIP] = true
-        this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage1A",read:tempObj})
-        this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage1B",read:tempObj})
+        this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage1A",read:tempObj})
+        this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage1B",read:tempObj})
  
     }
 
@@ -328,8 +328,8 @@ class MainBody extends Component {
                 queryStage:stage
             },()=>{
                 this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})  
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage1A",read:tempObj})
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage1B",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage1A",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage1B",read:tempObj})
             })
 
         }
@@ -343,9 +343,9 @@ class MainBody extends Component {
                     queryStage:"4"
                 },()=>{
                     this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})
-                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage4A",read:tempObj})
-                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage4B",read:tempObj})
-                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage4C",read:tempObj})
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage4A",read:tempObj})
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage4B",read:tempObj})
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage4C",read:tempObj})
                 })
             }
             else
@@ -355,7 +355,7 @@ class MainBody extends Component {
                     queryStage:stage
                 },()=>{
                     this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})  
-                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage2",read:tempObj})
+                    this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage2",read:tempObj})
                 })
             }
             
@@ -367,7 +367,7 @@ class MainBody extends Component {
                 queryStage:stage
             },()=>{
                 this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})  
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage3",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage3",read:tempObj})
             })
         }
         else if(stage === "4")
@@ -377,9 +377,9 @@ class MainBody extends Component {
                 queryStage:stage
             },()=>{
                 this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:msg.emitMessage,read:tempObj})
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage4A",read:tempObj})
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage4B",read:tempObj})
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP, emitMessage:"cmsStage4C",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage4A",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage4B",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse", emitMessage:"cmsStage4C",read:tempObj})
             })      
         }
         else if(stage === "5")
@@ -399,8 +399,8 @@ class MainBody extends Component {
                 queryStage:stage
             },()=>{
                 this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP,  emitMessage:msg.emitMessage,read:tempObj})
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP,  emitMessage:"cmsStage5A",read:tempObj})
-                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:this.state.clientIP, emitName:this.state.clientName, emitIP:this.state.clientIP,  emitMessage:"cmsStage5B",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse",  emitMessage:"cmsStage5A",read:tempObj})
+                this.state.wsMiddleWare.emit('query',{channelID:this.state.clientIP, emitID:"AutoResponse", emitName:"自動客服", emitIP:"AutoResponse",  emitMessage:"cmsStage5B",read:tempObj})
                 
             })      
         }
