@@ -7,8 +7,6 @@ import MovieWorkInfoMainBody from '../MovieWorkInfo/MovieWorkInfoMainBody'
 import ResultListMainBody from '../ResultList/ResultListMainBody'
 import EventPage from '../Event/EventPage'
 import {BrowserRouter, Route, Redirect} from 'react-router-dom'
-
-
 import {serverIP} from '../IPAdressModule'
 import ChatRoom from '../ChatRoom/ChatRoom'
 import ChatChannel from '../ChatRoom/ChatChannel'
