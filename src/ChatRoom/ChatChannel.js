@@ -160,10 +160,6 @@ class ChatChannel extends Component {
         }
     }
 
-
-    
-
-
     openImageTab=(dataImage)=>{
         let html = "<img src='"+dataImage+"'/>";
         let newTab = window.open()
