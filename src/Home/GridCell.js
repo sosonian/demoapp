@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import './EventContainer.css'
-import DynamicImage from './DynamicImage'
+import './GridCell.css'
+import DynamicImage from '../Event/DynamicImage'
 import IPAddress from '../IPAddress'
 
 
 
-class EventContainer extends Component {
+class GridCell extends Component {
     constructor(props){
         super(props)
         this.state ={
-            eventAbstract:null
+            eventAbstract:null,
+            hover:false
         }
     }
 
@@ -49,38 +50,50 @@ class EventContainer extends Component {
 
     render(){ 
         let beforeEventContainer = {
-            marginTop: '50px',
-            width: '0%',
+            width: this.props.posRef.width+'px',
+            height: this.props.posRef.height+'px',
+            top:this.props.posRef.top+'px',
+            left:this.props.posRef.left+'px',
             backgroundColor: 'rgba(0, 0, 0)',
-            padding: '50px',
             opacity:'0',
-            transition:'all 2s ease'
+            transition:'all 2s ease',
+            position:'absolute',
+            border:'1px solid white'
         }
 
         let afterEventContainer = {
-            marginTop: '50px',
-            width: '80%',
+            width: this.props.posRef.width+'px',
+            height: this.props.posRef.height+'px',
+            top:this.props.posRef.top+'px',
+            left:this.props.posRef.left+'px',
             backgroundColor: 'rgba(112, 128, 144)',
             //padding: '50px',
             opacity:'1',
-            transition:'all 2s ease'
+            transition:'all 2s ease',
+            position:'absolute',
+            border:'1px solid white'
         }
         return(
-            <div style={this.state.eventAbstract? afterEventContainer:beforeEventContainer}> 
-                <div className="EventTitleContainer">
+            <div style={this.state.eventAbstract? afterEventContainer:beforeEventContainer} onClick={this.openEventPage} onMouseOver={()=>{this.setState({hover:true})}} onMouseLeave={()=>{this.setState({hover:false})}}> 
+                <div className={this.state.hover?"CellTitleContainer mousehover":"CellTitleContainer nothover"}>
                     <div className="EventTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_Title : null}</div>
                 </div>
-                <div className="EventImageContainer">   
+                {this.state.hover? null:
+                <div className="CellImageContainer">   
                     <DynamicImage eventImages={this.state.eventAbstract ? this.state.eventAbstract.Event_Images : null} windowSize={this.props.windowSize}/>
+                </div> 
+                } 
+                <div className="CellSubTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_SubTitle : null}</div>     
+                {
+                    this.state.hover? <div className="CellTextBlock">     
+                    <p className="Cell-with-text">{this.state.eventAbstract ? this.state.eventAbstract.Event_Story : null}</p>
                 </div>  
-                <div className="EventSubTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_SubTitle : null}</div>
-                <div className="EventTextBlock">     
-                    <p className="block-with-text">{this.state.eventAbstract ? this.state.eventAbstract.Event_Story : null}</p>
-                </div>
-                <div className="JumpToDetailButton" onClick={this.openEventPage}>{"深入專題"}</div>              
+                :null
+                }
+                 
             </div>
         )
     }
 }
 
-export default EventContainer
+export default GridCell

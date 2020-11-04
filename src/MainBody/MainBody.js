@@ -13,6 +13,7 @@ import ChatChannel from '../ChatRoom/ChatChannel'
 import webSocket from 'socket.io-client'
 import html2canvas from 'html2canvas'
 import ScreenshotContainer from '../Screenshot/ScreenshotContainer'
+import HomeBody from '../Home/HomeBody'
 
 class MainBody extends Component {
     constructor(props){
@@ -491,8 +492,8 @@ class MainBody extends Component {
                 </div>
                 <div className="MainContainer" >     
                     <div className="BufferArea"/>
-                    <Route exact path='/' render={props=>(<EventBody {...props} windowSize={this.state.windowSize}/>)}/>
-                    <Route exact path='/default' render={props=>(<EventBody {...props} windowSize={this.state.windowSize}/>)}/>
+                    <Route exact path='/' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
+                    <Route exact path='/default' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
                     <Route path='/Movie/Workinfo/:movie_id' component={MovieWorkInfoMainBody}/>
                     <Route path='/Event/:Event_SysID' component={EventPage}/>
                     <Route path='/Introduction/:FirstStageRoute/:SecondStageRoute/:StaticPage_SysID' component={EventPage}/>

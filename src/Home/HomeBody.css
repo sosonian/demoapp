@@ -1,0 +1,14 @@
+.HomeBody{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.GridContainer {
+    width: 1200px;
+    height: 600px;
+    background-color: white;
+    position: relative;
+}

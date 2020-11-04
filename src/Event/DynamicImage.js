@@ -13,7 +13,7 @@ class DynamicImage extends Component {
     }
 
     componentDidMount(){
-        //this.loadProps()
+        this.loadProps()
         //if(this.props.eventImages[0])
         //{
             
@@ -123,7 +123,7 @@ class DynamicImage extends Component {
         //console.log("DynamicImage render...")
         const ImageStyle={
             width:'100%',
-            height: '400px',
+            height: '100%',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundImage:this.loadImageUrl(),
