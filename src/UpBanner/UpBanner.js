@@ -76,7 +76,6 @@ class UpBanner extends Component {
         return(
            
             <div className="UpBannerBody">
-                
                 <LogoAndTitleDiv getLogoClick={this.getLogoClick} goToFrontPage={this.goToFrontPage} IntroListShowOrHide={this.props.IntroListShowOrHide}/>
                 <RecordSearchArea getSearchInfo={this.getSearchInfo} ipAddress={this.props.ipAddress}/>
             </div>

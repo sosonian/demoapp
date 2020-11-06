@@ -8,7 +8,7 @@
 .CellTitleContainer.mousehover{
     position: absolute;
     width:80%;
-    height:60px;
+    height:45px;
     z-index: 100;
 }
 
@@ -19,7 +19,7 @@
 .CellTitleContainer.nothover{
     position: absolute;
     width:80%;
-    height:60px;
+    height:45px;
     background-image: linear-gradient(to right,rgb(0, 0, 0),#00000000) ;
     opacity: 0.8;
     z-index: 100;
@@ -27,9 +27,9 @@
 
 .EventTitle {
     color: white;
-    height:60px;
-    font-size: 60px;
-    line-height: 50px;
+    height:40px;
+    font-size: 40px;
+    line-height: 30px;
     text-align: left;
     font-family:'Microsoft JhengHei';
     padding:25px 20px 0px 20px;
@@ -37,21 +37,24 @@
 
 .CellSubTitle{
     color: rgb(147, 239, 255);
-    height: 40px;
-    font-size: 30px;
+    height: 30px;
+    font-size: 20px;
     text-align: left;
     font-family: 'Microsoft JhengHei';
     /* padding: 20px; */
     position: absolute;
     /* bottom: 0px; */
-    /* right: 0px; */
+    right: 10px;
     top: 80px;
-    left: 100px;
+    
 }
 
-.CellImageContainer{
-    height: 300px;
+.CellImageContainer.Normal{
+    height: 250px;
+}
 
+.CellImageContainer.Tall{
+  height: 500px;
 }
 
 .CellTextBlock{
@@ -65,6 +68,7 @@
     color: white;
     overflow: hidden;
     text-align: left;
+    font-size: 14px;
 }
 
 

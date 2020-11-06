@@ -79,7 +79,7 @@ class GridCell extends Component {
                 </div>
                 {
                     this.state.hover? null:
-                    <div className="CellImageContainer">   
+                    <div className={this.props.posRef.height === 250 ? "CellImageContainer Normal":"CellImageContainer Tall"}>   
                         <DynamicImage eventImages={this.state.eventAbstract ? this.state.eventAbstract.Event_Images : null} windowSize={this.props.windowSize}/>
                     </div> 
                 } 

@@ -4,12 +4,15 @@ import Footer from '../Footer/Footer'
 import IPAddress from '../IPAddress'
 import GridCell from './GridCell'
 import {CellRef} from './GridContainerRef'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 class HomeBody extends Component {
     constructor(props){
         super(props)
         this.state={
             Event:null,
+            xPos:0
         }
         
     }
@@ -71,14 +74,40 @@ class HomeBody extends Component {
         }
     }
 
+    moveToLeft=()=>{
+        console.log("Move Left")
+        this.dummyGridContainerRowRef.scrollBy({top:0,left:-320,behavior:'smooth'})
+
+    }
+
+    moveToRight=()=>{
+        //this.setState({
+        //    xPos:this.state.xPos + 250
+        //},()=>{
+            this.dummyGridContainerRowRef.scrollBy({top:0,left:+320,behavior:'smooth'})
+        //})
+    }
+
    
     render(){
         return(
             <div className={"HomeBody"} >
-                <div className={"GridContainer"}>
-                    {this.createEventContainer()}
-                </div>     
-                <div>
+                <div className={"GridCenterBody"}>
+                    <div className={"GridLeftArrow"}>
+                        <div className={"GridArrowMiddleLevel"} onClick={()=>this.moveToLeft()}>
+                            <ArrowBackIosIcon fontSize={'large'}/>
+                        </div>
+                    </div>
+                    <div className={"GridContainer"} ref={(re)=>{this.dummyGridContainerRowRef= re}}>          
+                        {this.createEventContainer()}
+                    </div>    
+                    <div className={"GridRightArrow"}>
+                        <div className={"GridArrowMiddleLevel"} onClick={()=>this.moveToRight()}>
+                            <ArrowForwardIosIcon fontSize={'large'}/>
+                        </div>
+                    </div>
+                </div> 
+                <div style={{"width":"100%"}}>
                     <Footer/>
                 </div>                  
             </div>

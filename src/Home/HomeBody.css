@@ -1,5 +1,6 @@
 .HomeBody{
-    margin-top: 100px;
+    width: 100%;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -7,8 +8,42 @@
 }
 
 .GridContainer {
-    width: 1200px;
-    height: 600px;
+    width: 63.1%;
+    height: 502px;
     background-color: white;
     position: relative;
+    overflow: hidden;
+}
+
+.GridLeftArrow{
+    height: 502px;
+    width: 18%;
+    display: table;
+    
+}
+
+.GridRightArrow{
+    height: 502px;
+    width: 18%;
+    display: table;
+    
+}
+
+.GridCenterBody{
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+}
+
+.GridArrowMiddleLevel{
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+}
+
+.GridArrowMiddleLevel:hover{
+    display: table-cell;
+    vertical-align: middle;
+    color: rgb(152, 200, 255);
+    cursor: pointer;
 }

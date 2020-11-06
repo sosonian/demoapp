@@ -2,45 +2,45 @@ module.exports = {
     CellRef:[
         {
             no:0,
-            width:800,
-            height:300,
+            width:640,
+            height:250,
             top:0,
             left:0
         },
         {
             no:1,
-            width:400,
-            height:300,
-            top:300,
+            width:320,
+            height:250,
+            top:250,
             left:0
         },
         {
             no:2,
-            width:400,
-            height:300,
-            top:300,
-            left:400
+            width:320,
+            height:250,
+            top:250,
+            left:320
         },
         {
             no:3,
-            width:400,
-            height:300,
+            width:320,
+            height:250,
             top:0,
-            left:800
+            left:640
         },
         {
             no:4,
-            width:400,
-            height:300,
-            top:300,
-            left:800
+            width:320,
+            height:250,
+            top:250,
+            left:640
         },
         {
             no:5,
-            width:400,
-            height:600,
+            width:320,
+            height:500,
             top:0,
-            left:1200
+            left:960
         }
     ]
 }

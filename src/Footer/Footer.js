@@ -86,7 +86,7 @@ class Footer extends Component {
     render(){
         let beforeFooterContainer = {
             backgroundColor:"White",
-            width:"100vw",
+            //width:"100vw",
             //height:"500px",
             marginTop:"200px",
             opacity:"0",
@@ -95,7 +95,7 @@ class Footer extends Component {
 
         let afterFooterContainer = {
             backgroundColor:"White",
-            width:"100vw",
+            //width:"100vw",
             //height:"500px",
             marginTop:"200px",
             opacity:"1",
