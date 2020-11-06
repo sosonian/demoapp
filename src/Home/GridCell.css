@@ -57,33 +57,26 @@
 .CellTextBlock{
     position: absolute;
     width: 90%;
-    height: 80px;
+    height: 200px;
     /* top: 100px; */
     /* left: 50px; */
     bottom: 10px;
     right: 10px;
     color: white;
     overflow: hidden;
+    text-align: left;
 }
 
-.block-with-text {
-    overflow: hidden;
-    position: relative;
-    line-height: 1.2em;
-    max-height: 6em;
-    text-align: justify;
-    font-family:'Microsoft JhengHei';
-    color: white;
-    font-size: 20px;
-    margin: 20px;
-  }
+
   .Cell-with-text:before {
+    text-align: left;
     content: '...';
     position: absolute;
     right: 0;
     bottom: 0;
   }
   .Cell-with-text:after {
+    text-align: left;
     content: '';
     position: absolute;
     right: 0;

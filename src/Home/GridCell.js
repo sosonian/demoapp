@@ -55,7 +55,7 @@ class GridCell extends Component {
             top:this.props.posRef.top+'px',
             left:this.props.posRef.left+'px',
             backgroundColor: 'rgba(0, 0, 0)',
-            opacity:'0',
+            cursor:'normal',
             transition:'all 2s ease',
             position:'absolute',
             border:'1px solid white'
@@ -67,28 +67,32 @@ class GridCell extends Component {
             top:this.props.posRef.top+'px',
             left:this.props.posRef.left+'px',
             backgroundColor: 'rgba(112, 128, 144)',
-            //padding: '50px',
-            opacity:'1',
+            cursor:'pointer',
             transition:'all 2s ease',
             position:'absolute',
             border:'1px solid white'
         }
         return(
-            <div style={this.state.eventAbstract? afterEventContainer:beforeEventContainer} onClick={this.openEventPage} onMouseOver={()=>{this.setState({hover:true})}} onMouseLeave={()=>{this.setState({hover:false})}}> 
+            <div style={this.state.hover? afterEventContainer:beforeEventContainer} onClick={this.openEventPage} onMouseOver={()=>{this.setState({hover:true})}} onMouseLeave={()=>{this.setState({hover:false})}}> 
                 <div className={this.state.hover?"CellTitleContainer mousehover":"CellTitleContainer nothover"}>
                     <div className="EventTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_Title : null}</div>
                 </div>
-                {this.state.hover? null:
-                <div className="CellImageContainer">   
-                    <DynamicImage eventImages={this.state.eventAbstract ? this.state.eventAbstract.Event_Images : null} windowSize={this.props.windowSize}/>
-                </div> 
-                } 
-                <div className="CellSubTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_SubTitle : null}</div>     
                 {
-                    this.state.hover? <div className="CellTextBlock">     
-                    <p className="Cell-with-text">{this.state.eventAbstract ? this.state.eventAbstract.Event_Story : null}</p>
-                </div>  
-                :null
+                    this.state.hover? null:
+                    <div className="CellImageContainer">   
+                        <DynamicImage eventImages={this.state.eventAbstract ? this.state.eventAbstract.Event_Images : null} windowSize={this.props.windowSize}/>
+                    </div> 
+                } 
+                {
+                    this.state.hover? null:
+                    <div className="CellSubTitle">{this.state.eventAbstract ? this.state.eventAbstract.Event_SubTitle : null}</div>
+                }
+                {
+                    this.state.hover?
+                    <div className="CellTextBlock">     
+                        <p className="Cell-with-text">{this.state.eventAbstract ? this.state.eventAbstract.Event_Story : null}</p>
+                    </div>  
+                    :null
                 }
                  
             </div>
