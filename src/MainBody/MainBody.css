@@ -11,7 +11,7 @@
     background-image: url(../Utilites/Taiwan_Film_Institute_title_20170123.jpg);
     background-position: center;
     background-size: cover;
-    filter: sepia(50%) blur(2px);
+    filter: sepia(50%) blur(5px);
     min-height: 100vh;
     display: flex;
     color: white;

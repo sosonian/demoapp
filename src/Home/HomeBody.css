@@ -8,26 +8,45 @@
 }
 
 .GridContainer {
-    width: 63.1%;
-    height: 502px;
+    width: 100%;
+    height: 600px;
     background-color: white;
     position: relative;
     overflow: hidden;
 }
 
 .GridLeftArrow{
-    height: 502px;
-    width: 18%;
+    height: 600px;
+    width: 17.5%;
     display: table;
-    
+    position: absolute;
+    top: 170px;
+    left: 0px;
+    background: #000000ad;
+    z-index: 100;  
+    transition: all 0.5s;
+}
+
+.GridLeftArrow:hover{
+    background: #416b75;
 }
 
 .GridRightArrow{
-    height: 502px;
-    width: 18%;
+    height: 600px;
+    width: 17.5%;
     display: table;
-    
+    position: absolute;
+    top: 170px;
+    right: 0px;
+    background-color: #000000ad;
+    z-index: 100;
+    transition: all 0.5s;
 }
+
+.GridRightArrow:hover{
+    background: #416b75;
+}
+
 
 .GridCenterBody{
     flex-direction: row;
@@ -38,12 +57,30 @@
 .GridArrowMiddleLevel{
     display: table-cell;
     vertical-align: middle;
-    color: white;
+    color: rgb(143, 188, 229);
 }
 
 .GridArrowMiddleLevel:hover{
     display: table-cell;
     vertical-align: middle;
-    color: rgb(152, 200, 255);
+    color: rgb(255, 255, 255);
     cursor: pointer;
+}
+
+.PrefixEmptyCell{
+    width: 400px;
+    height:600px;
+    position: absolute;
+    background: black;
+    top:0px;
+    left:0px;
+    box-shadow: white 0px 0px 0px 1px
+}
+
+.SuffixEmptyCell{
+    width: 400px;
+    height:600px;
+    position: absolute;
+    background: black;
+    box-shadow: white 0px 0px 0px 1px
 }

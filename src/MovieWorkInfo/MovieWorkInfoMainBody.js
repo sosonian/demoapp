@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MovieWorkInfoMainBody.css';
 import { FacebookProvider, Like } from 'react-facebook';
 import IPAddress from '../IPAddress'
-
+import Footer from '../Footer/Footer'
 
 class MovieWorkInfoMainBody extends Component {
     constructor(props){
@@ -195,37 +195,42 @@ class MovieWorkInfoMainBody extends Component {
     }
 
     render(){
-        return(          
-            <div className="MovieMainBody">  
-                {
-                    this.state.movieMainInfo?
-                    <div className="MovieLeftArea">
-                        <div className="MovieTitle">{this.removeSpaceFromString(this.state.movieMainInfo.Movie_TitleMain) !== "" ? this.state.movieMainInfo.Movie_TitleMain : this.removeSpaceFromString(this.state.movieMainInfo.Movie_TitleTranslation) !== ""? this.state.movieMainInfo.Movie_TitleTranslation+ " (翻譯片名)":"暫無片名"}</div>
-                        <div className="MovieRowTitle">{"劇情簡介"}</div>
-                        <div className="MovieRowContent">{this.state.movieMainInfo.Movie_DramaContent ? this.state.movieMainInfo.Movie_DramaContent:"暫無劇情簡介"}</div>
-                        { (this.removeSpaceFromString(this.state.movieMainInfo.Movie_SubCategoryOne) !== "" || this.removeSpaceFromString(this.state.movieMainInfo.Movie_SubCategoryTwo) !== "") ? <div className="MovieRowContainer"><div className="MovieRowTitle">{"種類"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_SubCategoryOne + " "+ this.state.movieMainInfo.Movie_SubCategoryTwo}</div></div>:null}
-                        { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionDate) !== "" ? <div className="MovieRowContainer"><div className="MovieRowTitle">{"出品日期"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionDate}</div></div>:null}
-                        { this.removeSpaceFromString(this.state.movieMainInfo.Movie_Producer ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"製作人"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_Producer}</div></div>:null}
-                        { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionCompany ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"製作公司"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionCompany}</div></div>:null}
-                        { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionLocation ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"出品國家"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionLocation}</div></div>:null}
-                        <div style={{display:"flex"}}>
-                            {this.createActorList()}
-                            {this.createStaffList()}
+        return(  
+            <div>        
+                <div className="MovieMainBody">  
+                    {
+                        this.state.movieMainInfo?
+                        <div className="MovieLeftArea">
+                            <div className="MovieTitle">{this.removeSpaceFromString(this.state.movieMainInfo.Movie_TitleMain) !== "" ? this.state.movieMainInfo.Movie_TitleMain : this.removeSpaceFromString(this.state.movieMainInfo.Movie_TitleTranslation) !== ""? this.state.movieMainInfo.Movie_TitleTranslation+ " (翻譯片名)":"暫無片名"}</div>
+                            <div className="MovieRowTitle">{"劇情簡介"}</div>
+                            <div className="MovieRowContent">{this.state.movieMainInfo.Movie_DramaContent ? this.state.movieMainInfo.Movie_DramaContent:"暫無劇情簡介"}</div>
+                            { (this.removeSpaceFromString(this.state.movieMainInfo.Movie_SubCategoryOne) !== "" || this.removeSpaceFromString(this.state.movieMainInfo.Movie_SubCategoryTwo) !== "") ? <div className="MovieRowContainer"><div className="MovieRowTitle">{"種類"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_SubCategoryOne + " "+ this.state.movieMainInfo.Movie_SubCategoryTwo}</div></div>:null}
+                            { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionDate) !== "" ? <div className="MovieRowContainer"><div className="MovieRowTitle">{"出品日期"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionDate}</div></div>:null}
+                            { this.removeSpaceFromString(this.state.movieMainInfo.Movie_Producer ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"製作人"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_Producer}</div></div>:null}
+                            { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionCompany ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"製作公司"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionCompany}</div></div>:null}
+                            { this.removeSpaceFromString(this.state.movieMainInfo.Movie_ProductionLocation ) !== ""? <div className="MovieRowContainer"><div className="MovieRowTitle">{"出品國家"}</div><div className="MovieRowContent">{this.state.movieMainInfo.Movie_ProductionLocation}</div></div>:null}
+                            <div style={{display:"flex"}}>
+                                {this.createActorList()}
+                                {this.createStaffList()}
+                            </div>
+                            <FacebookProvider appId="1608677022605093">
+                                <Like href={""} colorScheme="dark" showFaces share />
+                            </FacebookProvider>
                         </div>
-                        <FacebookProvider appId="1608677022605093">
-                            <Like href={""} colorScheme="dark" showFaces share />
-                        </FacebookProvider>
-                    </div>
-                    :
-                    null
-                }
+                        :
+                        null
+                    }
                 
-                <div className="MovieRightArea">
-                    <div className="MovieRowContainer">
-                        <div className="MovieRowTitle">{"相關藏品"}</div>
-                        <div className="MovieRowItemType">{"膠片 " +this.getNumberOfFilm()+ " 件"}</div>
+                    <div className="MovieRightArea">
+                        <div className="MovieRowContainer">
+                            <div className="MovieRowTitle">{"相關藏品"}</div>
+                            <div className="MovieRowItemType">{"膠片 " +this.getNumberOfFilm()+ " 件"}</div>
+                        </div>
+                        {this.createFilmRow()}
                     </div>
-                    {this.createFilmRow()}
+                </div>
+                <div style={{"width":"100%"}}>
+                    <Footer/>
                 </div>
             </div>
         )

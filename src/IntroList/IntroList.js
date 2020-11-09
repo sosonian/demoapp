@@ -75,7 +75,7 @@ class IntroList extends Component {
             }
             return tempArray.map(option=>{
                 countI= countI+1
-                return(<Category key={countI} categoryID={option.id} categoryName={option.route} categoryTitle={option.title} categoryList={option.list} windowSize={this.props.windowSize}/>)
+                return(<Category key={countI} categoryID={option.id} categoryName={option.route} categoryTitle={option.title} categoryList={option.list} windowSize={this.props.windowSize} mode={"header"}/>)
             })
 
         }

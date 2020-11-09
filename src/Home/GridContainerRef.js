@@ -1,46 +1,49 @@
-module.exports = {
+let cW = 400
+let cH = 300
+
+module.exports = {    
     CellRef:[
         {
             no:0,
-            width:640,
-            height:250,
+            width:cW*2,
+            height:cH,
             top:0,
-            left:0
+            left:400
         },
         {
             no:1,
-            width:320,
-            height:250,
-            top:250,
-            left:0
+            width:cW,
+            height:cH,
+            top:cH,
+            left:400
         },
         {
             no:2,
-            width:320,
-            height:250,
-            top:250,
-            left:320
+            width:cW,
+            height:cH,
+            top:cH,
+            left:400+cW
         },
         {
             no:3,
-            width:320,
-            height:250,
+            width:cW,
+            height:cH,
             top:0,
-            left:640
+            left:400+cW*2
         },
         {
             no:4,
-            width:320,
-            height:250,
-            top:250,
-            left:640
+            width:cW,
+            height:cH,
+            top:cH,
+            left:400+cW*2
         },
         {
             no:5,
-            width:320,
-            height:500,
+            width:cW,
+            height:cH*2,
             top:0,
-            left:960
+            left:400+cW*3
         }
     ]
 }

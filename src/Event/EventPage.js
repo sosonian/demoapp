@@ -3,6 +3,7 @@ import CompositionContainer from './CompositionContainer'
 import ContainerGroup from './ContainerGroup'
 import BGImage from '../Utilites/Taiwan_Film_Institute_title_20170123.jpg'
 import IPAddress from '../IPAddress'
+import Footer from '../Footer/Footer'
 
 
 class EventPage extends Component {
@@ -279,6 +280,21 @@ class EventPage extends Component {
             return null
         }
     }
+
+    getLastContainerPos=()=>{
+        let maxTop = 0
+        if(this.state.compositionContainers)
+        {
+            this.state.compositionContainers.forEach(container=>{
+                if(container.y+container.height>maxTop)
+                {
+                    maxTop = container.y+container.height
+                }
+            })
+        }
+
+        return maxTop+100
+    }
     
     render(){
         let scrollContainer={
@@ -325,6 +341,13 @@ class EventPage extends Component {
                 <div style={backgroundImageStyle}/>
                 <div style={middleLayout}/> 
                 {this.createContainer()}
+                {
+                     this.state.bodySize?
+                    <div style={{"width":"100%", "position":"absolute", "left":"0px","top":this.getLastContainerPos()+"px"}}>
+                        <Footer/>
+                    </div>
+                    :null
+                }
             </div>
            
         )  

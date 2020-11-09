@@ -42,6 +42,10 @@ class HomeBody extends Component {
 
     createEventContainer=()=>{
         let output = []
+        let frontObj = <div className={"PrefixEmptyCell"}/>
+        let backObj 
+        let maxLeft = 0
+        output.push(frontObj)
         if(this.state.Event)
         {
             
@@ -50,21 +54,33 @@ class HomeBody extends Component {
                 {
                     let obj = <GridCell posRef={CellRef[index]} eventDetail={event} openEventPage={(msg)=>{this.props.history.push("/Event/"+msg)}} windowSize={this.props.windowSize}/>
                     output.push(obj)
+                    maxLeft = CellRef[index]
                 }
                 else
                 {
+                    maxLeft = 1600*(index/6>>0)+CellRef[index%6].left
                     let tempPosRef = {
                         no:index,
                         width:CellRef[index%6].width,
                         height:CellRef[index%6].height,
-                        top:1200*(index/6>>0)+CellRef[index%6].top,
-                        left:CellRef[index%6].left
+                        left:maxLeft,
+                        top:CellRef[index%6].top
                     }
 
                     let obj = <GridCell posRef={tempPosRef} eventDetail={event} openEventPage={(msg)=>{this.props.history.push("/Event/"+msg)}} windowSize={this.props.windowSize}/>
-                    output.push(obj)
+                    output.push(obj)  
                 }
             })
+
+            let finalLeft = maxLeft+400
+
+            backObj = <div className={"SuffixEmptyCell"} style={{"top":"0px","left":finalLeft+"px"}}/>
+
+            output.push(backObj)
+
+
+
+           
 
             return output
         }
@@ -76,7 +92,7 @@ class HomeBody extends Component {
 
     moveToLeft=()=>{
         console.log("Move Left")
-        this.dummyGridContainerRowRef.scrollBy({top:0,left:-320,behavior:'smooth'})
+        this.dummyGridContainerRowRef.scrollBy({top:0,left:-400,behavior:'smooth'})
 
     }
 
@@ -84,7 +100,7 @@ class HomeBody extends Component {
         //this.setState({
         //    xPos:this.state.xPos + 250
         //},()=>{
-            this.dummyGridContainerRowRef.scrollBy({top:0,left:+320,behavior:'smooth'})
+            this.dummyGridContainerRowRef.scrollBy({top:0,left:+400,behavior:'smooth'})
         //})
     }
 
@@ -92,18 +108,18 @@ class HomeBody extends Component {
     render(){
         return(
             <div className={"HomeBody"} >
-                <div className={"GridCenterBody"}>
-                    <div className={"GridLeftArrow"}>
-                        <div className={"GridArrowMiddleLevel"} onClick={()=>this.moveToLeft()}>
-                            <ArrowBackIosIcon fontSize={'large'}/>
-                        </div>
-                    </div>
+                <div className={"GridCenterBody"}>            
                     <div className={"GridContainer"} ref={(re)=>{this.dummyGridContainerRowRef= re}}>          
                         {this.createEventContainer()}
+                    </div>
+                    <div className={"GridLeftArrow"}>
+                        <div className={"GridArrowMiddleLevel"} onClick={()=>this.moveToLeft()}>
+                            <ArrowBackIosIcon style={{fontSize:80}}/>
+                        </div>
                     </div>    
                     <div className={"GridRightArrow"}>
                         <div className={"GridArrowMiddleLevel"} onClick={()=>this.moveToRight()}>
-                            <ArrowForwardIosIcon fontSize={'large'}/>
+                            <ArrowForwardIosIcon style={{fontSize:80}}/>
                         </div>
                     </div>
                 </div> 

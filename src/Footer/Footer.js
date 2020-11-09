@@ -73,7 +73,7 @@ class Footer extends Component {
             }
             return tempArray.map(option=>{
                 countI= countI+1
-                return(<Category key={countI} categoryID={option.id} categoryName={option.route} categoryTitle={option.title} categoryList={option.list}/>)
+                return(<Category key={countI} categoryID={option.id} categoryName={option.route} categoryTitle={option.title} categoryList={option.list} mode={"footer"}/>)
             })
 
         }
@@ -107,7 +107,8 @@ class Footer extends Component {
             flexDirection:"row",
             flexWrap:"wrap",
             justifyContent:"center",
-            paddingBottom:"50px"
+            paddingBottom:"50px",
+            paddingTop:"50px"
         }
 
         return(

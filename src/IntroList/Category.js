@@ -59,6 +59,26 @@ class Category extends Component {
         return cloneL
     }
 
+    showOrHide=()=>{
+        if(this.props.mode === "footer")
+        {
+            return "CategoryBodyShowFooter"
+        }
+        else
+        {
+            if(this.state.showCategory)
+            {
+                return "CategoryBodyShowHeader"
+            }
+            else
+            {
+                return "CategoryBody"
+            }
+        }
+
+
+    }
+
     render(){
         
         return(
@@ -68,9 +88,9 @@ class Category extends Component {
                 {this.createSecondStageOption()}
             </div>
             :
-            <div className={this.state.showCategory? "CategoryBodyShow":"CategoryBody"} onMouseOver={()=>{this.setState({showCategory:true})}} onMouseLeave={()=>{this.setState({showCategory:false})}}> 
+            <div className={this.showOrHide()} onMouseOver={()=>{this.setState({showCategory:true})}} onMouseLeave={()=>{this.setState({showCategory:false})}}> 
                 <div className="CategoryTitle">{this.props.categoryTitle}</div>
-                {this.state.showCategory ? this.createSecondStageOption():null}
+                {this.props.mode === "header" ? this.state.showCategory ? this.createSecondStageOption(): null : this.createSecondStageOption()}
             </div>
         )
     }

@@ -4,6 +4,7 @@ import './ResultListMainBody.css';
 import IPAddress from '../IPAddress'
 import ResultRow from './ResultRow'
 import PageSelectFunctionArea from './PageSelectFunctionArea'
+import Footer from '../Footer/Footer'
 
 class ResultListMainBody extends Component {
     constructor(props){
@@ -1600,7 +1601,10 @@ class ResultListMainBody extends Component {
                 <div className="ResultListRightArea">
                     {this.getSearchWords()}                     
                     {this.createRow()} 
-                </div>
+                    <div style={{"width":"100%", "position":"absolute", "left":"0px"}}>
+                        <Footer/>
+                    </div>
+                </div>             
             </div>
         )
     }

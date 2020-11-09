@@ -50,11 +50,11 @@
 }
 
 .CellImageContainer.Normal{
-    height: 250px;
+    height: 300px;
 }
 
 .CellImageContainer.Tall{
-  height: 500px;
+  height: 600px;
 }
 
 .CellTextBlock{

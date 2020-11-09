@@ -56,9 +56,9 @@ class GridCell extends Component {
             left:this.props.posRef.left+'px',
             backgroundColor: 'rgba(0, 0, 0)',
             cursor:'normal',
-            transition:'all 2s ease',
+            boxShadow: 'white 0px 0px 0px 1px',
             position:'absolute',
-            border:'1px solid white'
+            //border:'1px solid white'
         }
 
         let afterEventContainer = {
@@ -68,9 +68,9 @@ class GridCell extends Component {
             left:this.props.posRef.left+'px',
             backgroundColor: 'rgba(112, 128, 144)',
             cursor:'pointer',
-            transition:'all 2s ease',
+            boxShadow: 'white 0px 0px 0px 1px',
             position:'absolute',
-            border:'1px solid white'
+            //border:'1px solid white'
         }
         return(
             <div style={this.state.hover? afterEventContainer:beforeEventContainer} onClick={this.openEventPage} onMouseOver={()=>{this.setState({hover:true})}} onMouseLeave={()=>{this.setState({hover:false})}}> 
@@ -79,7 +79,7 @@ class GridCell extends Component {
                 </div>
                 {
                     this.state.hover? null:
-                    <div className={this.props.posRef.height === 250 ? "CellImageContainer Normal":"CellImageContainer Tall"}>   
+                    <div className={this.props.posRef.height === 300 ? "CellImageContainer Normal":"CellImageContainer Tall"}>   
                         <DynamicImage eventImages={this.state.eventAbstract ? this.state.eventAbstract.Event_Images : null} windowSize={this.props.windowSize}/>
                     </div> 
                 } 

@@ -8,13 +8,17 @@
     padding-top: 50px;
 }
 
-.CategoryBodyShow {
+.CategoryBodyShowHeader {
     cursor: pointer;
     width: 300px;
     transition: all 0.3s linear;
     background-color: #adbfdb;
-    box-shadow: 0 0 10px 5px black;
-    
+    box-shadow: 0 0 10px 5px black;   
+}
+
+.CategoryBodyShowFooter {
+    cursor: pointer;
+    width: 300px;
 }
 
 .CategoryTitle {
