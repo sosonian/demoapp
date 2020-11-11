@@ -6,6 +6,7 @@ import ResultRow from './ResultRow'
 import PageSelectFunctionArea from './PageSelectFunctionArea'
 import Footer from '../Footer/Footer'
 
+
 class ResultListMainBody extends Component {
     constructor(props){
         super(props)
@@ -33,10 +34,15 @@ class ResultListMainBody extends Component {
             },
             ipAddress:null
         }
+        this.controller = new AbortController()
+        this.signal = this.controller.signal
     }
 
     
+
+    
     componentDidMount(){
+        this.testTimeOut()
         this.initialIPAddress()
         this.initialState()   
         
@@ -64,7 +70,7 @@ class ResultListMainBody extends Component {
     }
 
     componentWillUnmount(){
-       
+        this.abortFetching()
     }
 
     initialStateTemp=()=>{
@@ -184,6 +190,17 @@ class ResultListMainBody extends Component {
         }
     }
 
+    testTimeOut=async()=>{
+        let msg = await fetch(serverIP+'/api/movie/',{
+            method:'get',
+            signal:this.signal
+        })
+
+        let output = await msg
+        //if(msg.status !== 200) throw Error(msg.message)
+        console.log(output)
+    }
+
 
     getAllRecord = async()=>{
         console.log("proceed getAllRecord...")
@@ -191,12 +208,20 @@ class ResultListMainBody extends Component {
         let pageNumber = this.state.pageNumber
         let orderType = this.state.orderType
         let orderColumn = this.state.orderColumn
-        let msg = await fetch(serverIP+'/api/movie/basicQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/default')
+        let msg = await fetch(serverIP+'/api/movie/basicQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/default',{
+            method:'get',
+            signal:this.signal
+        })
 
         let output = await msg.json()
         if(msg.status !== 200) throw Error(msg.message)
         //console.log(output)
         return output
+    }
+
+    abortFetching=()=>{
+        console.log('abortFetching')
+        this.controller.abort()
     }
 
 
@@ -212,7 +237,10 @@ class ResultListMainBody extends Component {
         console.log("orderType : ",orderType)
         console.log("orderColumn : ",orderColumn)
         console.log("queryWords : ",queryWords)
-        let msg = await fetch(serverIP+'/api/movie/basicQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords)
+        let msg = await fetch(serverIP+'/api/movie/basicQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
 
         let output = await msg.json()
         if(msg.status !== 200) throw Error(msg.message)
@@ -234,7 +262,10 @@ class ResultListMainBody extends Component {
         console.log("orderType : ",orderType)
         console.log("orderColumn : ",orderColumn)
         console.log("queryWords : ",queryWords)
-        let msg = await fetch(serverIP+'/api/movie/basicQueryValidation/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/query/'+queryWords)
+        let msg = await fetch(serverIP+'/api/movie/basicQueryValidation/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
 
         let output = await msg.json()
         if(msg.status !== 200) throw Error(msg.message)
@@ -250,14 +281,38 @@ class ResultListMainBody extends Component {
 
         let tempState = {}
         
-        let msgCategory = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/Category/query/'+queryWords)
-        let msgProducer = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/Producer/query/'+queryWords)
-        let msgProductionCompany = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ProductionCompany/query/'+queryWords)
-        let msgProductionDate = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ProductionDate/query/'+queryWords)
-        let msgProductionLocation = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ProductionLocation/query/'+queryWords)
-        let msgActorName = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ActorName/query/'+queryWords)
-        let msgStaffName = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/StaffName/query/'+queryWords)
-        let msgStaffCompany = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/StaffCompany/query/'+queryWords)
+        let msgCategory = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/Category/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProducer = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/Producer/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProductionCompany = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ProductionCompany/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProductionDate = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ProductionDate/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProductionLocation = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ProductionLocation/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgActorName = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/ActorName/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgStaffName = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/StaffName/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgStaffCompany = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/StaffCompany/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
 
         let outputCategory = await msgCategory.json()
         let outputProducer = await msgProducer.json()
@@ -334,7 +389,10 @@ class ResultListMainBody extends Component {
         
 
 
-        let msg = await fetch(serverIP+'/api/movie/basicQuery/frontend/metaAndSearch/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords+'/metaInfo/'+encodeMetaInfo)
+        let msg = await fetch(serverIP+'/api/movie/basicQuery/frontend/metaAndSearch/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords+'/metaInfo/'+encodeMetaInfo,{
+            method:'get',
+            signal:this.signal
+        })
 
         let output = await msg.json()
         if(msg.status !== 200) throw Error(msg.message)
@@ -349,14 +407,38 @@ class ResultListMainBody extends Component {
 
         let tempState = {}
 
-        let msgCategory = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Category/query/'+queryWords)
-        let msgProducer = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Producer/query/'+queryWords)
-        let msgProductionCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionCompany/query/'+queryWords)
-        let msgProductionDate = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionDate/query/'+queryWords)
-        let msgProductionLocation = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionLocation/query/'+queryWords)
-        let msgActorName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ActorName/query/'+queryWords)
-        let msgStaffName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffName/query/'+queryWords)
-        let msgStaffCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffCompany/query/'+queryWords)
+        let msgCategory = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Category/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProducer = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/Producer/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProductionCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionCompany/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProductionDate = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionDate/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgProductionLocation = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ProductionLocation/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgActorName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/ActorName/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgStaffName = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffName/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
+        let msgStaffCompany = await fetch(serverIP+'/api/movie/advanceQuery/frontend/meta/field/StaffCompany/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
 
         let outputCategory = await msgCategory.json()
         let outputProducer = await msgProducer.json()
@@ -535,7 +617,10 @@ class ResultListMainBody extends Component {
         console.log("orderColumn : ",orderColumn)
         console.log("queryWords : ",queryWords)
 
-        let msg = await fetch(serverIP+'/api/movie/advanceQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords)
+        let msg = await fetch(serverIP+'/api/movie/advanceQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
 
         let output = await msg.json()
         if(msg.status !== 200) throw Error(msg.message)
@@ -555,7 +640,10 @@ class ResultListMainBody extends Component {
         console.log("orderType : ",orderType)
         console.log("orderColumn : ",orderColumn)
         console.log("queryWords : ",queryWords)
-        let msg = await fetch(serverIP+'/api/movie/advanceQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords)
+        let msg = await fetch(serverIP+'/api/movie/advanceQuery/frontend/limit/'+limitNumber+'/pageNumber/'+pageNumber+'/orderColumn/'+orderColumn+'/orderType/'+orderType+'/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
 
         let output = await msg.json()
         if(msg.status !== 200) throw Error(msg.message)
