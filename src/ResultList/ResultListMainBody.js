@@ -42,7 +42,7 @@ class ResultListMainBody extends Component {
 
     
     componentDidMount(){
-        this.testTimeOut()
+        //this.testTimeOut()
         this.initialIPAddress()
         this.initialState()   
         
@@ -280,6 +280,11 @@ class ResultListMainBody extends Component {
         console.log("querywords : ", queryWords)
 
         let tempState = {}
+
+        let msgStaffName = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/StaffName/query/'+queryWords,{
+            method:'get',
+            signal:this.signal
+        })
         
         let msgCategory = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/Category/query/'+queryWords,{
             method:'get',
@@ -305,10 +310,7 @@ class ResultListMainBody extends Component {
             method:'get',
             signal:this.signal
         })
-        let msgStaffName = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/StaffName/query/'+queryWords,{
-            method:'get',
-            signal:this.signal
-        })
+        
         let msgStaffCompany = await fetch(serverIP+'/api/movie/basicQuery/frontend/meta/field/StaffCompany/query/'+queryWords,{
             method:'get',
             signal:this.signal
