@@ -92,10 +92,10 @@ class ResultListMainBody extends Component {
     initialState=()=>{
         let limitNumber = this.props.match.params.limit
         let pageNumber = this.props.match.params.page
-        console.log(this.props.match.params.query)
+        //console.log(this.props.match.params.query)
         let query = JSON.parse(decodeURI(this.props.match.params.query))
 
-        console.log(query)
+        //console.log(query)
         this.setState({
             searchType:this.props.match.params.searchType,
             limitNumber:limitNumber,
@@ -244,7 +244,7 @@ class ResultListMainBody extends Component {
 
         let output = await msg.json()
         if(msg.status !== 200) throw Error(msg.message)
-        //console.log(output)
+        console.log(output)
         return output
     }
 
@@ -1609,8 +1609,8 @@ class ResultListMainBody extends Component {
 
     getPageLimitInfo=(number)=>{
         
-        if(this.state.metaSelectedInfo)
-        {
+        //if(this.state.metaSelectedInfo)
+        //{
             this.setState({
                 limitNumber:number
             },()=>{
@@ -1634,12 +1634,12 @@ class ResultListMainBody extends Component {
                     })
                 }
             })
-        }
-        else
-        {
-            let query = encodeURI(JSON.stringify(this.state.searchWord))
-            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+number+'/page/'+this.state.pageNumber+'/query/'+query)
-        }
+        //}
+        //else
+        //{
+            //let query = encodeURI(JSON.stringify(this.state.searchWord))
+            //this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+number+'/page/'+this.state.pageNumber+'/query/'+query)
+        //}
     }
 
     getPageNumberInfo=(number)=>{
@@ -1651,7 +1651,7 @@ class ResultListMainBody extends Component {
             },()=>{
                 if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
                 {
-                    
+                    console.log('getPageNumberInfo A1')
                     this.getRecordByBasicAndMetaSearch(this.state.metaSelectedInfo)
                     .then(res=>{
                         this.setState({
@@ -1661,6 +1661,7 @@ class ResultListMainBody extends Component {
                 }
                 else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
                 {
+                    console.log('getPageNumberInfo A2')
                     this.getRecordByAdvanceAndMetaSearch(this.state.metaSelectedInfo)
                     .then(res=>{
                         this.setState({                        
@@ -1668,25 +1669,65 @@ class ResultListMainBody extends Component {
                         })   
                     })
                 }
+                else
+                {
+                    console.log('getPageNumberInfo A3')
+                }
             })
         }
         else
         {
-            let query = encodeURI(JSON.stringify(this.state.searchWord))
-            this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+this.state.limitNumber+'/page/'+number+'/query/'+query)
+            this.setState({
+                pageNumber:number
+            },()=>{
+                if(this.state.searchWord)
+                {
+                    if(this.state.searchType === "basic")
+                    {
+                        this.getRecordByBasicSearch()
+                        .then(res=>{
+                            this.setState({
+                                listData:res
+                            })
+                        })
+                    }
+                    else
+                    {
+                        this.getRecordByAdvanceSearch()
+                        .then(res=>{
+                            this.setState({
+                                listData:res
+                            })
+                        })
+                    }
+                }
+                else
+                {
+                    this.getAllRecord()
+                    .then(res=>{
+                        this.setState({
+                            listData:res
+                        })
+                    })
+                }             
+            })
+            //let query = encodeURI(JSON.stringify(this.state.searchWord))
+            //this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+this.state.limitNumber+'/page/'+number+'/query/'+query)
         }
-        
-        
     }
+
+    
 
     
     render(){
 
         return(
-            <div className="ResultListMainBody">  
-                <PageSelectFunctionArea getPageLimitInfo={this.getPageLimitInfo} getPageNumberInfo={this.getPageNumberInfo} storedLimitNumber={this.state.limitNumber} storedPageNumber={this.state.pageNumber} storedTotalNumber={this.state.totalNumber}/>
+            <div className="ResultListMainBody" >  
+                <PageSelectFunctionArea getPageLimitInfo={this.getPageLimitInfo} getPageNumberInfo={this.getPageNumberInfo} getListNumberEqualOneOrNot={this.state.listData && this.state.listData.length === 1 ? false:true} storedLimitNumber={this.state.limitNumber} storedPageNumber={this.state.pageNumber} storedTotalNumber={this.state.totalNumber}/>
                 <div className="ResultListLeftArea">
-                    {this.createMetaInfo()}
+                    <div className="ResultListLeftAreaInner">
+                        {this.createMetaInfo()}
+                    </div>
                 </div>
                 <div className="ResultListRightArea">
                     {this.getSearchWords()}                     

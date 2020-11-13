@@ -121,7 +121,7 @@ class PageSelectFunctionArea extends Component {
         
         return(
             
-                <div className="pageFunctionArea">
+                <div className="pageFunctionArea" style={{"bottom":this.props.getListNumberEqualOneOrNot ? 50:300}}>
                     <div className="leftFieldGroup">
                         <div className="fieldTitle">每頁筆數</div>
                         <form>

@@ -88,7 +88,7 @@ class Footer extends Component {
             backgroundColor:"White",
             //width:"100vw",
             //height:"500px",
-            marginTop:"200px",
+            marginTop:"300px",
             opacity:"0",
             transition:'all 2s ease'
         }
@@ -97,7 +97,7 @@ class Footer extends Component {
             backgroundColor:"White",
             //width:"100vw",
             //height:"500px",
-            marginTop:"200px",
+            marginTop:"300px",
             opacity:"1",
             transition:'all 2s ease'
         }
