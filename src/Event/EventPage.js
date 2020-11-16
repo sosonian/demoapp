@@ -298,13 +298,14 @@ class EventPage extends Component {
     
     render(){
         let scrollContainer={
-            position:"fixed",
+            //position:"fixed",
             top:0,
             left:0,
             width:"100vw",
-            height:"100vh",
-            backgroundColor:"#000000",
-            overflow:"scroll",
+            //height:"100vh",
+            height:this.getLastContainerPos()+"px",
+            backgroundColor:"rgb(255 255 255)",
+            //overflow:"scroll",
             zIndex:1400
         }
 
@@ -332,7 +333,8 @@ class EventPage extends Component {
             left:0,
             width:"100vw",
             height:"100vh",
-            filter:"blur(5px)"
+            filter:"blur(5px)",
+            opacity:"20%"
         }
 
         return (
@@ -343,7 +345,7 @@ class EventPage extends Component {
                 {this.createContainer()}
                 {
                      this.state.bodySize?
-                    <div style={{"width":"100%", "position":"absolute", "left":"0px","top":this.getLastContainerPos()+"px"}}>
+                    <div style={{"width":"100%", "position":"absolute", "left":"0px","top":this.getLastContainerPos()+200+"px"}}>
                         <Footer/>
                     </div>
                     :null

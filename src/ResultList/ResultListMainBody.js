@@ -1335,6 +1335,10 @@ class ResultListMainBody extends Component {
                 return <ResultRow rowIndex={1+index+(this.state.limitNumber*(this.state.pageNumber-1))} rowData={row} searchWord={this.state.searchWord} getSelectedRow={this.getSelectedRow}/>
             })
 
+            let lastObj = <div className={"LastRow"}></div>
+
+            output.push(lastObj)
+
             return output
         }
         else
