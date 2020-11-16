@@ -90,7 +90,7 @@ class TextDiv extends Component {
         {
             if(this.props.textAttributes.font.eFamily !=="none" && this.props.textAttributes.font.cFamily !=="none")
             {
-                return "'"+this.props.textAttributes.font.eFamily+","+this.props.textAttributes.font.cFamily+"'"
+                return "'"+this.props.textAttributes.font.eFamily+"','"+this.props.textAttributes.font.cFamily+"'"
             }
             else if(this.props.textAttributes.font.eFamily !=="none" && this.props.textAttributes.font.cFamily ==="none")
             {
@@ -158,7 +158,8 @@ class TextDiv extends Component {
             color:this.getFontColor(),
             overflow:this.overflowCheck(),
             fontSize:this.getFontSize()+'px',
-            fontFamily:this.getFontFamily()
+            fontFamily:this.getFontFamily(),
+            textAlign:"left"
         }
         
         return(
