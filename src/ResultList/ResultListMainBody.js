@@ -1612,15 +1612,16 @@ class ResultListMainBody extends Component {
 
 
     getPageLimitInfo=(number)=>{
-        
-        //if(this.state.metaSelectedInfo)
-        //{
+
+        if(this.state.metaSelectedInfo)
+        {
             this.setState({
-                limitNumber:number
+                limitNumber:number,
+                pageNumber:1
             },()=>{
                 if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
                 {
-                    
+                    //console.log('getPageNumberInfo A1')
                     this.getRecordByBasicAndMetaSearch(this.state.metaSelectedInfo)
                     .then(res=>{
                         this.setState({
@@ -1630,6 +1631,7 @@ class ResultListMainBody extends Component {
                 }
                 else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
                 {
+                    //console.log('getPageNumberInfo A2')
                     this.getRecordByAdvanceAndMetaSearch(this.state.metaSelectedInfo)
                     .then(res=>{
                         this.setState({                        
@@ -1637,13 +1639,52 @@ class ResultListMainBody extends Component {
                         })   
                     })
                 }
+                else
+                {
+                    console.log('getPageNumberInfo A3')
+                }
             })
-        //}
-        //else
-        //{
+        }
+        else
+        {
+            this.setState({
+                limitNumber:number,
+                pageNumber:1
+            },()=>{
+                if(this.state.searchWord)
+                {
+                    if(this.state.searchType === "basic")
+                    {
+                        this.getRecordByBasicSearch()
+                        .then(res=>{
+                            this.setState({
+                                listData:res
+                            })
+                        })
+                    }
+                    else
+                    {
+                        this.getRecordByAdvanceSearch()
+                        .then(res=>{
+                            this.setState({
+                                listData:res
+                            })
+                        })
+                    }
+                }
+                else
+                {
+                    this.getAllRecord()
+                    .then(res=>{
+                        this.setState({
+                            listData:res
+                        })
+                    })
+                }             
+            })
             //let query = encodeURI(JSON.stringify(this.state.searchWord))
-            //this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+number+'/page/'+this.state.pageNumber+'/query/'+query)
-        //}
+            //this.props.history.push('/SearchResult/searchType/'+this.state.searchType+'/limit/'+this.state.limitNumber+'/page/'+number+'/query/'+query)
+        }
     }
 
     getPageNumberInfo=(number)=>{
@@ -1655,7 +1696,7 @@ class ResultListMainBody extends Component {
             },()=>{
                 if(this.state.searchType && (this.state.searchType === "basic" || this.state.searchType === "basicMeta"))
                 {
-                    console.log('getPageNumberInfo A1')
+                    //console.log('getPageNumberInfo A1')
                     this.getRecordByBasicAndMetaSearch(this.state.metaSelectedInfo)
                     .then(res=>{
                         this.setState({
@@ -1665,7 +1706,7 @@ class ResultListMainBody extends Component {
                 }
                 else if(this.state.searchType && (this.state.searchType === "advance" || this.state.searchType === "advanceMeta"))
                 {
-                    console.log('getPageNumberInfo A2')
+                    //console.log('getPageNumberInfo A2')
                     this.getRecordByAdvanceAndMetaSearch(this.state.metaSelectedInfo)
                     .then(res=>{
                         this.setState({                        
