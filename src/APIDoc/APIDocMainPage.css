@@ -1,0 +1,54 @@
+.APIDocMainPage{
+
+}
+
+.APIDocLeftArea{
+    width: 15%;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+
+.APIDocLeftAreaMainOption{
+
+}
+
+.APIDocLeftAreaMinorOption{
+
+}
+
+.APIDocRightArea{
+    width: 85%;
+    height: 100vh;
+}
+
+.APIDocRightAreaMainOption{
+    border-top: 1px solid #cccccc;
+    margin: 50px;
+}
+
+.APIDocRightAreaMainOptionTitle {
+    text-align: left;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.APIDocRightAreaMainOptionText {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.APIDocRightAreaMinorOption{
+
+}
+
+.APIDocMainTitle{
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+.APIDocText{
+    text-align: left;
+    margin-top: 20px;
+    font-size: 20px;
+    margin-left: 50px;
+}

@@ -6,7 +6,7 @@ import EventBody from '../Event/EventBody'
 import MovieWorkInfoMainBody from '../MovieWorkInfo/MovieWorkInfoMainBody'
 import ResultListMainBody from '../ResultList/ResultListMainBody'
 import EventPage from '../Event/EventPage'
-import {BrowserRouter, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 import {serverIP} from '../IPAdressModule'
 import ChatRoom from '../ChatRoom/ChatRoom'
 import ChatChannel from '../ChatRoom/ChatChannel'
@@ -14,6 +14,7 @@ import webSocket from 'socket.io-client'
 import html2canvas from 'html2canvas'
 import ScreenshotContainer from '../Screenshot/ScreenshotContainer'
 import HomeBody from '../Home/HomeBody'
+import APIDocMainPage from '../APIDoc/APIDocMainPage'
 
 class MainBody extends Component {
     constructor(props){
@@ -483,6 +484,8 @@ class MainBody extends Component {
         return(
             <BrowserRouter>
             {this.state.newUrl ?<Redirect to={this.state.newUrl}/> : null}
+            <Switch>
+            <Route exact path='/API/Doc' component={APIDocMainPage}/>
             <div className="MainBody" onClick={this.onClickHandler} ref={this.containerLayout} >  
                 {this.createChatChannel()}
                 <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel} queryStage={this.state.queryStage}/>
@@ -493,7 +496,7 @@ class MainBody extends Component {
                 <div className="MainContainer" >     
                     <div className="BufferArea"/>
                     <Route exact path='/' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
-                    <Route exact path='/default' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
+                    <Route path='/default' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
                     <Route path='/Movie/Workinfo/:movie_id' component={MovieWorkInfoMainBody}/>
                     <Route path='/Event/:Event_SysID' component={EventPage}/>
                     <Route path='/Introduction/:FirstStageRoute/:SecondStageRoute/:StaticPage_SysID' component={EventPage}/>
@@ -503,6 +506,7 @@ class MainBody extends Component {
                 </div>             
             </div>
             {this.state.toggleScreenshotPicker? <ScreenshotContainer closeScreenshotPicker={this.closeScreenshotPicker} getSreenshotArea={this.getSreenshotArea}/>:null}
+            </Switch>
             </BrowserRouter>
         )
     }
