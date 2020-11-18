@@ -35,10 +35,14 @@
 .APIDocRightAreaMainOptionText {
     text-align: left;
     margin-top: 20px;
+    font-size: 20px;
+    color:gray
 }
 
 .APIDocRightAreaMinorOption{
-
+    text-align: left;
+    margin-top: 20px;
+    
 }
 
 .APIDocMainTitle{
@@ -51,4 +55,56 @@
     margin-top: 20px;
     font-size: 20px;
     margin-left: 50px;
+}
+
+.APIDocRightAreaMinorOptionTitle{
+    text-align: left;
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+.APIDocRightAreaMinorOptionText{
+    text-align: left;
+    margin-top: 20px;
+    font-size: 18px;
+    color:gray
+}
+
+.APIDocAddressLine{
+    margin: 20px;
+    background: black;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.APIDocTable{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.APIDocRightAreaTableTitle {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.APIDocRightAreaTableText{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.APIDocTableHeadTH {
+    border: 1px solid rgb(185, 185, 185);
+    padding: 10px;
+}
+
+.APIDocTableBodyTD {
+    border: 1px solid rgb(185, 185, 185);
+    padding: 10px;
+    color: gray;
+}
+
+code {
+    color: red;
 }
