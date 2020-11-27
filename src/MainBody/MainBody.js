@@ -315,6 +315,7 @@ class MainBody extends Component {
     }
   
     takeScreenShot=()=>{
+        console.log("takeScreenShot")
         let msg = {
             channelID:this.state.clientIP,
             type:"query",
@@ -487,6 +488,7 @@ class MainBody extends Component {
             <Switch>
             <Route exact path='/API/Doc' component={APIDocMainPage}/>
             <div className="MainBody" onClick={this.onClickHandler} ref={this.containerLayout} >  
+                {this.state.toggleScreenshotPicker? <ScreenshotContainer closeScreenshotPicker={this.closeScreenshotPicker} getSreenshotArea={this.getSreenshotArea}/>:null}   
                 {this.createChatChannel()}
                 <ChatRoom unreadMessage={this.countUnreadMessage()} userID={this.state.clientIP} getChatChannel={this.getChatChannel} queryStage={this.state.queryStage}/>
                 <div className="UpHeader"> 
@@ -505,7 +507,7 @@ class MainBody extends Component {
                 <div className="BackgroundImage" >  
                 </div>             
             </div>
-            {this.state.toggleScreenshotPicker? <ScreenshotContainer closeScreenshotPicker={this.closeScreenshotPicker} getSreenshotArea={this.getSreenshotArea}/>:null}
+          
             </Switch>
             </BrowserRouter>
         )
