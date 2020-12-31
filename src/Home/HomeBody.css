@@ -28,7 +28,7 @@
 }
 
 .GridLeftArrow:hover{
-    background: #416b75;
+    background: #bede07;
 }
 
 .GridRightArrow{
@@ -44,7 +44,7 @@
 }
 
 .GridRightArrow:hover{
-    background: #416b75;
+    background: #bede07;
 }
 
 
@@ -58,7 +58,7 @@
 .GridArrowMiddleLevel{
     display: table-cell;
     vertical-align: middle;
-    color: rgb(143, 188, 229);
+    color: #bede07;
 }
 
 .GridArrowMiddleLevel:hover{

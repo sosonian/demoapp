@@ -25,8 +25,8 @@ class LogoAndTitleDiv extends Component {
 
     render(){
         const style = {
-            width:360,
-            height:60,
+            //width:360,
+            height:100,
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
@@ -34,9 +34,10 @@ class LogoAndTitleDiv extends Component {
         }
 
         const mdStyle = {
-            color:'#ffffff',
-            fontSize:20,
+            color:'#adb4bf',
+            fontSize:40,
             fontFamily:'Microsoft JhengHei',
+            lineHeight:'100px'
         }
 
         const sdStyle = {
@@ -61,10 +62,7 @@ class LogoAndTitleDiv extends Component {
                 </div>
               
                 <div className={"titleGroup"} onClick={()=>this.props.goToFrontPage()}>
-                    <div style={mdStyle}>{"國家電影中心藏品資料庫"}</div>
-                    <div style={sdStyle}>
-                        <div style={captial}>{"T"}</div>{"aiwan"}<div style={captial}>{"F"}</div>{"ilm"}<div style={captial}>{"I"}</div>{"nstitution Archives Database"}
-                    </div>
+                    <div style={mdStyle}>{"藏品資料庫查詢模組"}</div>
                 </div>
               
             </div>

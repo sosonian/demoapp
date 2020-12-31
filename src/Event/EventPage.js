@@ -340,7 +340,7 @@ class EventPage extends Component {
         return (
 
             <div style={scrollContainer}  ref={this.scrollContainerLayout} >
-                <div style={backgroundImageStyle}/>
+               
                 <div style={middleLayout}/> 
                 {this.createContainer()}
                 {

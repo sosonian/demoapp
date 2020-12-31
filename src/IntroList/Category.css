@@ -2,6 +2,7 @@
     width: 300px;
     display: inline-block;
     cursor: pointer;
+    margin-top: 5px;
 }
 
 .CategoryBody.Padding{
@@ -12,8 +13,9 @@
     cursor: pointer;
     width: 300px;
     transition: all 0.3s linear;
-    background-color: #adbfdb;
-    box-shadow: 0 0 10px 5px black;   
+    background-color: #ffffff;
+    /*box-shadow: 0 0 10px 5px black;*/   
+    border: 1px solid #adb4bf;
 }
 
 .CategoryBodyShowFooter {

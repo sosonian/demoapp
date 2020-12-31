@@ -1,8 +1,8 @@
 .titleGroup{
-    width:240px;
-    height:40px;
-    padding-left:5px;
-    margin-top:-3px
+    width:400px;
+    height:100px;
+    /*padding-left:5px;
+    margin-top:-3px*/
 }
 
 .titleGroup:hover{

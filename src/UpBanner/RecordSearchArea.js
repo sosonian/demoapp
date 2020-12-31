@@ -238,7 +238,7 @@ class RecordSearchArea extends Component {
     createAdvanceAreaElements=()=>{
         if(this.state.showAdvancedSearchArea)
         return(
-            <div>  
+            <div style={{marginTop:"50px"}}>  
             {this.getSelectOption()}<div style={{display:"flex",width:"60%",margin:"auto"}}><div className={"advanceSearchAreaAddButton"} onClick={this.addCondition}>
        +</div><div className="executeAdvanceSearchButton" onClick={(e)=>this.handleSearchInfo("advance",e)}>執行查詢</div></div>
             </div>
@@ -410,10 +410,10 @@ class RecordSearchArea extends Component {
             height:"30px",
             fontSize: "15px",
             fontFamily:"Microsoft JhengHei",
-            border: "1px solid transparent",
+            border: "1px solid #adb4bf",
             borderRadius: "4px 0px 0px 4px",  
             backgroundColor:"#ffffff",
-            color: "#c4c4c4"
+            color: "#adb4bf"
         }
 
         let inputTextStyle = {
@@ -422,10 +422,10 @@ class RecordSearchArea extends Component {
             height:"30px",
             fontSize: "15px",
             fontFamily:"Microsoft JhengHei",
-            border: "1px solid transparent",
+            border: "1px solid #adb4bf",
             borderRadius: "4px 0px 0px 4px",  
             backgroundColor:"#ffffff",
-            color: "#000000"
+            color: "#adb4bf"
         }
 
         return(

@@ -6,7 +6,7 @@
     width: 100%;
     height:0px;
     opacity: 0;
-    background-color: #96b4d6 ;
+    background-color: #bede07 ;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -18,7 +18,7 @@
 
 .IntroListMainBody.ShowNotSmall {
     visibility: visible;
-    height: 30px;
+    height: 40px;
     opacity: 1;
 }
 

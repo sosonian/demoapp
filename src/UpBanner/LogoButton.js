@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {ReactComponent as TFILogo} from '../Utilites/TFILogo.svg'
 import './LogoButton.css'
 import TFILogoComponent from '../Utilites/TFILogo'
+import NewLogo from '../Utilites/NewLogo'
+
 
 class LogoButton extends Component {
     constructor(props){
@@ -21,7 +23,7 @@ class LogoButton extends Component {
         
         return(
             <div className="LogoButton">
-               <TFILogoComponent/>
+               <NewLogo/>
                <div className={this.getLogoBackgroundClassName()} >
                </div>
             </div>
