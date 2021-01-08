@@ -222,7 +222,6 @@ class MovieWorkInfoMainBody extends Component {
                         null
                     }
                 
-                    
                 </div>
                 <div style={{"width":"100%"}}>
                     <Footer/>
