@@ -118,16 +118,16 @@ class Footer extends Component {
                 </div>
                 <div className={"FooterInfoContainer"}>
                     <div className={"FooterInfo"}>
-                        電話：(02)2392-4243 (02)2396-0760
+                        台灣華語電影資料庫
                     </div>
                     <div className={"FooterInfo"}>
-                        傳真：(02)2392-6359
+                        此為功能及個人技術展示版本
                     </div>
                     <div className={"FooterInfo"}>
-                        地址：10051台北市中正區青島東路7號4樓
+                        內容資料取自 IMDB、WIKI、HKMDB 等網路資料，不保證其正確性
                     </div>
                     <div className={"FooterInfo"}>
-                        財團法人國家電影中心版權所有
+                        
                     </div>
                 </div>
             </div>

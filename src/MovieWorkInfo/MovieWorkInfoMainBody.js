@@ -36,17 +36,17 @@ class MovieWorkInfoMainBody extends Component {
                 }) 
             }
 
-            let msg2 = await fetch(tempIP.state.ip+'/api/movie/fetch/MovieRelatedFilm/'+movieSysID)
-            let output2 = await msg2.json()
-            console.log("MovieFilm : ")
-            console.log(output2)  
+            // let msg2 = await fetch(tempIP.state.ip+'/api/movie/fetch/MovieRelatedFilm/'+movieSysID)
+            // let output2 = await msg2.json()
+            // console.log("MovieFilm : ")
+            // console.log(output2)  
 
-            if(output2)
-            {
-                this.setState({
-                    movieFilmList:output2
-                }) 
-            }
+            // if(output2)
+            // {
+            //     this.setState({
+            //         movieFilmList:output2
+            //     }) 
+            // }
 
             let msg3 = await fetch(tempIP.state.ip+'/api/movie/fetch/MovieStaffList/'+movieSysID)
             let output3 = await msg3.json()
@@ -222,13 +222,7 @@ class MovieWorkInfoMainBody extends Component {
                         null
                     }
                 
-                    <div className="MovieRightArea">
-                        <div className="MovieRowContainer">
-                            <div className="MovieRowTitle">{"相關藏品"}</div>
-                            <div className="MovieRowItemType">{"膠片 " +this.getNumberOfFilm()+ " 件"}</div>
-                        </div>
-                        {this.createFilmRow()}
-                    </div>
+                    
                 </div>
                 <div style={{"width":"100%"}}>
                     <Footer/>

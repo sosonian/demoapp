@@ -62,7 +62,7 @@ class LogoAndTitleDiv extends Component {
                 </div>
               
                 <div className={"titleGroup"} onClick={()=>this.props.goToFrontPage()}>
-                    <div style={mdStyle}>{"藏品資料庫查詢模組"}</div>
+                    <div style={mdStyle}>{"台灣華語電影資料庫"}</div>
                 </div>
               
             </div>

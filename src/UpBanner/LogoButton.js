@@ -23,7 +23,7 @@ class LogoButton extends Component {
         
         return(
             <div className="LogoButton">
-               <NewLogo/>
+               
                <div className={this.getLogoBackgroundClassName()} >
                </div>
             </div>

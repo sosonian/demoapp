@@ -61,7 +61,7 @@ class ChatChannel extends Component {
             case "cmsStage1A":
                 return <div className={"rightChatRow"}>
                     <div className={"chatRowHeader"}><div className={"chatRowName"}>{"系統自動客服"}</div><div className={"chatRowTime"}></div></div>
-                    <div className={"rightChatMessage"}>{"您好，歡迎使用藏品資料查詢系統~"}</div>
+                    <div className={"rightChatMessage"}>{"您好，歡迎使用台灣華語電影資料庫~"}</div>
                     </div>
             case "cmsStage1B":
                 if(this.props.queryStage === "1")

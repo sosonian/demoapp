@@ -1,16 +1,16 @@
 module.exports = {
     APIDoc:{
-        mainTitle:"國家電影及視聽文化中心 藏品資料庫查詢平台 API 使用說明",
-        mainText:"為擴展國家電影及視聽文化中心(後文簡稱為本中心)所藏之資料之運用，並符合政府資訊公開原則，本藏品資料庫建置有API資料串接介面。以下為各API之說明",
+        mainTitle:"台灣華語電影資料庫 示範用 API 使用說明",
+        mainText:"本示範資料庫建置有資料介接功能 (API)。以下為各API之說明",
         paragraph:[
             {
                 number:"1",
-                pTitle:"電影權威資料查詢",
-                pText:"藏品資料庫查詢平台提供電影權威資料查詢相關 API，有下列6隻：",
+                pTitle:"電影資料查詢",
+                pText:"查詢電影資料 API，有下列5隻：",
                 subParagraph:[
                     {
                         number:"1.1",
-                        spTitle:"電影權威資料簡目搜尋 API (全欄位)",
+                        spTitle:"電影資料簡目搜尋 API (全欄位)",
                         spText:"使用者輸入查詢字詞、每頁筆數、第幾頁、排序欄位、排序方式等參數後，API將以輸入字詞搜尋電影權威資料內所有欄位，搜尋後回傳與此字詞相關的電影簡目資料",
                         spUrl:"/api/movie/basicQuery/frontend/limit/:limitNumber/pageNumber/:pageNumber/orderColumn/:orderColumn/orderType/:orderType/query/:query",
                         inputTableText:null,
@@ -118,7 +118,7 @@ module.exports = {
                     },
                     {
                         number:"1.2",
-                        spTitle:"電影權威資料簡目搜尋 API (個別欄位)",
+                        spTitle:"電影資料簡目搜尋 API (個別欄位)",
                         spText:"使用者輸入查詢字詞(含指定搜尋欄位)、每頁筆數、第幾頁、排序欄位、排序方式等參數後，API將以輸入字詞搜尋電影權威資料內指定搜尋欄位，搜尋後回傳與此字詞相關的電影簡目資料",
                         spUrl:"/api/movie/advanceQuery/frontend/limit/:limitNumber/pageNumber/:pageNumber/orderColumn/:orderColumn/orderType/:orderType/query/:query",
                         inputTableText:null,
@@ -396,120 +396,8 @@ module.exports = {
                                 iText:"<div>配樂曲名：如該工作人員為參與本部電影的配樂方面工作，則說明其參與的是那首配樂，如：<樂逍遙>。</div>"
                             }
                         ]
-                    },
-                    {
-                        number:"1.6",
-                        spTitle:"電影權威資料 相關藏品(膠片) API",
-                        spText:"使用者輸入電影的系統識別號後，API即回傳此部電影目前中心典藏的所有相關膠片資料",
-                        spUrl:"/api/movie/fetch/MovieRelatedFilm/:Movie_SysID",
-                        inputTableText:null,
-                        inputTable:[
-                            {
-                                iTitle:"Movie_SysID",
-                                iType:"String",
-                                iText:"<div>電影系統識別號：每部電影權威資料的識別ID。</div>"
-                            }
-                        ],
-                        outputTableText:"本隻API呼叫成功後，搜尋結果將會以陣列回傳，此部電影的每個相關膠片藏品資料都是陣列中的一個物件，資料的欄位以物件屬性呈現，以下說明各物件屬性 (也就是資料欄位)",
-                        outputTable:[
-                            {
-                                iTitle:"Film_SysID",
-                                iType:"String",
-                                iText:"<div>藏品識別號：此筆藏品的識別ID。</div>"
-                            },
-                            {
-                                iTitle:"Film_Type",
-                                iType:"String",
-                                iText:"<div>膠片類別：此膠片的類別，如：C (35mm 拷貝華語劇情片)，F (35mm 拷貝外語劇情片)。</div>"
-
-                            },
-                            {
-                                iTitle:"Film_Feet",
-                                iType:"String",
-                                iText:"<div>膠片呎數：此部膠片的總呎數，如：3135.65。</div>"
-                            },
-                            {
-                                iTitle:"Film_Spec",
-                                iType:"String",
-                                iText:"<div>膠片片幅：此部膠片的片幅，如：16mm。</div>"
-                            },
-                            {
-                                iTitle:"Film_Emulsion",
-                                iType:"String",
-                                iText:"<div>乳劑類別：此部膠片的乳劑類別，如：原底。</div>"
-                            },
-                            {
-                                iTitle:"Film_ScreenRatio",
-                                iType:"String",
-                                iText:"<div>膠片長寬比例：此部膠片的長寬比例，如：1.33。</div>"
-                            },
-                            {
-                                iTitle:"Film_Perforation",
-                                iType:"String",
-                                iText:"<div>膠片片孔類別：此部膠片的片孔類別，如：單邊孔。</div>"
-                            },
-                            {
-                                iTitle:"Film_Color",
-                                iType:"String",
-                                iText:"<div>影片色彩：此部膠片的影片色彩，如：黑白。</div>"
-                            },
-                            {
-                                iTitle:"Film_Pronunciation",
-                                iType:"String",
-                                iText:"<div>影片發音：此部膠片的影片發音，如：國語。</div>"
-                            },
-                            {
-                                iTitle:"Movie_SysID",
-                                iType:"String",
-                                iText:"<div>電影識別號：此部膠片相關的權威電影資料ID。</div>"
-                            },
-                            {
-                                iTitle:"Film_SoundOne",
-                                iType:"String",
-                                iText:"<div>膠片聲音類型一：此部膠片的聲音類型，如：磁性聲。</div>"
-                            },
-                            {
-                                iTitle:"Film_SoundTwo",
-                                iType:"String",
-                                iText:"<div>膠片聲音類型二：此部膠片的聲音類型，如：面積式雙軌。</div>"
-                            },
-                            {
-                                iTitle:"Film_SoundThird",
-                                iType:"String",
-                                iText:"<div>膠片聲音類型三：此部膠片的聲音類型，如：Stereo雙邊。</div>"
-                            },
-                            {
-                                iTitle:"Film_GainMethod",
-                                iType:"String",
-                                iText:"<div>取得方式：此部膠片如何取得，如：捐贈。</div>"
-                            },
-                            {
-                                iTitle:"Film_GainDate",
-                                iType:"String",
-                                iText:"<div>取得日期：此部膠片取得日期，如：1992-01-16。</div>"
-                            },
-                            {
-                                iTitle:"Film_OriginalOwner",
-                                iType:"String",
-                                iText:"<div>原所有者(個人)：此部膠片原來所有者，如：林福地。</div>"
-                            },
-                            {
-                                iTitle:"Film_OriginalOrganization",
-                                iType:"String",
-                                iText:"<div>原所有者(公司)：此部膠片原來的所有法人 (公司或單位)，如：藝聯影片公司。</div>"
-                            },
-                            {
-                                iTitle:"Film_NowOwner",
-                                iType:"String",
-                                iText:"<div>現所有者(個人)：此部膠片現在的所有人，如：林福地。</div>"
-                            },
-                            {
-                                iTitle:"Film_NowOrganization",
-                                iType:"String",
-                                iText:"<div>現所有者(公司)：此部膠片現在的所有法人 (公司或單位)，如：藝聯影片公司。</div>"
-                            }
-                        ]
                     }
+                    
                 ]
             }
         ]
