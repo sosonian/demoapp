@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/demoapp/static/css/main.7df83f30.chunk.css",
+    "main.js": "/demoapp/static/js/main.6e35a07d.chunk.js",
+    "main.js.map": "/demoapp/static/js/main.6e35a07d.chunk.js.map",
+    "runtime-main.js": "/demoapp/static/js/runtime-main.d684157a.js",
+    "runtime-main.js.map": "/demoapp/static/js/runtime-main.d684157a.js.map",
+    "static/js/2.a2a6c5b4.chunk.js": "/demoapp/static/js/2.a2a6c5b4.chunk.js",
+    "static/js/2.a2a6c5b4.chunk.js.map": "/demoapp/static/js/2.a2a6c5b4.chunk.js.map",
+    "index.html": "/demoapp/index.html",
+    "precache-manifest.afaef8c6182322bf80d8735a4c9e2834.js": "/demoapp/precache-manifest.afaef8c6182322bf80d8735a4c9e2834.js",
+    "service-worker.js": "/demoapp/service-worker.js",
+    "static/css/main.7df83f30.chunk.css.map": "/demoapp/static/css/main.7df83f30.chunk.css.map",
+    "static/js/2.a2a6c5b4.chunk.js.LICENSE.txt": "/demoapp/static/js/2.a2a6c5b4.chunk.js.LICENSE.txt",
+    "static/media/TFILogo.cefd3470.svg": "/demoapp/static/media/TFILogo.cefd3470.svg",
+    "static/media/Taiwan_Film_Institute_title_20170123.jpg": "/demoapp/static/media/Taiwan_Film_Institute_title_20170123.eb637578.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d684157a.js",
+    "static/js/2.a2a6c5b4.chunk.js",
+    "static/css/main.7df83f30.chunk.css",
+    "static/js/main.6e35a07d.chunk.js"
+  ]
+}
