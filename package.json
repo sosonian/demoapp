@@ -1,6 +1,6 @@
 {
   "homepage": "http://sosonian.github.io/demoapp",
-  "name": "tfi_front",
+  "name": "demo-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
