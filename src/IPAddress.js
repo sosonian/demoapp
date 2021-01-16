@@ -1,7 +1,7 @@
 class IPAddress {
     constructor () {
         this.state = {
-            ip:'http://3.128.198.49:5000'
+            ip:'https://3.139.88.226:5000'
         }
     }
 }
