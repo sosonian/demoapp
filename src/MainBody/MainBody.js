@@ -497,7 +497,7 @@ class MainBody extends Component {
                 </div>
                 <div className="MainContainer" >     
                     <div className="BufferArea"/>
-                    <Route exact path='/' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
+                    <Route path='/' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
                     <Route path='/default' render={props=>(<HomeBody {...props} windowSize={this.state.windowSize}/>)}/>
                     <Route path='/Movie/Workinfo/:movie_id' component={MovieWorkInfoMainBody}/>
                     <Route path='/Event/:Event_SysID' component={EventPage}/>
