@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import CompositionContainer from './CompositionContainer'
 import ContainerGroup from './ContainerGroup'
-import BGImage from '../Utilites/Taiwan_Film_Institute_title_20170123.jpg'
+
 import IPAddress from '../IPAddress'
 import Footer from '../Footer/Footer'
 
@@ -323,7 +323,7 @@ class EventPage extends Component {
         }
 
         let backgroundImageStyle = {
-            backgroundImage: `url(${BGImage})`,
+            //backgroundImage: `url(${BGImage})`,
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
             backgroundPosition: "center",
