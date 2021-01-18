@@ -114,13 +114,14 @@ class LinkedList {
     getAt(index) {
         let current = this.head
         let count = 0
-        let outputData
+        //let outputData
 
         while(current)
         {
-            if(count == index)
+            if(count === index)
             {
-                return outputData= {...current.data}
+                //return outputData = {...current.data}
+                return {...current.data}
             }
             count++
             current= current.next
